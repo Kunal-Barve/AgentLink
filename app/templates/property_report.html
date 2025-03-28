@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Report: {{ property.address }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Rock+Salt&display=swap" rel="stylesheet">
+
+    <style>
+        /* Define page size for A4 landscape */
+        @page {
+            size: 297mm 210mm landscape; /* A4 landscape dimensions */
+            margin: 0;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px; /* Body font size as requested */
+            height: 210mm; /* A4 height in landscape */
+            width: 297mm; /* A4 width in landscape */
+        }
+        
+        /* Keep existing styles but update heading sizes */
+        h1 {
+            color: #002366;
+            margin-top: 0;
+            font-size: 21px; /* Heading font size as requested */
+            font-weight:Regular;
+        }
+        
+        h2 {
+            color: #002366;
+            font-size: 18px;
+            margin-top: 30px;
+        }
+        
+        /* Rest of your existing styles remain unchanged */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="blue-strip">
+            <img src="file:///d:/CodeLab/ArticFlow/Make-Integration/app/assets/placeholder_logo.png" alt="Logo" class="logo">
+        </div>
+        
+        <div class="content">
+            <h1>{{ property.address }}</h1>
+            
+            {% if property.image %}
+            <img src="{{ property.image }}" alt="Property" class="property-image">
+            {% endif %}
+            
+            <table class="property-details">
+                <tr>
+                    <th>Price</th>
+                    <td>{{ property.price|default('Contact agent') }}</td>
+                </tr>
+                <tr>
+                    <th>Bedrooms</th>
+                    <td>{{ property.bedrooms|default('N/A') }}</td>
+                </tr>
+                <tr>
+                    <th>Bathrooms</th>
+                    <td>{{ property.bathrooms|default('N/A') }}</td>
+                </tr>
+                <tr>
+                    <th>Parking</th>
+                    <td>{{ property.parking|default('N/A') }}</td>
+                </tr>
+                <tr>
+                    <th>Property Type</th>
+                    <td>{{ property.property_type|default('N/A') }}</td>
+                </tr>
+                <tr>
+                    <th>Land Size</th>
+                    <td>{{ property.land_size|default('N/A') }}</td>
+                </tr>
+            </table>
+            
+            <h2>Description</h2>
+            <p>{{ property.description|default('No description available') }}</p>
+            
+            {% if property.features %}
+            <h2>Features</h2>
+            <ul class="features-list">
+                {% for feature in property.features %}
+                <li>{{ feature }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            
+            <div class="agent-section">
+                <h2>Agent Details</h2>
+                <div class="agent-details">
+                    {% if agent.photo %}
+                    <img src="{{ agent.photo }}" alt="{{ agent.name }}" class="agent-photo">
+                    {% endif %}
+                    <div class="agent-info">
+                        <h3>{{ agent.name }}</h3>
+                        <p>{{ agent.agency }}</p>
+                        <p>Phone: {{ agent.phone }}</p>
+                        <p>Email: {{ agent.email }}</p>
+                    </div>
+                </div>
+                
+                {% if agent.bio %}
+                <h3>About the Agent</h3>
+                <p>{{ agent.bio }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        © AgentLink
+    </div>
+</body>
+</html>

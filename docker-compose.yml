@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  agentlink:
+    build: .
+    image: agentlink
+    restart: always
+    env_file: .env
+    ports:
+      - "8000:8000"
+    environment:
+      DOMAIN_API_KEY: ${DOMAIN_API_KEY}
+      DOMAIN_API_SECRET: ${DOMAIN_API_SECRET}
+      DROPBOX_APP_SECRET: ${DROPBOX_APP_SECRET}
+      DROPBOX_APP_KEY: ${DROPBOX_APP_KEY}
+      DROPBOX_ACCESS_TOKEN: ${DROPBOX_ACCESS_TOKEN}
+      DROPBOX_REFRESH_TOKEN: ${DROPBOX_REFRESH_TOKEN}
+    volumes:
+      - ./app/templates:/app/app/templates
+      - ./app/assets:/app/app/assets
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - /etc/letsencrypt:/etc/letsencrypt
+    depends_on:
+      - agentlink
