@@ -2,6 +2,9 @@
 import asyncio
 import logging
 import os
+import glob
+import shutil
+from pathlib import Path
 import uuid
 from datetime import datetime
 from typing import Optional
@@ -122,6 +125,24 @@ class JobStatusResponse(BaseModel):
     filename: Optional[str] = None  # Add this line to include filename in response
     error: Optional[str] = ""  # Changed from None to empty string as default
 
+
+
+def clear_temp_pdfs(temp_dir=None):
+    """Clear temporary PDF files from the specified directory."""
+    if temp_dir is None:
+        # Use default temp directory if none specified
+        temp_dir = Path("app/temp")
+    
+    # Create the directory if it doesn't exist
+    os.makedirs(temp_dir, exist_ok=True)
+    
+    # Remove all PDF files in the temp directory
+    for pdf_file in glob.glob(os.path.join(temp_dir, "*.pdf")):
+        try:
+            os.remove(pdf_file)
+        except Exception as e:
+            print(f"Error removing file {pdf_file}: {e}")
+            
 @app.post("/api/generate-pdf", response_model=JobResponse)
 async def generate_pdf_endpoint(request: PropertyRequest, background_tasks: BackgroundTasks):
     # Generate a unique job ID
@@ -199,6 +220,7 @@ templates = Jinja2Templates(directory="app/templates")
 # Fix the generate-agents-report endpoint to use AgentsReportRequest
 @app.post("/api/generate-agents-report", response_model=JobResponse)
 async def generate_agents_report(request: AgentsReportRequest, background_tasks: BackgroundTasks):
+    clear_temp_pdfs()
     # Generate a unique job ID
     job_id = str(uuid.uuid4())
     logger.info(f"New agents report job created: {job_id}")
@@ -352,6 +374,7 @@ async def process_agents_report_job(
 # Update the generate-agency-report endpoint to use AgencyReportRequest
 @app.post("/api/generate-agency-report", response_model=JobResponse)
 async def generate_agency_report(request: AgencyReportRequest, background_tasks: BackgroundTasks):
+    clear_temp_pdfs()
     # Generate a unique job ID
     job_id = str(uuid.uuid4())
     logger.info(f"New agency report job created: {job_id}")
