@@ -284,25 +284,71 @@ async def fetch_property_data(
             featured_status_cache[agent_name] = is_featured
     
     
-    # Separate featured and non-featured agents
+    # Create a cache for standard subscription status to avoid duplicate API calls
+    std_sub_status_cache = {}
+    # Check for standard subscription for non-featured agents
+    for agent in agents_list:
+        agent_name = agent['name']
+        # Skip featured agents - they already have highest priority
+        if agent['featured']:
+            continue
+            
+        # Check if we already have the subscription status for this agent in the cache
+        if agent_name in std_sub_status_cache:
+            agent['standard_subscription'] = std_sub_status_cache[agent_name]
+            logger.info(f"Using cached standard subscription status for {agent_name}: {agent['standard_subscription']}")
+        else:
+            # If not in cache, make the API call
+            has_std_subscription = await check_standard_subscription(agent_name, suburb, state)
+            agent['standard_subscription'] = has_std_subscription
+            # Store in cache for future use
+            std_sub_status_cache[agent_name] = has_std_subscription
+            if has_std_subscription:
+                logger.info(f"Agent {agent_name} has standard subscription")
+    
+    # Separate agents into three categories: featured, standard subscription, and regular
     featured_agents = [agent for agent in agents_list if agent['featured']]
-    non_featured_agents = [agent for agent in agents_list if not agent['featured']]
+    std_sub_agents = [agent for agent in agents_list if not agent['featured'] and agent.get('standard_subscription', False)]
+    regular_agents = [agent for agent in agents_list if not agent['featured'] and not agent.get('standard_subscription', False)]
     
-    # Sort non-featured agents by total sales (descending)
-    non_featured_agents.sort(key=lambda x: x['total_sales'], reverse=True)
+    # Sort standard subscription and regular agents by total sales (descending)
+    std_sub_agents.sort(key=lambda x: x['total_sales'], reverse=True)
+    regular_agents.sort(key=lambda x: x['total_sales'], reverse=True)
     
-    # Combine featured agents first, then non-featured agents
-    # If we have featured agents, they go first, then we add non-featured agents to make up to 5 total
-    # If no featured agents, we just take the top 5 non-featured agents
+    # Combine agents in priority order: featured first, then standard subscription, then regular
+    # Calculate how many agents we need from each category to make up to 5 total
     if featured_agents:
         logger.info(f"Found {len(featured_agents)} featured agents in {suburb}")
-        # Calculate how many non-featured agents we need to make up to 5 total
-        num_non_featured_needed = 5 - len(featured_agents)
-        top_agents = featured_agents + non_featured_agents[:num_non_featured_needed]
+        remaining_spots = 5 - len(featured_agents)
+        
+        if std_sub_agents and remaining_spots > 0:
+            logger.info(f"Found {len(std_sub_agents)} standard subscription agents in {suburb}")
+            std_sub_needed = min(remaining_spots, len(std_sub_agents))
+            remaining_spots -= std_sub_needed
+            
+            # Calculate how many regular agents we need
+            regular_needed = min(remaining_spots, len(regular_agents)) if remaining_spots > 0 else 0
+            
+            # Combine all categories
+            top_agents = featured_agents + std_sub_agents[:std_sub_needed] + regular_agents[:regular_needed]
+        else:
+            # No standard subscription agents, just use regular agents to fill remaining spots
+            top_agents = featured_agents + regular_agents[:remaining_spots]
+    elif std_sub_agents:
+        logger.info(f"No featured agents found, but found {len(std_sub_agents)} standard subscription agents in {suburb}")
+        # No featured agents, but we have standard subscription agents
+        std_sub_needed = min(5, len(std_sub_agents))
+        remaining_spots = 5 - std_sub_needed
+        
+        # Calculate how many regular agents we need
+        regular_needed = min(remaining_spots, len(regular_agents)) if remaining_spots > 0 else 0
+        
+        # Combine standard subscription and regular agents
+        top_agents = std_sub_agents[:std_sub_needed] + regular_agents[:regular_needed]
     else:
-        logger.info(f"No featured agents found in {suburb}")
-        # Get top 5 agents or all if less than 5
-        top_agents = non_featured_agents[:5] if len(non_featured_agents) > 5 else non_featured_agents
+        logger.info(f"No featured or standard subscription agents found in {suburb}")
+        # No featured or standard subscription agents, just take top 5 regular agents
+        top_agents = regular_agents[:5] if len(regular_agents) > 5 else regular_agents
     
     # Format the top agents data for the PDF
     formatted_top_agents = []
@@ -401,6 +447,62 @@ async def check_featured_agent(agent_name, suburb, state):
             return False
     except Exception as e:
         logger.error(f"Error checking featured agent status: {e}")
+        return False
+
+async def check_standard_subscription(agent_name, suburb, state):
+    """
+    Check if an agent has a standard subscription by calling the Make.com webhook
+    
+    Args:
+        agent_name: The name of the agent to check
+        suburb: The suburb to check for
+        state: The state to check for
+        
+    Returns:
+        Boolean indicating whether the agent has a standard subscription
+    """
+    webhook_url = "https://hook.eu2.make.com/gne36wgwoje49c54gwrz8lnf749mxw3e"
+    
+    try:
+        # Prepare the data to send to the webhook
+        data = {
+            "agent_name": agent_name,
+            "suburb": suburb,
+            "state": state
+        }
+        
+        # Make the POST request to the webhook
+        response = requests.post(webhook_url, json=data)
+        
+        # Check if the request was successful
+        if response.status_code == 200:
+            # Try to parse as JSON first
+            try:
+                result = response.json()
+                
+                # Handle different response formats
+                if isinstance(result, bool):
+                    # If the result is already a boolean, use it directly
+                    has_subscription = result
+                elif isinstance(result, dict):
+                    # If the result is a dictionary, extract the subscription status
+                    has_subscription = result.get('standard_subscription', False)
+                else:
+                    # For any other type, convert to boolean
+                    has_subscription = bool(result)
+            except ValueError:
+                # If JSON parsing fails, try to interpret the text response
+                text_response = response.text.strip().lower()
+                has_subscription = text_response == 'true'
+            
+            # Log only once with a more specific message
+            logger.info(f"Standard subscription check for agent {agent_name} in {suburb}: {has_subscription}")
+            return has_subscription
+        else:
+            logger.error(f"Failed to check standard subscription status: {response.status_code} - {response.text}")
+            return False
+    except Exception as e:
+        logger.error(f"Error checking standard subscription status: {e}")
         return False
 
 # Keep the existing get_mock_property_data function as is
@@ -1240,13 +1342,14 @@ async def main():
     print("Starting Domain.com.au API test...")
     
     # Test the API with a suburb search
-    suburb = "Bayview"
+    suburb = "Deer Park"
+    state = "VIC"
     print(f"Searching for sold listings in {suburb}...")
     
     # Test the new agent sales metrics function
     print("\n" + "="*50)
     print(f"Getting agent sales metrics for {suburb}...")
-    sales_metrics = await get_agent_sales_metrics(suburb)
+    sales_metrics = await get_agent_sales_metrics(suburb = suburb ,state = state)
     
     if sales_metrics:
         print(f"\nFound {len(sales_metrics)} agencies with sales in {suburb}")
