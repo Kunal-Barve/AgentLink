@@ -4,7 +4,10 @@ from dotenv import load_dotenv
 import logging
 import asyncio
 import json
-
+from .domain_utils import (
+    format_price, check_featured_agent, check_standard_subscription,
+    get_mock_property_data, get_listing_details, get_agency_details,get_agent_details
+)
 load_dotenv()
 
 # Domain.com.au API credentials
@@ -135,8 +138,6 @@ async def fetch_property_data(
                 agents_list.append(agent_data)
     
     # Handle duplicate agents - keep only the record with the most complete data
-        # Handle duplicate agents - keep only the record with the most complete data
-        # Create a dictionary to track unique agents by name and agency
     print("\n===== AGENT DEDUPLICATION PROCESS =====")
     print(f"Total agents before deduplication: {len(agents_list)}")
     unique_agents = {}
@@ -164,7 +165,6 @@ async def fetch_property_data(
             continue
         
         # Improved agency name normalization to handle different office formats
-        # Extract the main agency name by removing location identifiers
         normalized_agencies = {}
         for a in agent_group:
             agency_full = a['agency'].strip().lower()
@@ -267,21 +267,71 @@ async def fetch_property_data(
     
     # Convert back to a list
     agents_list = list(unique_agents.values())
-    # Create a cache for featured agent status to avoid duplicate API calls
-    featured_status_cache = {}
-    # Check if each agent is a featured agent using the webhook
+    # Add default 'featured' key to all agents
     for agent in agents_list:
-        agent_name = agent['name']
-        # Check if we already have the featured status for this agent in the cache
-        if agent_name in featured_status_cache:
-            agent['featured'] = featured_status_cache[agent_name]
-            logger.info(f"Using cached featured status for {agent_name}: {agent['featured']}")
-        else:
-            # If not in cache, make the API call
-            is_featured = await check_featured_agent(agent_name, suburb, state)
-            agent['featured'] = is_featured
-            # Store in cache for future use
-            featured_status_cache[agent_name] = is_featured
+        agent['featured'] = False
+    print("\n===== AGENTS LIST =====")
+    print(agents_list)
+    # Check for featured agents in the suburb
+    print("\n===== CHECKING FOR FEATURED AGENTS =====")
+    featured_agents_data = await check_featured_agent(suburb, state)
+    print(f"Featured agents data: {featured_agents_data}")
+    
+    # Process featured agents if any were found
+    if featured_agents_data:
+        print(f"Found {len(featured_agents_data)} featured agents for {suburb}, {state}")
+        
+        for featured_agent_info in featured_agents_data:
+            # Check if this is a manually entered agent (Manual Pull Data = Yes)
+            if featured_agent_info.get("Manully Pull Data", "").strip().lower() == "yes":
+                print(f"Processing manually entered featured agent: {featured_agent_info.get('Name')}")
+                
+                # Extract agent data from the response
+                agent_name = featured_agent_info.get("Name", "").strip()
+                agency_name = featured_agent_info.get("Agency", "").strip()
+                agent_total_sales = int(featured_agent_info.get("Total Sales", "0").replace(",", ""))
+                agent_median_sold_price = featured_agent_info.get("Median Sold Price", "$0")
+                agent_sale_value = featured_agent_info.get("Total Sales Value", "$0")
+                
+                # Get additional agent details
+                agent_details = await get_agent_details(agent_name ,agency_name)
+                
+                # Create a new agent entry
+                new_agent = {
+                    "name": agent_name,
+                    "total_sales": agent_total_sales,
+                    "median_sold_price": agent_median_sold_price,
+                    "total_value": agent_sale_value,
+                    "featured": True,
+                    "photo": agent_details.get("agent_photo", "N/A") if agent_details else "N/A",
+                    "agency": agent_details.get("agency_name", "N/A") if agent_details else "N/A",
+                    "agency_logo": agent_details.get("agency_logo", "N/A") if agent_details else "N/A",
+                    "agent_id": agent_details.get("agent_id", "N/A") if agent_details else "N/A",
+                    "properties": {}  # Empty properties dictionary
+                }
+                
+                # Add the new agent to the agents list
+                agents_list.append(new_agent)
+                print(f"Added manually entered featured agent: {agent_name}")
+            else:
+                # For non-manual agents, check if they match any existing agents
+                agent_name = featured_agent_info.get("Name", "").strip().lower()
+                
+                print(f"Checking for existing agent match: {agent_name}")
+                
+                # Look for a match in our existing agents list
+                found_match = False
+                for agent in agents_list:
+                    if agent["name"].strip().lower() == agent_name:
+                        agent["featured"] = True
+                        found_match = True
+                        print(f"Matched existing agent as featured: {agent['name']}")
+                        break
+                
+                if not found_match:
+                    print(f"No match found for featured agent: {agent_name}")
+    else:
+        print(f"No featured agents found for {suburb}, {state}")
     
     
     # Create a cache for standard subscription status to avoid duplicate API calls
@@ -352,18 +402,25 @@ async def fetch_property_data(
     
     # Format the top agents data for the PDF
     formatted_top_agents = []
+        # Format the top agents data for the PDF
+    formatted_top_agents = []
     for agent in top_agents:
         # Use the combined total value (primary + joint sales)
         total_value = agent.get('total_sales_value_combined', 0)
-        # Determine if we should show the total value or "Not disclosed"
-        # Only show "Not disclosed" if ALL properties have no price
-        valid_prices = [p["sold_price"] for p in agent["properties"].values() 
-                       if p["sold_price"] is not None]
         
-        if valid_prices:  # If we have at least one property with price
-            formatted_total = format_price(total_value)
-        else:  # If none of the properties have price data
-            formatted_total = "Not disclosed"
+        # For manually entered agents, use the total_value directly
+        if agent.get('featured', False) and len(agent.get('properties', {})) == 0 and agent.get('total_value'):
+            formatted_total = agent.get('total_value')
+        else:
+            # Determine if we should show the total value or "Not disclosed"
+            # Only show "Not disclosed" if ALL properties have no price
+            valid_prices = [p["sold_price"] for p in agent["properties"].values() 
+                           if p["sold_price"] is not None]
+            
+            if valid_prices:  # If we have at least one property with price
+                formatted_total = format_price(total_value)
+            else:  # If none of the properties have price data
+                formatted_total = "Not disclosed"
             
         # Ensure agent name has first letter capitalized
         agent_name = agent['name']
@@ -391,297 +448,6 @@ async def fetch_property_data(
     result = {
         "top_agents": formatted_top_agents,
         "suburb": suburb
-    }
-    
-    # Add job_id to the result if provided
-    if job_id:
-        result["job_id"] = job_id
-    
-    return result
-
-async def check_featured_agent(agent_name, suburb, state):
-    """
-    Check if an agent is a featured agent by calling the Make.com webhook
-    
-    Args:
-        agent_name: The name of the agent to check
-        suburb: The suburb to check for
-        state: The state to check for
-        
-    Returns:
-        Boolean indicating if the agent is featured
-    """
-    webhook_url = "https://hook.eu2.make.com/nuedlxjy6fsn398sa31tfh1ca6sgycda"
-    
-    try:
-        # Prepare the data to send to the webhook
-        data = {
-            "agent_name": agent_name,
-            "suburb": suburb,
-            "state": state
-        }
-        
-        # Make the POST request to the webhook
-        response = requests.post(webhook_url, json=data)
-        
-        # Check if the request was successful
-        if response.status_code == 200:
-            # Parse the response JSON
-            result = response.json()
-            
-            # Handle different response formats
-            if isinstance(result, bool):
-                # If the result is already a boolean, use it directly
-                is_featured = result
-            elif isinstance(result, dict):
-                # If the result is a dictionary, extract the featured status
-                is_featured = result.get('featured', False)
-            else:
-                # For any other type, convert to boolean
-                is_featured = bool(result)
-            
-            logger.info(f"Agent {agent_name} in {suburb} featured status: {is_featured}")
-            return is_featured
-        else:
-            logger.error(f"Failed to check featured agent status: {response.status_code} - {response.text}")
-            return False
-    except Exception as e:
-        logger.error(f"Error checking featured agent status: {e}")
-        return False
-
-async def check_standard_subscription(agent_name, suburb, state):
-    """
-    Check if an agent has a standard subscription by calling the Make.com webhook
-    
-    Args:
-        agent_name: The name of the agent to check
-        suburb: The suburb to check for
-        state: The state to check for
-        
-    Returns:
-        Boolean indicating whether the agent has a standard subscription
-    """
-    webhook_url = "https://hook.eu2.make.com/gne36wgwoje49c54gwrz8lnf749mxw3e"
-    
-    try:
-        # Prepare the data to send to the webhook
-        data = {
-            "agent_name": agent_name,
-            "suburb": suburb,
-            "state": state
-        }
-        
-        # Make the POST request to the webhook
-        response = requests.post(webhook_url, json=data)
-        
-        # Check if the request was successful
-        if response.status_code == 200:
-            # Try to parse as JSON first
-            try:
-                result = response.json()
-                
-                # Handle different response formats
-                if isinstance(result, bool):
-                    # If the result is already a boolean, use it directly
-                    has_subscription = result
-                elif isinstance(result, dict):
-                    # If the result is a dictionary, extract the subscription status
-                    has_subscription = result.get('standard_subscription', False)
-                else:
-                    # For any other type, convert to boolean
-                    has_subscription = bool(result)
-            except ValueError:
-                # If JSON parsing fails, try to interpret the text response
-                text_response = response.text.strip().lower()
-                has_subscription = text_response == 'true'
-            
-            # Log only once with a more specific message
-            logger.info(f"Standard subscription check for agent {agent_name} in {suburb}: {has_subscription}")
-            return has_subscription
-        else:
-            logger.error(f"Failed to check standard subscription status: {response.status_code} - {response.text}")
-            return False
-    except Exception as e:
-        logger.error(f"Error checking standard subscription status: {e}")
-        return False
-
-# Keep the existing get_mock_property_data function as is
-def get_mock_property_data(property_id, agent_id=None, featured_agent_id=None, job_id=None, suburb=None):
-    """Generate mock property and agent data for prototype"""
-    
-    # Create a list of top local agents for Queenscliff (similar to the reference image)
-    queenscliff_agents = [
-        {
-            "id": "agent1",
-            "name": "Jonathan Morton",
-            "agency": "Raine & Horne",
-            "photo": "https://randomuser.me/api/portraits/men/32.jpg",
-            "total_sales": 11,
-            "avg_days_on_market": 28,
-            "median_sold_price": "$1.60m",
-            "featured": featured_agent_id == "agent1" or (featured_agent_id is None and suburb != "Brandy Hill")
-        },
-        {
-            "id": "agent2",
-            "name": "Adam Moore",
-            "agency": "Stone",
-            "photo": "https://randomuser.me/api/portraits/men/44.jpg",
-            "total_sales": 8,
-            "avg_days_on_market": 31,
-            "median_sold_price": "$1.80m",
-            "featured": False
-        },
-        {
-            "id": "agent3",
-            "name": "Anita Wildash",
-            "agency": "Cunninghams",
-            "photo": "https://randomuser.me/api/portraits/women/65.jpg",
-            "total_sales": 4,
-            "avg_days_on_market": 8,
-            "median_sold_price": "$1.30m",
-            "featured": False
-        },
-        {
-            "id": "agent4",
-            "name": "Sean King",
-            "agency": "Whitehouse",
-            "photo": "https://randomuser.me/api/portraits/men/52.jpg",
-            "total_sales": 4,
-            "avg_days_on_market": 12,
-            "median_sold_price": "$1.20m",
-            "featured": False
-        },
-        {
-            "id": "agent5",
-            "name": "Tim Cullen",
-            "agency": "McGrath",
-            "photo": "https://randomuser.me/api/portraits/men/22.jpg",
-            "total_sales": 3,
-            "avg_days_on_market": 20,
-            "median_sold_price": "$1.10m",
-            "featured": False
-        }
-    ]
-    
-    # Create a list of top local agents for Brandy Hill (with same agencies but different agents)
-    brandy_hill_agents = [
-        {
-            "id": "agent6",
-            "name": "Sarah Williams",
-            "agency": "Raine & Horne",
-            "photo": "https://randomuser.me/api/portraits/women/32.jpg",
-            "total_sales": 7,
-            "avg_days_on_market": 35,
-            "median_sold_price": "$950k",
-            "featured": False
-        },
-        {
-            "id": "agent7",
-            "name": "Michael Chen",
-            "agency": "Stone",
-            "photo": "https://randomuser.me/api/portraits/men/76.jpg",
-            "total_sales": 9,
-            "avg_days_on_market": 22,
-            "median_sold_price": "$1.05m",
-            "featured": False
-        },
-        {
-            "id": "agent8",
-            "name": "Rebecca Taylor",
-            "agency": "Cunninghams",
-            "photo": "https://randomuser.me/api/portraits/women/45.jpg",
-            "total_sales": 5,
-            "avg_days_on_market": 18,
-            "median_sold_price": "$880k",
-            "featured": False
-        },
-        {
-            "id": "agent9",
-            "name": "David Wilson",
-            "agency": "Whitehouse",
-            "photo": "https://randomuser.me/api/portraits/men/62.jpg",
-            "total_sales": 6,
-            "avg_days_on_market": 25,
-            "median_sold_price": "$920k",
-            "featured": False
-        },
-        {
-            "id": "agent10",
-            "name": "Emma Johnson",
-            "agency": "McGrath",
-            "photo": "https://randomuser.me/api/portraits/women/22.jpg",
-            "total_sales": 8,
-            "avg_days_on_market": 30,
-            "median_sold_price": "$975k",
-            "featured": False
-        }
-    ]
-    
-    # Choose property and agents based on suburb
-    if suburb == "Brandy Hill":
-        property_details = {
-            "id": property_id,
-            "address": "45 River View Road, Brandy Hill NSW 2324",
-            "price": "$950,000",
-            "bedrooms": 4,
-            "bathrooms": 2,
-            "parking": 2,
-            "propertyType": "House",
-            "landSize": "800 sqm",
-            "description": "Spacious family home with river views in a peaceful rural setting...",
-            "features": [
-                "River Views", 
-                "Double Garage", 
-                "Outdoor Entertainment Area",
-                "Solar Panels",
-                "Large Garden"
-            ],
-            "images": [
-                "https://picsum.photos/800/600?random=1",
-                "https://picsum.photos/800/600?random=2",
-            ],
-            "suburb": "Brandy Hill"
-        }
-        top_agents = brandy_hill_agents
-    else:
-        # Default to Queenscliff
-        property_details = {
-            "id": property_id,
-            "address": "123 Sample Street, Queenscliff NSW 2096",
-            "price": "$1,200,000",
-            "bedrooms": 1,
-            "bathrooms": 1,
-            "parking": 1,
-            "propertyType": "House",
-            "landSize": "450 sqm",
-            "description": "Beautiful family home in a prime location...",
-            "features": [
-                "Air Conditioning", 
-                "Built-in Wardrobes", 
-                "Close to Schools",
-                "Close to Shops",
-                "Garden"
-            ],
-            "images": [
-                "https://picsum.photos/800/600",
-                "https://picsum.photos/800/600",
-            ],
-            "suburb": "Queenscliff"
-        }
-        top_agents = queenscliff_agents
-    
-    result = {
-        "property": property_details,
-        "agent": {
-            "id": agent_id or "12345",
-            "name": "Jane Smith",
-            "phone": "0400 123 456",
-            "email": "jane.smith@example.com",
-            "agency": "Premier Real Estate",
-            "photo": "https://randomuser.me/api/portraits/women/44.jpg",
-            "bio": "Jane has over 10 years of experience in the Sydney property market...",
-        },
-        "top_agents": top_agents
     }
     
     # Add job_id to the result if provided
@@ -923,77 +689,6 @@ async def process_agent_sales_data(suburb, state="NSW"):
     logger.info(f"Processed data summary: {total_agencies} agencies, {total_agents} agents, {total_properties} properties")
     
     return result
-
-async def get_listing_details(listing_id):
-    """
-    Retrieve details for a specific listing using Domain.com.au API
-    """
-    if not DOMAIN_API_KEY:
-        logger.error("Domain API key not found. Please set DOMAIN_API_KEY environment variable.")
-        return None
-    
-    logger.info(f"Retrieving details for listing ID: {listing_id}")
-    
-    # API endpoint
-    url = f"https://api.domain.com.au/v1/listings/{listing_id}"
-    
-    # Headers with API key
-    headers = {
-        "X-Api-Key": DOMAIN_API_KEY,
-        "Content-Type": "application/json"
-    }
-    
-    try:
-        # Make the API request
-        response = requests.get(url, headers=headers)
-        
-        # Check if the request was successful
-        if response.status_code == 200:
-            listing_details = response.json()
-            logger.info(f"Successfully retrieved details for listing ID: {listing_id}")
-            return listing_details
-        else:
-            logger.error(f"API request failed with status code {response.status_code}: {response.text}")
-            return None
-    except Exception as e:
-        logger.error(f"Error retrieving listing details: {str(e)}")
-        return None
-
-
-async def get_agency_details(agency_id):
-    """
-    Retrieve details for a specific agency using Domain.com.au API
-    """
-    if not DOMAIN_API_KEY:
-        logger.error("Domain API key not found. Please set DOMAIN_API_KEY environment variable.")
-        return None
-    
-    logger.info(f"Retrieving details for agency ID: {agency_id}")
-    
-    # API endpoint
-    url = f"https://api.domain.com.au/v1/agencies/{agency_id}"
-    
-    # Headers with API key
-    headers = {
-        "X-Api-Key": DOMAIN_API_KEY,
-        "Content-Type": "application/json"
-    }
-    
-    try:
-        # Make the API request
-        response = requests.get(url, headers=headers)
-        
-        # Check if the request was successful
-        if response.status_code == 200:
-            agency_details = response.json()
-            logger.info(f"Successfully retrieved details for agency ID: {agency_id}")
-            return agency_details
-        else:
-            logger.error(f"API request failed with status code {response.status_code}: {response.text}")
-            return None
-    except Exception as e:
-        logger.error(f"Error retrieving agency details: {str(e)}")
-        return None
 
 async def get_agent_performance_metrics(
     suburb, 
@@ -1328,118 +1023,3 @@ async def get_agent_sales_metrics(suburb, state="NSW"):
             agent_data["formattedMedianPrice"] = format_price(agent_data["medianSalePrice"])
     
     return sales_data
-
-def format_price(price):
-    """Format a price value as a string with appropriate units (k or m)"""
-    if price >= 1000000:
-        return f"${price/1000000:.1f}m"
-    elif price >= 1000:
-        return f"${price/1000:.0f}k"
-    else:
-        return f"${price:.0f}"
-
-async def main():
-    print("Starting Domain.com.au API test...")
-    
-    # Test the API with a suburb search
-    suburb = "Deer Park"
-    state = "VIC"
-    print(f"Searching for sold listings in {suburb}...")
-    
-    # Test the new agent sales metrics function
-    print("\n" + "="*50)
-    print(f"Getting agent sales metrics for {suburb}...")
-    sales_metrics = await get_agent_sales_metrics(suburb = suburb ,state = state)
-    
-    if sales_metrics:
-        print(f"\nFound {len(sales_metrics)} agencies with sales in {suburb}")
-        
-        # Print summary of each agency and their top agents
-        for agency_id, agency_data in sales_metrics.items():
-            print(f"\nAgency: {agency_data['name']}")
-            print(f"Logo URL: {agency_data['logoUrl']}")
-            
-            # Get agents sorted by number of properties sold
-            agents = list(agency_data["agents"].values())
-            agents.sort(key=lambda x: x["propertiesSold"], reverse=True)
-            
-            print(f"Top agents ({len(agents)} total):")
-            for i, agent in enumerate(agents[:3]):  # Show top 3 agents
-                print(f"  {i+1}. {agent['name']}")
-                print(f"     Photo: {agent['photoUrl']}")
-                print(f"     Properties Sold: {agent['propertiesSold']}")
-                print(f"     Total Sales Value: {agent.get('formattedTotalValue', 'N/A')}")
-                print(f"     Median Sale Price: {agent.get('formattedMedianPrice', 'N/A')}")
-                print(f"     Average Sale Price: {agent.get('formattedAvgPrice', 'N/A')}")
-    else:
-        print(f"No sales metrics found for {suburb}")
-    
-    print("Domain.com.au API test completed")
-    
-    # Now test the agent performance metrics
-    print("\n" + "="*50)
-    print(f"Calculating agent performance metrics for {suburb}...")
-    agencies_data = await get_agent_performance_metrics(suburb)
-    
-    if agencies_data:
-        # Convert the nested dictionary structure to a flat list of agents for display
-        agents_list = []
-        for agency_id, agency_data in agencies_data.items():
-            agency_name = agency_data['name']
-            for agent_id, agent_data in agency_data['agents'].items():
-                if agent_data['total_sales'] > 0:  # Only include agents with sales
-                    # Add agency name to the agent data for display
-                    agent_data['agency'] = agency_name
-                    agents_list.append(agent_data)
-        
-        # Sort agents by total sales (descending)
-        agents_list.sort(key=lambda x: x['total_sales'], reverse=True)
-        # Print the full dictionary structure in a readable format
-        print("\n" + "="*50)
-        print("Full data structure (formatted):")
-        print(json.dumps(agencies_data, indent=2, default=str))
-        print(f"\nFound {len(agents_list)} agents with sales in {suburb}")
-        print("\nTop agents by sales volume:")
-        
-        # Display top 5 agents or all if less than 5
-        top_agents = agents_list[:5] if len(agents_list) > 5 else agents_list
-        
-        for i, agent in enumerate(top_agents):
-            print(f"{i+1}. {agent['name']} ({agent['agency']})")
-            # Use the combined sales count (primary + joint)
-            print(f"   Total Sales: {agent['total_sales'] }")
-            print(f"   Joint Sales: {agent.get('joint_sales', 0)}")  # Display joint sales count
-            print(f"   Median Sold Price: {agent['median_sold_price']}")
-            
-            # Use the combined sales value for display
-            combined_value = agent.get('total_sales_value_combined', 0)
-            if combined_value > 0:
-                formatted_combined = f"${combined_value/1000000:.1f}m" if combined_value >= 1000000 else f"${combined_value/1000:.0f}k"
-            else:
-                formatted_combined = "Not disclosed"
-                
-            print(f"   Total Sales Value: {formatted_combined}")
-            print(f"   Joint Sales Value: {agent.get('joint_sales_value_formatted', '$0')}")  # Display joint sales value
-            print(f"   Photo URL: {agent.get('photo', 'N/A')}")
-            
-            # Find the agency logo URL for this agent
-            agency_name = agent['agency']
-            agency_logo = "N/A"
-            for agency_id, agency_data in agencies_data.items():
-                if agency_data['name'] == agency_name:
-                    agency_logo = agency_data.get('logo', 'N/A')
-                    break
-            
-            print(f"   Agency Logo URL: {agency_logo}")
-            print()
-        
-        
-    else:
-        print(f"No agent data found for {suburb}")
-    
-    print("Domain.com.au API test completed")
-# Run the main function if this file is executed directly
-if __name__ == "__main__":
-    asyncio.run(main())
-
-
