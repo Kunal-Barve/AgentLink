@@ -173,7 +173,7 @@
             {% for agency in agencies %}
             <div class="agency-card">
                 <div class="agency-logo">
-                    {% if agency.logoUrl and agency.logoUrl.startswith('http') %}
+                    {% if agency.logoUrl is defined and agency.logoUrl is not none and agency.logoUrl.startswith('http') %}
                     <img src="{{ agency.logoUrl }}" alt="{{ agency.name }}" 
                          onerror="this.outerHTML='<div class=\'agency-logo-fallback\'>{{ agency.name }}</div>';">
                     {% else %}

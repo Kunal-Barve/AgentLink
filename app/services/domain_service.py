@@ -8,6 +8,9 @@ from .domain_utils import (
     format_price, check_featured_agent, check_standard_subscription,
     get_mock_property_data, get_listing_details, get_agency_details,get_agent_details
 )
+from .agent_commission import (
+ get_featured_agent_commission, get_agent_commission
+)
 load_dotenv()
 
 # Domain.com.au API credentials
@@ -74,7 +77,8 @@ async def fetch_property_data(
     region=None,
     area=None,
     min_land_area: int = None,  # Added parameter
-    max_land_area: int = None 
+    max_land_area: int = None ,
+    home_owner_pricing=None
 ):
     """
     Fetch property data from Domain.com.au API
@@ -296,6 +300,16 @@ async def fetch_property_data(
                 # Get additional agent details
                 agent_details = await get_agent_details(agent_name ,agency_name)
                 
+                # Get featured agent commission rate and discount
+                featured_agent_commission = get_featured_agent_commission(agent_name, home_owner_pricing, suburb, state)
+                featured_agent_commission_rate = featured_agent_commission.get("commission_rate", "")
+                featured_agent_discount = featured_agent_commission.get("discount", "")
+                featured_agent_marketing = featured_agent_commission.get("marketing", "")
+                
+                
+                # Debug: Print the commission values for this agent
+                print(f"DEBUG - Featured agent commission for {agent_name}: rate='{featured_agent_commission_rate}', discount='{featured_agent_discount}', marketing='{featured_agent_marketing}'")
+                print(f"DEBUG - home_owner_pricing value: '{home_owner_pricing}'")
                 # Create a new agent entry
                 new_agent = {
                     "name": agent_name,
@@ -307,8 +321,13 @@ async def fetch_property_data(
                     "agency": agent_details.get("agency_name", "N/A") if agent_details else "N/A",
                     "agency_logo": agent_details.get("agency_logo", "N/A") if agent_details else "N/A",
                     "agent_id": agent_details.get("agent_id", "N/A") if agent_details else "N/A",
-                    "properties": {}  # Empty properties dictionary
+                    "properties": {},  # Empty properties dictionary
+                    "commission_rate": featured_agent_commission_rate,
+                    "discount": featured_agent_discount,
+                    "marketing": featured_agent_marketing
                 }
+                # Debug: Print the agent object to verify commission values were added
+                print(f"DEBUG - New agent object commission values: rate='{new_agent['commission_rate']}', discount='{new_agent['discount']}', marketing='{new_agent['marketing']}'")
                 
                 # Add the new agent to the agents list
                 agents_list.append(new_agent)
@@ -324,6 +343,16 @@ async def fetch_property_data(
                 for agent in agents_list:
                     if agent["name"].strip().lower() == agent_name:
                         agent["featured"] = True
+                        # Get featured agent commission rate and discount
+                        featured_agent_commission = get_featured_agent_commission(agent["name"], home_owner_pricing, suburb, state)
+                        agent["commission_rate"] = featured_agent_commission.get("commission_rate", "")
+                        agent["discount"] = featured_agent_commission.get("discount", "")
+                        agent["marketing"] = featured_agent_commission.get("marketing", "")
+                        
+                        # Debug: Print the commission values for this agent
+                        print(f"DEBUG - Existing agent commission for {agent['name']}: rate='{agent['commission_rate']}', discount='{agent['discount']}', marketing='{agent['marketing']}'")
+                        print(f"DEBUG - home_owner_pricing value: '{home_owner_pricing}'")
+                        
                         found_match = True
                         print(f"Matched existing agent as featured: {agent['name']}")
                         break
@@ -332,8 +361,17 @@ async def fetch_property_data(
                     print(f"No match found for featured agent: {agent_name}")
     else:
         print(f"No featured agents found for {suburb}, {state}")
-    
-    
+        
+    # If no featured agents were found, get the standard commission rate
+    if not featured_agents_data:
+        print(f"No featured agents found for {suburb}, {state}")
+        # Get standard agent commission rate
+        agent_commission = get_agent_commission(home_owner_pricing)
+        agent_commission_rate = agent_commission.get("commission_rate", "")
+        agent_marketing = agent_commission.get("marketing", "")
+        # Debug: Print the standard commission values
+        print(f"DEBUG - Standard commission rate: '{agent_commission_rate}', marketing: '{agent_marketing}'")
+        print(f"DEBUG - home_owner_pricing value: '{home_owner_pricing}'")
     # Create a cache for standard subscription status to avoid duplicate API calls
     std_sub_status_cache = {}
     # Check for standard subscription for non-featured agents
@@ -355,7 +393,11 @@ async def fetch_property_data(
             std_sub_status_cache[agent_name] = has_std_subscription
             if has_std_subscription:
                 logger.info(f"Agent {agent_name} has standard subscription")
-    
+        # Add commission rate for non-featured agents
+        if not agent.get('featured', False) and 'commission_rate' not in agent and featured_agents_data is None:
+            agent['commission_rate'] = agent_commission_rate
+            agent['discount'] = None
+            agent['marketing'] = agent_marketing
     # Separate agents into three categories: featured, standard subscription, and regular
     featured_agents = [agent for agent in agents_list if agent['featured']]
     std_sub_agents = [agent for agent in agents_list if not agent['featured'] and agent.get('standard_subscription', False)]
@@ -441,13 +483,18 @@ async def fetch_property_data(
             "median_sold_price": agent['median_sold_price'],
             "total_sales_value": formatted_total,  # This now includes both primary and joint sales
             "joint_sales_value": agent.get('joint_sales_value_formatted', "$0"),  # Include joint sales value
-            "featured": agent.get('featured', False)
+            "featured": agent.get('featured', False),
+            "commission_rate": agent.get('commission_rate', ''),
+            "discount": agent.get('discount', ''),
+            "marketing": agent.get('marketing', '')
         }
         formatted_top_agents.append(formatted_agent)
-    
+    print(f"TOP AGENTS ALL DATA:{formatted_top_agents}")
     result = {
         "top_agents": formatted_top_agents,
-        "suburb": suburb
+        "suburb": suburb,
+        "agent_commission": agent_commission_rate if not featured_agents_data else None,
+        "discount": None  # Default value for non-featured agents
     }
     
     # Add job_id to the result if provided

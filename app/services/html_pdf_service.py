@@ -68,7 +68,7 @@ async def html_to_pdf(html_content, css_files=None, output_path=None):
         # Create HTML object with the proper base_url
         html = HTML(string=html_content, base_url=base_url)
         # Write PDF with CSS stylesheets
-        html.write_pdf(output_path, stylesheets=css_list)
+        html.write_pdf(output_path, stylesheets=css_list ,optimize_images=True)
         logger.info(f"PDF generated successfully at {output_path}")
         return output_path
     except Exception as e:
