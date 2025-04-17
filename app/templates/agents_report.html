@@ -279,9 +279,12 @@
                             <div class="agent-details">
                                 <div class="agent-name">{{ agent.name }}</div>
                                 <!-- Use relative path for agency logo -->
-                                <img src="{{ agent.agency_logo_url if agent.agency_logo_url.startswith('http') else '../assets/' + agent.agency|lower|replace(' ', '_')|replace('&', 'and') + '_logo.png' }}" 
-                                     alt="{{ agent.agency }}" class="agency-logo" 
-                                     onerror="this.outerHTML='<div class=\'agency-logo-fallback\'>{{ agent.agency }}</div>';">
+            <img src="{% if agent.agency_logo_url and agent.agency_logo_url.startswith('http') %}
+            {{ agent.agency_logo_url }}
+         {% else %}
+            ../assets/{{ agent.agency | lower | replace(' ', '_') | replace('&', 'and') }}_logo.png
+         {% endif %}">
+
                             </div>
                             <div class="stats-container" style="display: flex; flex-direction: column;">
                                 <table class="stats-table">
