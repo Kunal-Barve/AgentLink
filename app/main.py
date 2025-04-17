@@ -94,6 +94,7 @@ class AgentsReportRequest(BaseModel):
     area: Optional[str] = None
     min_land_area: Optional[int] = None  # Added parameter for minimum land size
     max_land_area: Optional[int] = None  # Added parameter for maximum land size
+    home_owner_pricing: Optional[str] = None  
 
 class AgencyReportRequest(BaseModel):
     featured_agency_id: str = None
@@ -112,6 +113,7 @@ class AgencyReportRequest(BaseModel):
     area: Optional[str] = None
     min_land_area: Optional[int] = None  # Added parameter for minimum land size
     max_land_area: Optional[int] = None  # Added parameter for maximum land size
+    home_owner_pricing: Optional[str] = None
 
 class JobResponse(BaseModel):
     job_id: str
@@ -122,7 +124,9 @@ class JobStatusResponse(BaseModel):
     status: str
     progress: int = 0
     dropbox_url: Optional[str] = None
-    filename: Optional[str] = None  # Add this line to include filename in response
+    filename: Optional[str] = None  
+    commission_dropbox_url: Optional[str] = None  
+    commission_filename: Optional[str] = None  
     error: Optional[str] = ""  # Changed from None to empty string as default
 
 
@@ -143,34 +147,7 @@ def clear_temp_pdfs(temp_dir=None):
         except Exception as e:
             print(f"Error removing file {pdf_file}: {e}")
             
-@app.post("/api/generate-pdf", response_model=JobResponse)
-async def generate_pdf_endpoint(request: PropertyRequest, background_tasks: BackgroundTasks):
-    # Generate a unique job ID
-    job_id = str(uuid.uuid4())
-    logger.info(f"New job created: {job_id}")
-    logger.info(f"Request details: suburb={request.suburb}, state={request.state}, agent_id={request.agent_id}, featured_agent_id={request.featured_agent_id}, property_types={request.property_types}")
-    
-    # Store job in the jobs dictionary with initial status
-    jobs[job_id] = {
-        "status": "processing",
-        "suburb": request.suburb,  # Store suburb in job data
-        "dropbox_url": None,
-        "error": None
-    }
-    logger.info(f"Job {job_id} initialized with status 'processing'")
-    
-    # Start background task to process the job - fixed parameter order to match function signature
-    background_tasks.add_task(
-        process_agents_report_job, 
-        job_id,
-        request.suburb,
-        request.state,
-        request.property_types
-    )
-    logger.info(f"Background task started for job {job_id}")
-    
-    return {"job_id": job_id, "status": "processing"}
-
+            
 @app.get("/api/job-status/{job_id}", response_model=JobStatusResponse)
 async def job_status_endpoint(job_id: str):
     logger.info(f"Status check for job {job_id}")
@@ -182,12 +159,14 @@ async def job_status_endpoint(job_id: str):
     job = jobs[job_id]
     logger.info(f"Current status for job {job_id}: {job['status']}")
     
-    # Calculate progress based on status
+        # Calculate progress based on status
     progress = 0
     if job["status"] == "processing":
         progress = 10
-    elif job["status"] == "fetching_property_data":
+    elif job["status"] == "fetching_property_data" or job["status"] == "fetching_agents_data":
         progress = 30
+    elif job["status"] == "generating_commission_pdf":
+        progress = 45  
     elif job["status"] == "generating_pdf":
         progress = 60
     elif job["status"] == "uploading_to_dropbox":
@@ -210,6 +189,8 @@ async def job_status_endpoint(job_id: str):
         "progress": progress,
         "dropbox_url": job.get("dropbox_url"),
         "filename": job.get("filename"),  # Include the filename in the response
+        "commission_dropbox_url": job.get("commission_dropbox_url"),  # Add commission report URL
+        "commission_filename": job.get("commission_filename"),  # Add commission report filename
         "error": error
     }
 
@@ -254,7 +235,8 @@ async def generate_agents_report(request: AgentsReportRequest, background_tasks:
         area=request.area,
         featured_agent_id=request.featured_agent_id,
         min_land_area=request.min_land_area,  # Added parameter
-        max_land_area=request.max_land_area   # Added parameter
+        max_land_area=request.max_land_area,   # Added parameter
+        home_owner_pricing=request.home_owner_pricing  # Set to "yes" to include home owner pricing in the report
     )
     logger.info(f"Background task started for agents report job {job_id}")
     
@@ -277,7 +259,8 @@ async def process_agents_report_job(
     area: str = None,
     featured_agent_id: str = None,
     min_land_area: int = None,  # Added parameter
-    max_land_area: int = None   # Added parameter
+    max_land_area: int = None,   # Added parameter
+    home_owner_pricing: str = None
 ):
     try:
         logger.info(f"Starting to process agents report job {job_id}")
@@ -308,9 +291,24 @@ async def process_agents_report_job(
             region=region,
             area=area,
             min_land_area=min_land_area,  # Added parameter
-            max_land_area=max_land_area   # Added parameter
+            max_land_area=max_land_area,   # Added parameter
+            home_owner_pricing=home_owner_pricing  
         )
         logger.info(f"Job {job_id}: Agents data fetched successfully")
+        
+        # Generate commission report if home_owner_pricing is provided
+        commission_dropbox_url = None
+        commission_filename = None
+        if home_owner_pricing:
+            jobs[job_id]["status"] = "generating_commission_pdf"
+            logger.info(f"Job {job_id}: Generating commission report")
+            # Use await here to ensure we wait for the result
+            commission_dropbox_url, commission_filename = await get_commission_rate(
+                agents_data, job_id, suburb)
+            # Store commission report info in job data
+            jobs[job_id]["commission_dropbox_url"] = commission_dropbox_url
+            jobs[job_id]["commission_filename"] = commission_filename
+            logger.info(f"Job {job_id}: Commission report generated and uploaded: {commission_dropbox_url}")
         
         # Update status to show we're generating PDF
         jobs[job_id]["status"] = "generating_pdf"
@@ -368,10 +366,96 @@ async def process_agents_report_job(
         print(f"Error processing agents report job {job_id}: {str(e)}")
 
 
+# GET AGENT COMMISSION
+
+async def get_commission_rate(agents_data, job_id, suburb):
+    """
+    Generate a commission report PDF based on agent data and upload it to Dropbox.
+    
+    Args:
+        agents_data: Dictionary containing top agents data
+        job_id: Unique job identifier
+        suburb: Suburb name
+        
+    Returns:
+        Tuple containing (dropbox_url, filename)
+    """
+    try:
+        logger.info(f"Job {job_id}: Starting commission report generation")
+        
+        # Check if we have any featured agents
+        has_featured_agent = any(agent.get('featured', False) for agent in agents_data["top_agents"])
+        
+        # Get commission rate and marketing cost
+        commission_rate = ""
+        discount = ""
+        marketing_cost = ""
+        
+        # Debug: Print all agents to see their data
+        print(f"DEBUG - All agents data for job {job_id}:")
+        for idx, agent in enumerate(agents_data["top_agents"]):
+            print(f"Agent {idx+1}: {agent.get('name')} - featured: {agent.get('featured', False)}")
+            if 'commission_rate' in agent:
+                print(f"  commission_rate: '{agent.get('commission_rate', '')}'")
+            if 'discount' in agent:
+                print(f"  discount: '{agent.get('discount', '')}'")
+            if 'marketing' in agent:
+                print(f"  marketing: '{agent.get('marketing', '')}'")
+        # If we have agents data, get the commission information
+        if agents_data["top_agents"]:
+            if has_featured_agent:
+                # Get the first featured agent
+                featured_agent = next((agent for agent in agents_data["top_agents"] if agent.get('featured', False)), None)
+                if featured_agent:
+                    print("FEATURED AGENT COMMISSION RATE: ", featured_agent.get("commission_rate", ""))
+                    commission_rate = featured_agent.get("commission_rate", "")
+                    discount = featured_agent.get("discount", "")
+                    marketing_cost = featured_agent.get("marketing", "")
+                    logger.info(f"Job {job_id}: Using featured agent commission data")
+            else:
+                # No featured agent, use the first agent's commission rate
+                commission_rate = agents_data["top_agents"][0].get("commission_rate", "")
+                marketing_cost = agents_data["top_agents"][0].get("marketing", "")
+                logger.info(f"Job {job_id}: Using standard commission data")
+        # Debug: Log the actual values being used for the commission report
+        logger.info(f"Job {job_id}: Commission values - rate: '{commission_rate}', discount: '{discount}', marketing: '{marketing_cost}'")
+        print(f"DEBUG - Job {job_id}: Commission values - rate: '{commission_rate}', discount: '{discount}', marketing: '{marketing_cost}'")
+        # Create context for the template
+        context = {
+            "suburb": suburb,
+            "commission_rate": commission_rate,
+            "discount": discount,
+            "marketing_cost": marketing_cost,
+            "has_featured_agent": has_featured_agent
+        }
+        
+        # Generate the PDF using the commission_report.html template
+        pdf_path = await generate_pdf_with_weasyprint(
+            context, 
+            job_id=job_id,
+            template_name="commission_report.html"
+        )
+        logger.info(f"Job {job_id}: Commission report PDF generated successfully at {pdf_path}")
+        
+        # Upload PDF to Dropbox
+        filename = f"{suburb}_Commission_{job_id}.pdf"
+        dropbox_folder = "/Suburb Commission Rate"
+        dropbox_url = await upload_to_dropbox(pdf_path, filename, folder_path=dropbox_folder)
+        logger.info(f"Job {job_id}: Commission PDF uploaded to Dropbox: {dropbox_url}")
+        
+        # Clean up the temporary PDF file
+        if os.path.exists(pdf_path):
+            os.remove(pdf_path)
+            logger.info(f"Job {job_id}: Temporary commission PDF file removed")
+            
+        return dropbox_url, filename
+        
+    except Exception as e:
+        logger.error(f"Error generating commission report for job {job_id}: {str(e)}", exc_info=True)
+        return None, None
 
 
-# Add after the generate-agents-report endpoint
-# Update the generate-agency-report endpoint to use AgencyReportRequest
+
 @app.post("/api/generate-agency-report", response_model=JobResponse)
 async def generate_agency_report(request: AgencyReportRequest, background_tasks: BackgroundTasks):
     clear_temp_pdfs()
@@ -473,10 +557,7 @@ async def process_agency_report_job(
         
         # Add a delay to simulate PDF generation
         await asyncio.sleep(5)
-        
-        # In the process_agency_report_job function, before generating the PDF
         # Step 2: Generate PDF with the agency data using WeasyPrint
-        # Create a context for the template with the suburb and agencies
         context = {
             "suburb": suburb,
             "agencies": agency_data["top_agencies"]
