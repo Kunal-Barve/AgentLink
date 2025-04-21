@@ -439,7 +439,7 @@ async def get_commission_rate(agents_data, job_id, suburb):
         
         # Upload PDF to Dropbox
         filename = f"{suburb}_Commission_{job_id}.pdf"
-        dropbox_folder = "/Suburb Commission Rate"
+        dropbox_folder = "/Commission Rate"
         dropbox_url = await upload_to_dropbox(pdf_path, filename, folder_path=dropbox_folder)
         logger.info(f"Job {job_id}: Commission PDF uploaded to Dropbox: {dropbox_url}")
         

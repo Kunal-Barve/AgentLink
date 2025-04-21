@@ -9,7 +9,7 @@ from .domain_utils import (
     get_mock_property_data, get_listing_details, get_agency_details,get_agent_details
 )
 from .agent_commission import (
- get_featured_agent_commission, get_agent_commission
+ get_featured_agent_commission, get_agent_commission ,get_area_type
 )
 load_dotenv()
 
@@ -281,6 +281,11 @@ async def fetch_property_data(
     featured_agents_data = await check_featured_agent(suburb, state)
     print(f"Featured agents data: {featured_agents_data}")
     
+    
+    # Get the Area Type
+    print("\n===== CHECKING FOR AREA TYPE =====")
+    area_type = get_area_type(post_code, suburb)
+    print(f"Area type for {suburb}: {area_type}")
     # Process featured agents if any were found
     if featured_agents_data:
         print(f"Found {len(featured_agents_data)} featured agents for {suburb}, {state}")
@@ -366,7 +371,7 @@ async def fetch_property_data(
     if not featured_agents_data:
         print(f"No featured agents found for {suburb}, {state}")
         # Get standard agent commission rate
-        agent_commission = get_agent_commission(home_owner_pricing)
+        agent_commission = agent_commission = get_agent_commission(home_owner_pricing, area_type)
         agent_commission_rate = agent_commission.get("commission_rate", "")
         agent_marketing = agent_commission.get("marketing", "")
         # Debug: Print the standard commission values

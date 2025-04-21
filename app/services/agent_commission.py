@@ -177,45 +177,106 @@ def get_featured_agent_commission(agent_name, home_owner_pricing, suburb, state)
         print(f"DEBUG - Error getting featured agent commission: {str(e)}")
         return {"commission_rate": "", "discount": "", "marketing": ""}
 
-def get_agent_commission(home_owner_pricing):
+def get_agent_commission(home_owner_pricing, area_type="suburb"):
     """
-    Get standard commission rates based on home owner pricing
+    Get standard commission rates based on home owner pricing and area type
     
     Args:
         home_owner_pricing: Price range of the property
+        area_type: Type of area (suburb, rural, inner_city)
         
     Returns:
         Dictionary containing commission_rate and marketing
     """
     try:
-        # Define standard commission rates for different price ranges
-        standard_rates = {
-            "Less than $500k": "1.80-2.00%",
-            "$500k-$1m": "1.80-2.00%",
-            "$1m-$1.5m": "1.65-1.85%",
-            "$1.5m-$2m": "1.60-1.80%",
-            "$2m-$2.5m": "1.50-1.75%",
-            "$2.5m-$3m": "1.50-1.75%",
-            "$3m-$4m": "1.50-1.75%",
+        # Define standard commission rates for different price ranges in suburbs
+        suburb_rates = {
+            "Less than $500k": "1.98-2.20%",
+            "$500k-$1m": "1.90-2.10%",
+            "$1m-$1.5m": "1.80-1.98%",
+            "$1.5m-$2m": "1.80-1.98%",
+            "$2m-$2.5m": "1.75-1.95%",
+            "$2.5m-$3m": "1.65-1.87%",
+            "$3m-$4m": "1.55-1.705%",
             "$4m-$6m": "1.50-1.75%",
             "$6m-$8m": "1.45-1.65%",
-            "$8m-$10m": "1.35-1.55%",
-            "$10m+": "1.30-1.50%"
+            "$8m-$10m": "1.25-1.50%",
+            "$10m+": "1.25-1.50%"
         }
         
-        # Define standard marketing costs for different price ranges
-        standard_marketing = {
-            "Less than $500k": "$7,000-$8,000",
-            "$500k-$1m": "$7,000-$8,000",
-            "$1m-$1.5m": "$8,000-$9,000",
-            "$1.5m-$2m": "$8,000-$9,000",
-            "$2m-$2.5m": "$9,000-$10,000",
-            "$2.5m-$3m": "$9,000-$10,000",
-            "$3m-$4m": "$9,000-$10,000",
-            "$4m-$6m": "$9,000-$10,000",
-            "$6m-$8m": "$9,000-$10,000",
-            "$8m-$10m": "$10,000+",
-            "$10m+": "$10,000+"
+        # Define rural commission rates
+        rural_rates = {
+            "Less than $500k": "2.25-2.75%",
+            "$500k-$1m": "2.25-2.75%",
+            "$1m-$1.5m": "1.98-2.20%",
+            "$1.5m-$2m": "1.90-2.02%",
+            "$2m-$2.5m": "1.85-1.95%",
+            "$2.5m-$3m": "1.75-1.87%",
+            "$3m-$4m": "1.65-1.705%",
+            "$4m-$6m": "1.55-1.75%",
+            "$6m-$8m": "1.50-1.65%",
+            "$8m-$10m": "1.25-1.50%",
+            "$10m+": "1.25-1.50%"
+        }
+        
+        # Define inner city commission rates
+        inner_city_rates = {
+            "Less than $500k": "1.75-2.10%",
+            "$500k-$1m": "1.75-2.00%",
+            "$1m-$1.5m": "1.70-1.95%",
+            "$1.5m-$2m": "1.65-1.85%",
+            "$2m-$2.5m": "1.55-1.80%",
+            "$2.5m-$3m": "1.50-1.75%",
+            "$3m-$4m": "1.50-1.75%",
+            "$4m-$6m": "1.45-1.75%",
+            "$6m-$8m": "1.35-1.65%",
+            "$8m-$10m": "1.25-1.50%",
+            "$10m+": "1.25-1.50%"
+        }
+        
+        # Define standard marketing costs for different price ranges in suburbs
+        suburb_marketing = {
+            "Less than $500k": "$6,000-$7,500",
+            "$500k-$1m": "$6,000-$8,000",
+            "$1m-$1.5m": "$6,500-$8,500",
+            "$1.5m-$2m": "$7,000-$9,000",
+            "$2m-$2.5m": "$7,000-$9,000",
+            "$2.5m-$3m": "$7,500-$9,500",
+            "$3m-$4m": "$8,000-$10,000",
+            "$4m-$6m": "$9,000-$11,500",
+            "$6m-$8m": "$9,000-$11,500",
+            "$8m-$10m": "$10,000-$12,000",
+            "$10m+": "$10,000-$12,000"
+        }
+        
+        # Define rural marketing costs
+        rural_marketing = {
+            "Less than $500k": "$2,000-$4,000",
+            "$500k-$1m": "$2,500-$4,500",
+            "$1m-$1.5m": "$3,000-$5,000",
+            "$1.5m-$2m": "$3,500-$5,500",
+            "$2m-$2.5m": "$4,000-$6,000",
+            "$2.5m-$3m": "$4,500-$6,500",
+            "$3m-$4m": "$5,000-$7,000",
+            "$4m-$6m": "$5,500-$7,500",
+            "$6m-$8m": "$6,000-$8,000",
+            "$8m-$10m": "$6,500-$8,500",
+            "$10m+": "$7,000-$9,000+"
+        }
+        
+        # Define inner city marketing costs
+        inner_city_marketing = {
+            "Less than $500k": "$6,000-$7,500",
+            "$500k-$1m": "$6,000-$8,000",
+            "$1m-$1.5m": "$6,500-$8,500",
+            "$1.5m-$2m": "$7,000-$9,000",
+            "$2m-$2.5m": "$7,000-$9,000",
+            "$2.5m-$3m": "$7,500-$9,500",
+            "$3m-$4m": "$8,000-$10,000",
+            "$4m-$6m": "$9,000-$11,500",
+            "$6m-$8m": "$9,000-$11,500",
+            "$8m-$10m": "$10,000-$12,000",
+            "$10m+": "$10,000-$12,000"
         }
         
         # If home_owner_pricing is not provided, return empty values
@@ -223,9 +284,20 @@ def get_agent_commission(home_owner_pricing):
             logger.warning("No home_owner_pricing provided")
             return {"commission_rate": "", "marketing": ""}
         
+        # Select the appropriate rate and marketing dictionaries based on area type
+        if area_type.lower() == "rural":
+            rates = rural_rates
+            marketing_costs = rural_marketing
+        elif area_type.lower() == "inner_city":
+            rates = inner_city_rates
+            marketing_costs = inner_city_marketing
+        else:  # Default to suburb
+            rates = suburb_rates
+            marketing_costs = suburb_marketing
+        
         # Get the commission rate and marketing cost for the specified price range
-        commission_rate = standard_rates.get(home_owner_pricing, "")
-        marketing = standard_marketing.get(home_owner_pricing, "")
+        commission_rate = rates.get(home_owner_pricing, "")
+        marketing = marketing_costs.get(home_owner_pricing, "")
         
         return {
             "commission_rate": commission_rate,
@@ -235,3 +307,73 @@ def get_agent_commission(home_owner_pricing):
     except Exception as e:
         logger.error(f"Error getting standard agent commission: {str(e)}")
         return {"commission_rate": "", "marketing": ""}
+    
+def get_area_type(post_code, suburb):
+    """
+    Determine the area type (suburb, rural, inner_city) by making a request to Make.com webhook
+    
+    Args:
+        post_code: The postal code of the area
+        suburb: The suburb name
+        
+    Returns:
+        String representing the area type (suburb, rural, inner_city)
+    """
+    try:
+        # Prepare the request parameters
+        params = {
+            "post_code": post_code,
+            "suburb": suburb
+        }
+        
+        # Log the request
+        logger.info(f"Getting area type for suburb: {suburb}, post code: {post_code}")
+        print(f"DEBUG - Getting area type for suburb: {suburb}, post code: {post_code}")
+        
+        # Make the API request
+        url = "https://hook.eu2.make.com/vq5xn04nnc9iio7nzjnkwu6ahkbtlizp"
+        response = requests.get(url, params=params)
+        
+        # Check if the request was successful
+        if response.status_code == 200:
+            # Get the response data
+            data = response.json()
+            
+            # Debug: Print raw response data
+            print(f"DEBUG - Area type API response: {data}")
+            
+            # Map the numeric codes to area types
+            # 0: not found, 1: inner_city, 2: suburb, 3: rural
+            area_type_map = {
+                "0": "suburb",  # Default to suburb if not found
+                "1": "inner_city",
+                "2": "suburb",
+                "3": "rural",
+                0: "suburb",
+                1: "inner_city",
+                2: "suburb",
+                3: "rural"
+            }
+            
+            # Convert data to string if it's a number
+            if isinstance(data, (int, float)):
+                area_type_code = data
+            else:
+                area_type_code = str(data)
+            
+            # Map the code to an area type
+            area_type = area_type_map.get(area_type_code, "suburb")
+            
+            logger.info(f"Area type for {suburb} ({post_code}): {area_type} (code: {area_type_code})")
+            print(f"DEBUG - Mapped area type code {area_type_code} to {area_type}")
+            
+            return area_type
+        else:
+            # If API request failed, default to suburb
+            logger.error(f"API request for area type failed with status code {response.status_code}: {response.text}")
+            return "suburb"
+            
+    except Exception as e:
+        # If any error occurs, default to suburb
+        logger.error(f"Error getting area type: {str(e)}")
+        return "suburb"
