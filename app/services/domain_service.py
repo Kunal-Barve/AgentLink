@@ -377,38 +377,56 @@ async def fetch_property_data(
         # Debug: Print the standard commission values
         print(f"DEBUG - Standard commission rate: '{agent_commission_rate}', marketing: '{agent_marketing}'")
         print(f"DEBUG - home_owner_pricing value: '{home_owner_pricing}'")
-        print(f"DEBUG - Area type used for commission: '{area_type}'")
         
-        # Add commission rates to all non-featured agents immediately
+        # Create a cache for standard subscription status to avoid duplicate API calls
+        std_sub_status_cache = {}
+        # Check for standard subscription for non-featured agents
         for agent in agents_list:
+            agent_name = agent['name']
+            # Skip featured agents - they already have highest priority
+            if agent['featured']:
+                continue
+                
+            # Check if we already have the subscription status for this agent in the cache
+            if agent_name in std_sub_status_cache:
+                agent['standard_subscription'] = std_sub_status_cache[agent_name]
+                logger.info(f"Using cached standard subscription status for {agent_name}: {agent['standard_subscription']}")
+            else:
+                # If not in cache, make the API call
+                has_std_subscription = await check_standard_subscription(agent_name, suburb, state)
+                agent['standard_subscription'] = has_std_subscription
+                # Store in cache for future use
+                std_sub_status_cache[agent_name] = has_std_subscription
+                if has_std_subscription:
+                    logger.info(f"Agent {agent_name} has standard subscription")
+            # Add commission rate for non-featured agents - changed condition to not check featured_agents_data is None
             if not agent.get('featured', False) and 'commission_rate' not in agent:
                 agent['commission_rate'] = agent_commission_rate
                 agent['discount'] = None
                 agent['marketing'] = agent_marketing
-                print(f"DEBUG - Added standard commission to agent {agent['name']}: rate='{agent_commission_rate}', marketing='{agent_marketing}'")
-    
-    # Create a cache for standard subscription status to avoid duplicate API calls
-    std_sub_status_cache = {}
-    
-    # Check for standard subscription for non-featured agents
-    for agent in agents_list:
-        agent_name = agent['name']
-        # Skip featured agents - they already have highest priority
-        if agent['featured']:
-            continue
-            
-        # Check if we already have the subscription status for this agent in the cache
-        if agent_name in std_sub_status_cache:
-            agent['standard_subscription'] = std_sub_status_cache[agent_name]
-            logger.info(f"Using cached standard subscription status for {agent_name}: {agent['standard_subscription']}")
-        else:
-            # If not in cache, make the API call
-            has_std_subscription = await check_standard_subscription(agent_name, suburb, state)
-            agent['standard_subscription'] = has_std_subscription
-            # Store in cache for future use
-            std_sub_status_cache[agent_name] = has_std_subscription
-            if has_std_subscription:
-                logger.info(f"Agent {agent_name} has standard subscription")
+                print(f"DEBUG - Added standard commission to agent {agent_name}: rate='{agent_commission_rate}', marketing='{agent_marketing}'")
+    else:
+        # Create a cache for standard subscription status to avoid duplicate API calls
+        std_sub_status_cache = {}
+        # Check for standard subscription for non-featured agents
+        for agent in agents_list:
+            agent_name = agent['name']
+            # Skip featured agents - they already have highest priority
+            if agent['featured']:
+                continue
+                
+            # Check if we already have the subscription status for this agent in the cache
+            if agent_name in std_sub_status_cache:
+                agent['standard_subscription'] = std_sub_status_cache[agent_name]
+                logger.info(f"Using cached standard subscription status for {agent_name}: {agent['standard_subscription']}")
+            else:
+                # If not in cache, make the API call
+                has_std_subscription = await check_standard_subscription(agent_name, suburb, state)
+                agent['standard_subscription'] = has_std_subscription
+                # Store in cache for future use
+                std_sub_status_cache[agent_name] = has_std_subscription
+                if has_std_subscription:
+                    logger.info(f"Agent {agent_name} has standard subscription")
     # Separate agents into three categories: featured, standard subscription, and regular
     featured_agents = [agent for agent in agents_list if agent['featured']]
     std_sub_agents = [agent for agent in agents_list if not agent['featured'] and agent.get('standard_subscription', False)]
