@@ -324,11 +324,15 @@ async def process_agents_report_job(
             "agents": agents_data["top_agents"]
         }
         
-        # Generate the PDF using the agents_report.html template
+        # Check if agents data is empty and select appropriate template
+        template_name = "not_found.html" if not agents_data["top_agents"] else "agents_report.html"
+        logger.info(f"Job {job_id}: Using template {template_name} based on agent data availability")
+        
+        # Generate the PDF using the selected template
         pdf_path = await generate_pdf_with_weasyprint(
             context, 
             job_id=job_id,
-            template_name="agents_report.html"  # Specify the template to use
+            template_name=template_name
         )
         logger.info(f"Job {job_id}: Agents report PDF generated successfully at {pdf_path}")
         
@@ -440,7 +444,7 @@ async def get_commission_rate(agents_data, job_id, suburb):
         # Upload PDF to Dropbox
         filename = f"{suburb}_Commission_{job_id}.pdf"
         dropbox_folder = "/Commission Rate"
-        dropbox_url = await upload_to_dropbox(pdf_path, filename, folder_path=dropbox_folder)
+        dropbox_url = await upload_to_dropbox(pdf_path, filename,   folder_path=dropbox_folder)
         logger.info(f"Job {job_id}: Commission PDF uploaded to Dropbox: {dropbox_url}")
         
         # Clean up the temporary PDF file
