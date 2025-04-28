@@ -390,6 +390,9 @@ async def get_commission_rate(agents_data, job_id, suburb):
         # Check if we have any featured agents
         has_featured_agent = any(agent.get('featured', False) for agent in agents_data["top_agents"])
         
+        # Check if we have any featured plus agents
+        has_featured_plus_agent = any(agent.get('featured_plus', False) for agent in agents_data["top_agents"])
+        logger.info(f"Job {job_id}: Featured agent: {has_featured_agent}, Featured plus agent: {has_featured_plus_agent}")
         # Get commission rate and marketing cost
         commission_rate = ""
         discount = ""
@@ -430,7 +433,8 @@ async def get_commission_rate(agents_data, job_id, suburb):
             "commission_rate": commission_rate,
             "discount": discount,
             "marketing_cost": marketing_cost,
-            "has_featured_agent": has_featured_agent
+            "has_featured_agent": has_featured_agent,
+            "has_featured_plus_agent": has_featured_plus_agent
         }
         
         # Generate the PDF using the commission_report.html template
