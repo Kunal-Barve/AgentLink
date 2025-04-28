@@ -20,24 +20,23 @@ def format_price(price):
     else:
         return f"${price:.0f}"
 
-async def check_featured_agent(agent_name, suburb, state):
+async def check_featured_agent(suburb, state):
     """
-    Check if an agent is a featured agent by calling the Make.com webhook
+    Check for featured agents in a suburb by calling the Make.com webhook
     
     Args:
-        agent_name: The name of the agent to check
         suburb: The suburb to check for
         state: The state to check for
         
     Returns:
-        Boolean indicating if the agent is featured
+        List of featured agents for the suburb or None if no agents found.
+        Each agent will have an additional 'is_featured_plus' boolean field.
     """
     webhook_url = "https://hook.eu2.make.com/nuedlxjy6fsn398sa31tfh1ca6sgycda"
     
     try:
         # Prepare the data to send to the webhook
         data = {
-            "agent_name": agent_name,
             "suburb": suburb,
             "state": state
         }
@@ -50,25 +49,31 @@ async def check_featured_agent(agent_name, suburb, state):
             # Parse the response JSON
             result = response.json()
             
-            # Handle different response formats
-            if isinstance(result, bool):
-                # If the result is already a boolean, use it directly
-                is_featured = result
-            elif isinstance(result, dict):
-                # If the result is a dictionary, extract the featured status
-                is_featured = result.get('featured', False)
+            # Check if we have valid agents data
+            if isinstance(result, list) and len(result) > 0:
+                # Check if we have an empty agent record (no agents for this suburb)
+                first_agent = result[0]
+                if not first_agent.get("Name") or first_agent.get("Name").strip() == "":
+                    logger.info(f"No featured agents found for {suburb}, {state}")
+                    return None
+                
+                # Process each agent to add is_featured_plus flag
+                for agent in result:
+                    subscription_type = agent.get("Subscription Type", "")
+                    agent["is_featured_plus"] = subscription_type == "Featured Plus"
+                    logger.info(f"Agent {agent.get('Name')} has subscription type: {subscription_type}, is_featured_plus: {agent['is_featured_plus']}")
+                
+                logger.info(f"Found {len(result)} featured agents for {suburb}, {state}")
+                return result
             else:
-                # For any other type, convert to boolean
-                is_featured = bool(result)
-            
-            logger.info(f"Agent {agent_name} in {suburb} featured status: {is_featured}")
-            return is_featured
+                logger.warning(f"Unexpected response format from featured agent webhook: {result}")
+                return None
         else:
-            logger.error(f"Failed to check featured agent status: {response.status_code} - {response.text}")
-            return False
+            logger.error(f"Failed to check featured agents: {response.status_code} - {response.text}")
+            return None
     except Exception as e:
-        logger.error(f"Error checking featured agent status: {e}")
-        return False
+        logger.error(f"Error checking featured agents: {e}")
+        return None
     
 async def check_standard_subscription(agent_name, suburb, state):
     """

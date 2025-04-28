@@ -319,18 +319,28 @@
             </div>
             
             {% if has_featured_agent %}
-            <p class="normal-text">
-                When engaging our featured agent, you have now unlocked a
-                commission discount off your total commission fee of:
-            </p>
-            
-            <div class="highlight-value">
-                {{ discount }}
-            </div>
-            
-            <p class="info-text">
-                Eligibility criteria applies. To view <a href="http://agentlink.au/commissiondiscount">Click here</a>
-            </p>
+                {% if not has_featured_plus_agent %}
+                <p class="normal-text">
+                    When engaging our featured agent, you have now unlocked a
+                    commission discount off your total commission fee of:
+                </p>
+                
+                <div class="highlight-value">
+                    {{ discount }}
+                </div>
+                
+                <p class="info-text">
+                    Eligibility criteria applies. To view <a href="http://agentlink.au/commissiondiscount">Click here</a>
+                </p>
+                {% else %}
+                <p class="normal-text">
+                    You have a Featured Plus agent in your area.
+                </p>
+                
+                <p class="info-text">
+                    Featured Plus agents provide premium services and specialized expertise for your property sale.
+                </p>
+                {% endif %}
             {% else %}
             <p class="normal-text">
                 Commission Discount:

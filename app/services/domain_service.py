@@ -274,6 +274,7 @@ async def fetch_property_data(
     # Add default 'featured' key to all agents
     for agent in agents_list:
         agent['featured'] = False
+        agent['featured_plus'] = False
     print("\n===== AGENTS LIST =====")
     print(agents_list)
     # Check for featured agents in the suburb
@@ -302,6 +303,9 @@ async def fetch_property_data(
                 agent_median_sold_price = featured_agent_info.get("Median Sold Price", "$0")
                 agent_sale_value = featured_agent_info.get("Total Sales Value", "$0")
                 
+                # Check if this is a Featured Plus agent
+                is_featured_plus = featured_agent_info.get("Subscription Type", "").strip() == "Featured Plus"
+                print(f"Agent {agent_name} is Featured Plus: {is_featured_plus}")
                 # Get additional agent details
                 agent_details = await get_agent_details(agent_name ,agency_name)
                 
@@ -322,6 +326,7 @@ async def fetch_property_data(
                     "median_sold_price": agent_median_sold_price,
                     "total_value": agent_sale_value,
                     "featured": True,
+                    "featured_plus": is_featured_plus,
                     "photo": agent_details.get("agent_photo", "N/A") if agent_details else "N/A",
                     "agency": agent_details.get("agency_name", "N/A") if agent_details else "N/A",
                     "agency_logo": agent_details.get("agency_logo", "N/A") if agent_details else "N/A",
@@ -348,6 +353,9 @@ async def fetch_property_data(
                 for agent in agents_list:
                     if agent["name"].strip().lower() == agent_name:
                         agent["featured"] = True
+                        # Check if this is a Featured Plus agent
+                        agent["featured_plus"] = featured_agent_info.get("Subscription Type", "").strip() == "Featured Plus"
+                        print(f"Agent {agent['name']} is Featured Plus: {agent['featured_plus']}")
                         # Get featured agent commission rate and discount
                         featured_agent_commission = get_featured_agent_commission(agent["name"], home_owner_pricing, suburb, state)
                         agent["commission_rate"] = featured_agent_commission.get("commission_rate", "")
@@ -471,9 +479,8 @@ async def fetch_property_data(
         # No featured or standard subscription agents, just take top 5 regular agents
         top_agents = regular_agents[:5] if len(regular_agents) > 5 else regular_agents
     
+
     # Format the top agents data for the PDF
-    formatted_top_agents = []
-        # Format the top agents data for the PDF
     formatted_top_agents = []
     for agent in top_agents:
         # Use the combined total value (primary + joint sales)
@@ -513,6 +520,7 @@ async def fetch_property_data(
             "total_sales_value": formatted_total,  # This now includes both primary and joint sales
             "joint_sales_value": agent.get('joint_sales_value_formatted', "$0"),  # Include joint sales value
             "featured": agent.get('featured', False),
+            "featured_plus": agent.get('featured_plus', False), 
             "commission_rate": agent.get('commission_rate', ''),
             "discount": agent.get('discount', ''),
             "marketing": agent.get('marketing', '')
