@@ -526,7 +526,7 @@ async def fetch_property_data(
             "marketing": agent.get('marketing', '')
         }
         formatted_top_agents.append(formatted_agent)
-    print(f"TOP AGENTS ALL DATA:{formatted_top_agents}")
+    logger.info(f"TOP AGENTS ALL DATA:{formatted_top_agents}")
     result = {
         "top_agents": formatted_top_agents,
         "suburb": suburb,
