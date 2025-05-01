@@ -415,7 +415,8 @@ async def get_commission_rate(agents_data, job_id, suburb ,home_owner_pricing,po
                 # Get the first featured agent
                 featured_agent = next((agent for agent in agents_data["top_agents"] if agent.get('featured', False)), None)
                 if featured_agent:
-                    logger.info("FEATURED AGENT COMMISSION RATE: ", featured_agent.get("commission_rate", ""))
+                    # Fix the logging statement by using string formatting
+                    logger.info(f"FEATURED AGENT COMMISSION RATE: {featured_agent.get('commission_rate', '')}")
                     commission_rate = featured_agent.get("commission_rate", "")
                     discount = featured_agent.get("discount", "")
                     marketing_cost = featured_agent.get("marketing", "")
