@@ -19,6 +19,7 @@ from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 
 # Local application imports
+from app.services.agent_commission import get_agent_commission ,get_area_type
 from app.services.domain_service import fetch_property_data
 from app.services.domain_agency_service import fetch_rented_property_data  # Import the function from domain_agency_service
 from app.services.dropbox_service import upload_to_dropbox
@@ -304,7 +305,7 @@ async def process_agents_report_job(
             logger.info(f"Job {job_id}: Generating commission report")
             # Use await here to ensure we wait for the result
             commission_dropbox_url, commission_filename = await get_commission_rate(
-                agents_data, job_id, suburb)
+                agents_data, job_id, suburb ,home_owner_pricing ,post_code)
             # Store commission report info in job data
             jobs[job_id]["commission_dropbox_url"] = commission_dropbox_url
             jobs[job_id]["commission_filename"] = commission_filename
@@ -372,15 +373,15 @@ async def process_agents_report_job(
 
 # GET AGENT COMMISSION
 
-async def get_commission_rate(agents_data, job_id, suburb):
+async def get_commission_rate(agents_data, job_id, suburb ,home_owner_pricing,post_code):
     """
     Generate a commission report PDF based on agent data and upload it to Dropbox.
-    
+
     Args:
         agents_data: Dictionary containing top agents data
         job_id: Unique job identifier
         suburb: Suburb name
-        
+
     Returns:
         Tuple containing (dropbox_url, filename)
     """
@@ -399,22 +400,22 @@ async def get_commission_rate(agents_data, job_id, suburb):
         marketing_cost = ""
         
         # Debug: Print all agents to see their data
-        print(f"DEBUG - All agents data for job {job_id}:")
+        logger.info(f"DEBUG - All agents data for job {job_id}:")
         for idx, agent in enumerate(agents_data["top_agents"]):
-            print(f"Agent {idx+1}: {agent.get('name')} - featured: {agent.get('featured', False)}")
+            logger.info(f"Agent {idx+1}: {agent.get('name')} - featured: {agent.get('featured', False)}")
             if 'commission_rate' in agent:
-                print(f"  commission_rate: '{agent.get('commission_rate', '')}'")
+                logger.info(f"  commission_rate: '{agent.get('commission_rate', '')}'")
             if 'discount' in agent:
-                print(f"  discount: '{agent.get('discount', '')}'")
+                logger.info(f"  discount: '{agent.get('discount', '')}'")
             if 'marketing' in agent:
-                print(f"  marketing: '{agent.get('marketing', '')}'")
+                logger.info(f"  marketing: '{agent.get('marketing', '')}'")
         # If we have agents data, get the commission information
         if agents_data["top_agents"]:
             if has_featured_agent:
                 # Get the first featured agent
                 featured_agent = next((agent for agent in agents_data["top_agents"] if agent.get('featured', False)), None)
                 if featured_agent:
-                    print("FEATURED AGENT COMMISSION RATE: ", featured_agent.get("commission_rate", ""))
+                    logger.info("FEATURED AGENT COMMISSION RATE: ", featured_agent.get("commission_rate", ""))
                     commission_rate = featured_agent.get("commission_rate", "")
                     discount = featured_agent.get("discount", "")
                     marketing_cost = featured_agent.get("marketing", "")
@@ -424,6 +425,13 @@ async def get_commission_rate(agents_data, job_id, suburb):
                 commission_rate = agents_data["top_agents"][0].get("commission_rate", "")
                 marketing_cost = agents_data["top_agents"][0].get("marketing", "")
                 logger.info(f"Job {job_id}: Using standard commission data")
+                
+        if (not commission_rate or not marketing_cost) and home_owner_pricing:
+                area_type = get_area_type(post_code ,suburb)
+                standard_rates = get_agent_commission(home_owner_pricing, area_type)
+                commission_rate = standard_rates.get("commission_rate", "")
+                marketing_cost = standard_rates.get("marketing", "")
+                logger.info(f"Job {job_id}: Using standard commission data for {home_owner_pricing} in {area_type}")
         # Debug: Log the actual values being used for the commission report
         logger.info(f"Job {job_id}: Commission values - rate: '{commission_rate}', discount: '{discount}', marketing: '{marketing_cost}'")
         print(f"DEBUG - Job {job_id}: Commission values - rate: '{commission_rate}', discount: '{discount}', marketing: '{marketing_cost}'")

@@ -123,7 +123,7 @@ def get_featured_agent_commission(agent_name, home_owner_pricing, suburb, state)
                         "$2.5m-$3m": 2500000,
                         "$3m-$3.5m": 3000000,  # Add this missing range
                         "$3.5m-$4m": 3000000,  # Add this missing range
-                        "$3m-$4m": 3000000,    # Keep for backward compatibility
+                        "$3m-$4m": 3000000,    # Keep for backward compatibility    
                         "$4m-$6m": 4000000,
                         "$6m-$8m": 6000000,
                         "$8m-$10m": 8000000,
