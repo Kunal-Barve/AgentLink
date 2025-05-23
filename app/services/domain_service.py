@@ -306,8 +306,22 @@ async def fetch_property_data(
                 # Check if this is a Featured Plus agent
                 is_featured_plus = featured_agent_info.get("Subscription Type", "").strip() == "Featured Plus"
                 print(f"Agent {agent_name} is Featured Plus: {is_featured_plus}")
-                # Get additional agent details
-                agent_details = await get_agent_details(agent_name ,agency_name)
+                
+                # Check if agent photo and agency photo are provided
+                agent_photo = featured_agent_info.get("Agent Photo", "").strip()
+                agency_photo = featured_agent_info.get("Agency Photo", "").strip()
+                
+                # Convert Dropbox URLs from dl=0 to dl=1 to make them downloadable
+                if agent_photo and agent_photo.endswith("dl=0"):
+                    agent_photo = agent_photo[:-1] + "1"
+                
+                if agency_photo and agency_photo.endswith("dl=0"):
+                    agency_photo = agency_photo[:-1] + "1"
+                
+                # Only call get_agent_details if photos are not provided
+                agent_details = None
+                if not (agent_photo and agency_photo):
+                    agent_details = await get_agent_details(agent_name, agency_name)
                 
                 # Get featured agent commission rate and discount
                 featured_agent_commission = get_featured_agent_commission(agent_name, home_owner_pricing, suburb, state)
@@ -320,6 +334,7 @@ async def fetch_property_data(
                 print(f"DEBUG - Featured agent commission for {agent_name}: rate='{featured_agent_commission_rate}', discount='{featured_agent_discount}', marketing='{featured_agent_marketing}'")
                 print(f"DEBUG - home_owner_pricing value: '{home_owner_pricing}'")
                 # Create a new agent entry
+                # Create a new agent entry
                 new_agent = {
                     "name": agent_name,
                     "total_sales": agent_total_sales,
@@ -327,9 +342,9 @@ async def fetch_property_data(
                     "total_value": agent_sale_value,
                     "featured": True,
                     "featured_plus": is_featured_plus,
-                    "photo": agent_details.get("agent_photo", "N/A") if agent_details else "N/A",
-                    "agency": agent_details.get("agency_name", "N/A") if agent_details else "N/A",
-                    "agency_logo": agent_details.get("agency_logo", "N/A") if agent_details else "N/A",
+                    "photo": agent_photo if agent_photo else (agent_details.get("agent_photo", "N/A") if agent_details else "N/A"),
+                    "agency": agency_name if agency_name else (agent_details.get("agency_name", "N/A") if agent_details else "N/A"),
+                    "agency_logo": agency_photo if agency_photo else (agent_details.get("agency_logo", "N/A") if agent_details else "N/A"),
                     "agent_id": agent_details.get("agent_id", "N/A") if agent_details else "N/A",
                     "properties": {},  # Empty properties dictionary
                     "commission_rate": featured_agent_commission_rate,
