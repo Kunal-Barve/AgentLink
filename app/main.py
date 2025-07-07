@@ -305,7 +305,7 @@ async def process_agents_report_job(
             logger.info(f"Job {job_id}: Generating commission report")
             # Use await here to ensure we wait for the result
             commission_dropbox_url, commission_filename = await get_commission_rate(
-                agents_data, job_id, suburb ,home_owner_pricing ,post_code)
+                agents_data, job_id, suburb ,home_owner_pricing ,post_code ,state)
             # Store commission report info in job data
             jobs[job_id]["commission_dropbox_url"] = commission_dropbox_url
             jobs[job_id]["commission_filename"] = commission_filename
@@ -373,7 +373,7 @@ async def process_agents_report_job(
 
 # GET AGENT COMMISSION
 
-async def get_commission_rate(agents_data, job_id, suburb ,home_owner_pricing,post_code):
+async def get_commission_rate(agents_data, job_id, suburb ,home_owner_pricing,post_code ,state):
     """
     Generate a commission report PDF based on agent data and upload it to Dropbox.
 
@@ -429,7 +429,7 @@ async def get_commission_rate(agents_data, job_id, suburb ,home_owner_pricing,po
                 
         if (not commission_rate or not marketing_cost) and home_owner_pricing:
                 area_type = get_area_type(post_code ,suburb)
-                standard_rates = get_agent_commission(home_owner_pricing, area_type)
+                standard_rates = get_agent_commission(home_owner_pricing, area_type ,state)
                 commission_rate = standard_rates.get("commission_rate", "")
                 marketing_cost = standard_rates.get("marketing", "")
                 logger.info(f"Job {job_id}: Using standard commission data for {home_owner_pricing} in {area_type}")

@@ -394,7 +394,7 @@ async def fetch_property_data(
     if not featured_agents_data:
         print(f"No featured agents found for {suburb}, {state}")
         # Get standard agent commission rate
-        agent_commission = get_agent_commission(home_owner_pricing, area_type)
+        agent_commission = get_agent_commission(home_owner_pricing, area_type , state)
         agent_commission_rate = agent_commission.get("commission_rate", "")
         agent_marketing = agent_commission.get("marketing", "")
         # Debug: Print the standard commission values

@@ -59,7 +59,7 @@ def get_featured_agent_commission(agent_name, home_owner_pricing, suburb, state)
                 logger.warning(f"No commission data found for agent {agent_name} in {suburb}, {state}")
                 print(f"DEBUG - No commission data found for agent {agent_name} in {suburb}, {state}")
                 # Fall back to standard commission rates
-                return get_agent_commission(home_owner_pricing)
+                return get_agent_commission(home_owner_pricing, state=state)
             
             # Get the first item from the response
             commission_data = data[0]
@@ -92,7 +92,7 @@ def get_featured_agent_commission(agent_name, home_owner_pricing, suburb, state)
             if not commission_rate or not marketing:
                 logger.warning(f"Empty commission rate or marketing for {agent_name} in {suburb}, {state} with price range {home_owner_pricing}")
                 print(f"DEBUG - Empty commission rate or marketing, falling back to standard rates")
-                standard_values = get_agent_commission(home_owner_pricing)
+                standard_values = get_agent_commission(home_owner_pricing, state=state)
                 
                 # Only use standard values if our values are empty
                 if not commission_rate:
@@ -179,18 +179,90 @@ def get_featured_agent_commission(agent_name, home_owner_pricing, suburb, state)
         print(f"DEBUG - Error getting featured agent commission: {str(e)}")
         return {"commission_rate": "", "discount": "", "marketing": ""}
 
-def get_agent_commission(home_owner_pricing, area_type="suburb"):
+def get_agent_commission(home_owner_pricing, area_type="suburb", state=None):
     """
-    Get standard commission rates based on home owner pricing and area type
+    Get standard commission rates based on state, home owner pricing and area type
     
     Args:
         home_owner_pricing: Price range of the property
         area_type: Type of area (suburb, rural, inner_city)
+        state: State code (e.g., NSW, VIC, QLD)
         
     Returns:
         Dictionary containing commission_rate and marketing
     """
     try:
+        # Debug: Print input parameters
+        print(f"DEBUG - get_agent_commission called with: home_owner_pricing='{home_owner_pricing}', area_type='{area_type}', state='{state}'")
+        
+        # First try to get commission rates from the webhook if state code is provided
+        if state and home_owner_pricing:
+            # Debug: Attempting to fetch rates from webhook
+            print(f"DEBUG - Attempting to fetch rates from webhook for state '{state}' and price '{home_owner_pricing}'")
+            
+            # Prepare the request parameters
+            params = {
+                "state_code": state,
+                "home_owner_pricing": home_owner_pricing
+            }
+            
+            # Make the API request
+            url = "https://hook.eu2.make.com/wrkwzgqpensv34xlw14mcuzzcu79ohs9"
+            try:
+                response = requests.get(url, params=params)
+                
+                # Debug: Print response status
+                print(f"DEBUG - API response status: {response.status_code}")
+                
+                # Check if the request was successful
+                if response.status_code == 200:
+                    data = response.json()
+                    
+                    # Debug: Print raw response data
+                    print(f"DEBUG - API response data: {json.dumps(data, indent=2)}")
+                    
+                    # If we got data back
+                    if data and isinstance(data, list) and len(data) > 0:
+                        commission_data = data[0]
+                        
+                        # Map home_owner_pricing to the corresponding keys
+                        commission_key = f"{home_owner_pricing} Commission"
+                        marketing_key = f"{home_owner_pricing} Marketing"
+                        
+                        # Debug: Print the keys we're looking for
+                        print(f"DEBUG - Looking for keys: commission_key='{commission_key}', marketing_key='{marketing_key}'")
+                        
+                        # Get the commission rate and marketing value for the specified price range
+                        commission_rate = commission_data.get(commission_key, "")
+                        marketing = commission_data.get(marketing_key, "")
+                        
+                        # Debug: Print the values found
+                        print(f"DEBUG - Found webhook values: commission_rate='{commission_rate}', marketing='{marketing}'")
+                        
+                        # If both values are found, return them
+                        if commission_rate and marketing:
+                            logger.info(f"Using state-based rates from webhook for state {state}")
+                            print(f"DEBUG - Using state-based rates from webhook")
+                            return {
+                                "commission_rate": commission_rate,
+                                "marketing": marketing
+                            }
+                        else:
+                            logger.warning(f"Incomplete data from webhook for state {state}, price {home_owner_pricing}. Falling back to area-type based rates.")
+                            print(f"DEBUG - Incomplete data from webhook. Falling back to area-type based rates")
+                    else:
+                        logger.warning(f"No data from webhook for state {state}, price {home_owner_pricing}. Falling back to area-type based rates.")
+                        print(f"DEBUG - No data from webhook. Falling back to area-type based rates")
+                else:
+                    logger.error(f"API request failed with status code {response.status_code}: {response.text}")
+                    print(f"DEBUG - API request failed with status code {response.status_code}: {response.text}")
+            except Exception as e:
+                logger.error(f"Error fetching from webhook: {str(e)}")
+                print(f"DEBUG - Error fetching from webhook: {str(e)}")
+        
+        # Fallback to area-type based rates
+        print(f"DEBUG - Using fallback area-type based rates for area_type '{area_type}'")
+        
         # Define standard commission rates for different price ranges in suburbs
         suburb_rates = {
             "Less than $500k": "1.98-2.20%",
