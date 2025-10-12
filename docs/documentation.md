@@ -18,6 +18,7 @@ AgentLink is a FastAPI-based web application that:
 5. [Workflows](#workflows)
 6. [Data Flow Diagrams](#data-flow-diagrams)
 7. [Dependencies](#dependencies)
+8. [Server Access](#server-access)
 
 ## System Architecture
 
@@ -279,3 +280,21 @@ The application requires several environment variables to be set in a `.env` fil
 - **DROPBOX_APP_KEY**: App key for Dropbox API
 - **DROPBOX_APP_SECRET**: App secret for Dropbox API
 - **DROPBOX_ACCOUNT_ID**: Account ID for Dropbox
+
+## Server Access
+
+### SSH Connection
+
+To connect to the production server, use the following SSH command:
+
+```bash
+ssh root@65.108.146.173
+```
+
+### Server Maintenance
+
+- The application is deployed on a Linux server with the FastAPI application running behind Nginx
+- Logs can be found in `/var/log/fastapi/`
+- The application code is located in `/var/www/fastapi-app/AgentLink`
+- Use `systemctl status fastapi` to check the application status
+- Use `systemctl restart fastapi` to restart the application after code changes

@@ -5,7 +5,7 @@ services:
     ports:
       - "6379:6379"
     volumes:
-      - redis-data:/data
+      - redis-data-local:/data
     command: redis-server --appendonly yes
 
   agentlink:
@@ -26,10 +26,12 @@ services:
     volumes:
       - ./app/templates:/app/app/templates
       - ./app/assets:/app/app/assets
+      - ./app:/app/app
     depends_on:
       - redis
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
-  # Worker 1 - Parallel Processing
+  # Worker 1
   agentlink-worker-1:
     image: agentlink
     restart: always
@@ -45,11 +47,12 @@ services:
     volumes:
       - ./app/templates:/app/app/templates
       - ./app/assets:/app/app/assets
+      - ./app:/app/app
     command: rq worker --url redis://redis:6379/0 agentlink-queue
     depends_on:
       - redis
 
-  # Worker 2 - Parallel Processing
+  # Worker 2
   agentlink-worker-2:
     image: agentlink
     restart: always
@@ -65,11 +68,12 @@ services:
     volumes:
       - ./app/templates:/app/app/templates
       - ./app/assets:/app/app/assets
+      - ./app:/app/app
     command: rq worker --url redis://redis:6379/0 agentlink-queue
     depends_on:
       - redis
 
-  # Worker 3 - Parallel Processing
+  # Worker 3
   agentlink-worker-3:
     image: agentlink
     restart: always
@@ -85,11 +89,12 @@ services:
     volumes:
       - ./app/templates:/app/app/templates
       - ./app/assets:/app/app/assets
+      - ./app:/app/app
     command: rq worker --url redis://redis:6379/0 agentlink-queue
     depends_on:
       - redis
 
-  # Worker 4 - Parallel Processing (Optimal for 8-10 concurrent requests)
+  # Worker 4
   agentlink-worker-4:
     image: agentlink
     restart: always
@@ -105,20 +110,31 @@ services:
     volumes:
       - ./app/templates:/app/app/templates
       - ./app/assets:/app/app/assets
+      - ./app:/app/app
     command: rq worker --url redis://redis:6379/0 agentlink-queue
     depends_on:
       - redis
 
-  nginx:
-    image: nginx:alpine
-    ports:
-      - "80:80"
-      - "443:443"
+  # Worker 5
+  agentlink-worker-5:
+    image: agentlink
+    restart: always
+    env_file: .env
+    environment:
+      DOMAIN_API_KEY: ${DOMAIN_API_KEY}
+      DOMAIN_API_SECRET: ${DOMAIN_API_SECRET}
+      DROPBOX_APP_SECRET: ${DROPBOX_APP_SECRET}
+      DROPBOX_APP_KEY: ${DROPBOX_APP_KEY}
+      DROPBOX_ACCESS_TOKEN: ${DROPBOX_ACCESS_TOKEN}
+      DROPBOX_REFRESH_TOKEN: ${DROPBOX_REFRESH_TOKEN}
+      REDIS_URL: redis://redis:6379/0
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
-      - /etc/letsencrypt:/etc/letsencrypt
+      - ./app/templates:/app/app/templates
+      - ./app/assets:/app/app/assets
+      - ./app:/app/app
+    command: rq worker --url redis://redis:6379/0 agentlink-queue
     depends_on:
-      - agentlink
+      - redis
 
 volumes:
-  redis-data:
+  redis-data-local:

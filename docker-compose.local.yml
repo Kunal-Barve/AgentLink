@@ -1,0 +1,55 @@
+services:
+  redis:
+    image: redis:7-alpine
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data-local:/data
+    command: redis-server --appendonly yes
+
+  agentlink:
+    build: .
+    image: agentlink
+    restart: always
+    env_file: .env
+    ports:
+      - "8000:8000"
+    environment:
+      DOMAIN_API_KEY: ${DOMAIN_API_KEY}
+      DOMAIN_API_SECRET: ${DOMAIN_API_SECRET}
+      DROPBOX_APP_SECRET: ${DROPBOX_APP_SECRET}
+      DROPBOX_APP_KEY: ${DROPBOX_APP_KEY}
+      DROPBOX_ACCESS_TOKEN: ${DROPBOX_ACCESS_TOKEN}
+      DROPBOX_REFRESH_TOKEN: ${DROPBOX_REFRESH_TOKEN}
+      REDIS_URL: redis://redis:6379/0
+    volumes:
+      - ./app/templates:/app/app/templates
+      - ./app/assets:/app/app/assets
+      - ./app:/app/app  # Mount source code for live changes
+    depends_on:
+      - redis
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  agentlink-worker:
+    image: agentlink
+    restart: always
+    env_file: .env
+    environment:
+      DOMAIN_API_KEY: ${DOMAIN_API_KEY}
+      DOMAIN_API_SECRET: ${DOMAIN_API_SECRET}
+      DROPBOX_APP_SECRET: ${DROPBOX_APP_SECRET}
+      DROPBOX_APP_KEY: ${DROPBOX_APP_KEY}
+      DROPBOX_ACCESS_TOKEN: ${DROPBOX_ACCESS_TOKEN}
+      DROPBOX_REFRESH_TOKEN: ${DROPBOX_REFRESH_TOKEN}
+      REDIS_URL: redis://redis:6379/0
+    volumes:
+      - ./app/templates:/app/app/templates
+      - ./app/assets:/app/app/assets
+      - ./app:/app/app  # Mount source code for live changes
+    command: rq worker --url redis://redis:6379/0 agentlink-queue
+    depends_on:
+      - redis
+
+volumes:
+  redis-data-local:
