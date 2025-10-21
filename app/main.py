@@ -127,6 +127,8 @@ class JobStatusResponse(BaseModel):
     filename: Optional[str] = None  
     commission_dropbox_url: Optional[str] = None  
     commission_filename: Optional[str] = None  
+    commission_rate: Optional[str] = ""  
+    discount: Optional[str] = ""  
     error: Optional[str] = ""  # Changed from None to empty string as default
 
 
@@ -194,6 +196,8 @@ async def job_status_endpoint(job_id: str):
         "filename": job.get("filename", ""),
         "commission_dropbox_url": job.get("commission_dropbox_url", ""),
         "commission_filename": job.get("commission_filename", ""),
+        "commission_rate": job.get("commission_rate", ""),
+        "discount": job.get("discount", ""),
         "error": error
     }
 

@@ -9,15 +9,42 @@ Write-Host "  Testing 5 simultaneous requests..." -ForegroundColor Cyan
 Write-Host "============================================" -ForegroundColor Cyan
 Write-Host ""
 
-$API_URL = "http://localhost:8000/api/generate-agents-report"
+# Server Selection
+Write-Host "Select target server:" -ForegroundColor Yellow
+Write-Host "  1. Local (localhost:8000)" -ForegroundColor White
+Write-Host "  2. Production (65.108.146.173)" -ForegroundColor White
+Write-Host ""
+$serverChoice = Read-Host "Enter your choice (1 or 2)"
+
+switch ($serverChoice) {
+    "1" {
+        $API_BASE_URL = "http://localhost:8000"
+        $SERVER_NAME = "Local"
+        Write-Host "[INFO] Testing LOCAL server: $API_BASE_URL" -ForegroundColor Green
+    }
+    "2" {
+        $API_BASE_URL = "http://65.108.146.173"
+        $SERVER_NAME = "Production"
+        Write-Host "[INFO] Testing PRODUCTION server: $API_BASE_URL" -ForegroundColor Green
+    }
+    default {
+        Write-Host "[ERROR] Invalid choice. Defaulting to Local server." -ForegroundColor Red
+        $API_BASE_URL = "http://localhost:8000"
+        $SERVER_NAME = "Local"
+    }
+}
+
+$API_URL = "$API_BASE_URL/api/generate-agents-report"
+$STATUS_URL = "$API_BASE_URL/api/job-status"
+Write-Host ""
 
 # Define all 5 requests
 $requests = @(
     @{
-        name = "Greenfields, WA"
+        name = "Frankston, VIC"
         body = @{
-            suburb = "Greenfields"
-            state = "WA"
+            suburb = "Frankston"
+            state = "VIC"
             property_types = $null
             min_bedrooms = 1
             max_bedrooms = $null
@@ -26,12 +53,12 @@ $requests = @(
             min_carspaces = 1
             max_carspaces = $null
             include_surrounding_suburbs = $false
-            post_code = "6174"
+            post_code = "3199"
             region = $null
             area = $null
             min_land_area = $null
             max_land_area = $null
-            home_owner_pricing = "`$1m-`$1.5m"
+            home_owner_pricing = "`$3m-`$3.5m"
         }
     },
     @{
@@ -124,16 +151,20 @@ $requests = @(
 Write-Host "[INFO] Testing API connection..." -ForegroundColor Yellow
 try {
     # Try to connect - even 404 means API is running
-    $testResponse = Invoke-WebRequest -Uri "http://localhost:8000" -Method GET -TimeoutSec 5 -ErrorAction SilentlyContinue
+    $testResponse = Invoke-WebRequest -Uri "$API_BASE_URL" -Method GET -TimeoutSec 5 -ErrorAction SilentlyContinue
     Write-Host "[OK] API is reachable!" -ForegroundColor Green
 } catch {
     # Check if it's just a 404 (which means API is running)
     if ($_.Exception.Response.StatusCode.value__ -eq 404) {
         Write-Host "[OK] API is reachable!" -ForegroundColor Green
     } else {
-        Write-Host "[ERROR] Cannot connect to API at http://localhost:8000" -ForegroundColor Red
-        Write-Host "Make sure Docker containers are running:" -ForegroundColor Red
-        Write-Host "  docker-compose -f docker-compose.local.yml up" -ForegroundColor Yellow
+        Write-Host "[ERROR] Cannot connect to API at $API_BASE_URL" -ForegroundColor Red
+        if ($SERVER_NAME -eq "Local") {
+            Write-Host "Make sure Docker containers are running:" -ForegroundColor Red
+            Write-Host "  docker-compose -f docker-compose.local.yml up" -ForegroundColor Yellow
+        } else {
+            Write-Host "Make sure production server is accessible and containers are running." -ForegroundColor Red
+        }
         exit 1
     }
 }
@@ -244,7 +275,7 @@ if ($successCount -gt 0) {
     foreach ($job in $jobResults) {
         Write-Host ""
         Write-Host "# $($job.name)" -ForegroundColor White
-        Write-Host "Invoke-RestMethod -Uri `"http://localhost:8000/api/job-status/$($job.job_id)`"" -ForegroundColor Gray
+        Write-Host "Invoke-RestMethod -Uri `"$STATUS_URL/$($job.job_id)`"" -ForegroundColor Gray
     }
     
     Write-Host ""
@@ -278,7 +309,7 @@ if ($successCount -gt 0) {
             
             foreach ($job in $jobResults) {
                 try {
-                    $status = Invoke-RestMethod -Uri "http://localhost:8000/api/job-status/$($job.job_id)"
+                    $status = Invoke-RestMethod -Uri "$STATUS_URL/$($job.job_id)"
                     
                     $statusSymbol = switch ($status.status) {
                         "completed" { "[OK]"; $completedCount++ }
@@ -321,13 +352,19 @@ if ($successCount -gt 0) {
                 # Show final results
                 Write-Host "Final Results:" -ForegroundColor Cyan
                 foreach ($job in $jobResults) {
-                    $status = Invoke-RestMethod -Uri "http://localhost:8000/api/job-status/$($job.job_id)"
+                    $status = Invoke-RestMethod -Uri "$STATUS_URL/$($job.job_id)"
                     if ($status.status -eq "completed") {
                         Write-Host ""
                         Write-Host "[OK] $($job.name)" -ForegroundColor Green
                         Write-Host "  Agent Report: $($status.dropbox_url)" -ForegroundColor Gray
                         if ($status.commission_dropbox_url) {
                             Write-Host "  Commission Report: $($status.commission_dropbox_url)" -ForegroundColor Gray
+                            if ($status.commission_rate) {
+                                Write-Host "  Commission Rate: $($status.commission_rate)" -ForegroundColor Cyan
+                            }
+                            if ($status.discount) {
+                                Write-Host "  Discount: $($status.discount)" -ForegroundColor Cyan
+                            }
                         }
                     } else {
                         Write-Host ""
@@ -350,16 +387,27 @@ Write-Host "============================================" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "To check Redis, open a new terminal and run:" -ForegroundColor Yellow
 Write-Host ""
-Write-Host "# Connect to Redis" -ForegroundColor White
-Write-Host "docker-compose -f docker-compose.local.yml exec redis redis-cli" -ForegroundColor Gray
+
+if ($SERVER_NAME -eq "Local") {
+    Write-Host "# Connect to Redis (Local)" -ForegroundColor White
+    Write-Host "docker-compose -f docker-compose.local.yml exec redis redis-cli" -ForegroundColor Gray
+} else {
+    Write-Host "# Connect to Production Redis (SSH first)" -ForegroundColor White
+    Write-Host "ssh root@65.108.146.173" -ForegroundColor Gray
+    Write-Host "cd /var/www/fastapi-app/AgentLink" -ForegroundColor Gray
+    Write-Host "docker compose exec redis redis-cli" -ForegroundColor Gray
+}
+
 Write-Host ""
 Write-Host "Then inside Redis CLI:" -ForegroundColor White
 Write-Host "  KEYS job:*                         # List all jobs" -ForegroundColor Gray
 Write-Host "  LLEN rq:queue:agentlink-queue      # Check queue length" -ForegroundColor Gray
 Write-Host "  LRANGE rq:queue:agentlink-queue 0 -1  # List queued jobs" -ForegroundColor Gray
 Write-Host "  HGETALL job:JOB_ID                 # Get job details" -ForegroundColor Gray
+Write-Host "  SMEMBERS rq:workers                # List active workers" -ForegroundColor Gray
 Write-Host "  INFO stats                         # Redis statistics" -ForegroundColor Gray
 Write-Host "  EXIT                               # Quit Redis CLI" -ForegroundColor Gray
 Write-Host ""
 Write-Host "Test completed at: $(Get-Date -Format 'HH:mm:ss')" -ForegroundColor Cyan
+Write-Host "Server tested: $SERVER_NAME ($API_BASE_URL)" -ForegroundColor Cyan
 Write-Host "============================================" -ForegroundColor Cyan

@@ -102,11 +102,11 @@ async def get_commission_rate_async(agents_data, job_id, suburb, home_owner_pric
         if os.path.exists(pdf_path):
             os.remove(pdf_path)
             
-        return dropbox_url, filename
+        return dropbox_url, filename, commission_rate, discount
         
     except Exception as e:
         logger.error(f"Error generating commission report for job {job_id}: {str(e)}", exc_info=True)
-        return None, None
+        return None, None, "", ""
 
 
 def process_agents_report_task(
@@ -168,9 +168,11 @@ def process_agents_report_task(
         # Generate commission report if needed
         commission_dropbox_url = None
         commission_filename = None
+        commission_rate = ""
+        discount = ""
         if home_owner_pricing:
             update_job_status(job_id, "generating_commission_pdf")
-            commission_dropbox_url, commission_filename = loop.run_until_complete(
+            commission_dropbox_url, commission_filename, commission_rate, discount = loop.run_until_complete(
                 get_commission_rate_async(agents_data, job_id, suburb, home_owner_pricing, post_code, state)
             )
             logger.info(f"Job {job_id}: Commission report generated: {commission_dropbox_url}")
@@ -214,6 +216,8 @@ def process_agents_report_task(
             filename=filename,
             commission_dropbox_url=commission_dropbox_url or "",
             commission_filename=commission_filename or "",
+            commission_rate=commission_rate,
+            discount=discount,
             error=""
         )
         

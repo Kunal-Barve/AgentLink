@@ -49,10 +49,34 @@ def get_featured_agent_commission(agent_name, home_owner_pricing, suburb, state)
         
         # Check if the request was successful
         if response.status_code == 200:
-            data = response.json()
+            # Handle malformed JSON with multiple arrays: [{...}],[{...}]
+            response_text = response.text
+            print(f"DEBUG - Raw API response text: {response_text[:500]}")  # Print first 500 chars
             
-            # Debug: Print raw response data
-            print(f"DEBUG - API response data: {json.dumps(data, indent=2)}")
+            try:
+                data = response.json()
+            except json.JSONDecodeError as e:
+                # Try to fix malformed JSON with multiple arrays
+                print(f"DEBUG - JSON decode error: {str(e)}")
+                print(f"DEBUG - Attempting to fix malformed JSON")
+                
+                # Try to parse the first array from malformed response like: [{...}],[{...}]
+                try:
+                    # Find the first complete JSON array
+                    first_array_end = response_text.find(']') + 1
+                    if first_array_end > 0:
+                        first_array_text = response_text[:first_array_end]
+                        data = json.loads(first_array_text)
+                        print(f"DEBUG - Successfully parsed first array from malformed JSON")
+                    else:
+                        raise ValueError("Could not find array end")
+                except Exception as fix_error:
+                    logger.error(f"Failed to fix malformed JSON: {str(fix_error)}")
+                    print(f"DEBUG - Failed to fix malformed JSON: {str(fix_error)}")
+                    return get_agent_commission(home_owner_pricing, state=state)
+            
+            # Debug: Print parsed data
+            print(f"DEBUG - Parsed API response data: {json.dumps(data, indent=2)}")
             
             # If no data returned or empty list
             if not data or len(data) == 0:
@@ -136,14 +160,20 @@ def get_featured_agent_commission(agent_name, home_owner_pricing, suburb, state)
                     print(f"DEBUG - Extracted lowest price: ${lowest_price:,}")
                     
                     if lowest_price > 0:
-                        # Calculate discount: price × lowest_rate × 20% × 30%
-                        raw_discount = lowest_price * (lowest_rate / 100) * 0.2 * 0.3
+                        # Calculate discount: price × lowest_rate × 20% × 25%
+                        raw_discount = lowest_price * (lowest_rate / 100) * 0.2 * 0.25
                         
                         # Debug: Print the raw discount
                         print(f"DEBUG - Raw discount calculation: ${raw_discount:,.2f}")
                         
-                        # Round to nearest 500
-                        rounded_discount = round(raw_discount / 500) * 500
+                        # Round to nearest $250 increment
+                        rounded_discount = round(raw_discount / 250) * 250
+                        
+                        # Clamp to range: minimum $500, maximum $10,000
+                        if rounded_discount < 500:
+                            rounded_discount = 500
+                        elif rounded_discount > 10000:
+                            rounded_discount = 10000
                         
                         # Debug: Print the rounded discount
                         print(f"DEBUG - Rounded discount: ${rounded_discount:,.0f}")
