@@ -49,12 +49,24 @@ async def check_featured_agent(suburb, state):
             # Parse the response JSON
             result = response.json()
             
-            # Check if we have valid agents data
+            # Case 1: Check if webhook returned a string response (e.g., "Accepted")
+            if isinstance(result, str):
+                logger.info(f"Webhook returned string response (no agents found): {result}")
+                logger.info(f"No featured agents found for {suburb}, {state}")
+                return None
+            
+            # Case 2: Check if webhook returned an acknowledgment message (dict) instead of agent list
+            if isinstance(result, dict):
+                logger.info(f"Webhook returned acknowledgment message (no agents found): {result}")
+                logger.info(f"No featured agents found for {suburb}, {state}")
+                return None
+            
+            # Case 3: Check if we have a valid agent list
             if isinstance(result, list) and len(result) > 0:
                 # Check if we have an empty agent record (no agents for this suburb)
                 first_agent = result[0]
                 if not first_agent.get("Name") or first_agent.get("Name").strip() == "":
-                    logger.info(f"No featured agents found for {suburb}, {state}")
+                    logger.info(f"No featured agents found for {suburb}, {state} (empty agent record)")
                     return None
                 
                 # Process each agent to add is_featured_plus flag
@@ -66,7 +78,8 @@ async def check_featured_agent(suburb, state):
                 logger.info(f"Found {len(result)} featured agents for {suburb}, {state}")
                 return result
             else:
-                logger.warning(f"Unexpected response format from featured agent webhook: {result}")
+                # Case 4: Empty list or unexpected format
+                logger.info(f"No featured agents found for {suburb}, {state} (empty list or unexpected format: {result})")
                 return None
         else:
             logger.error(f"Failed to check featured agents: {response.status_code} - {response.text}")
