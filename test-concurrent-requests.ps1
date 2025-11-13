@@ -38,8 +38,50 @@ $API_URL = "$API_BASE_URL/api/generate-agents-report"
 $STATUS_URL = "$API_BASE_URL/api/job-status"
 Write-Host ""
 
-# Define all 5 requests
-$requests = @(
+# Define all available requests
+$allRequests = @(
+    @{
+        name = "Kellyville, NSW"
+        body = @{
+            suburb = "Kellyville"
+            state = "NSW"
+            property_types = $null
+            min_bedrooms = 1
+            max_bedrooms = $null
+            min_bathrooms = 1
+            max_bathrooms = $null
+            min_carspaces = 1
+            max_carspaces = $null
+            include_surrounding_suburbs = $false
+            post_code = "2155"
+            region = $null
+            area = $null
+            min_land_area = $null
+            max_land_area = $null
+            home_owner_pricing = "Less than `$500k"
+        }
+    },
+    @{
+        name = "Wellington Point, QLD"
+        body = @{
+            suburb = "Wellington Point"
+            state = "QLD"
+            property_types = $null
+            min_bedrooms = 1
+            max_bedrooms = $null
+            min_bathrooms = 1
+            max_bathrooms = $null
+            min_carspaces = 1
+            max_carspaces = $null
+            include_surrounding_suburbs = $false
+            post_code = "4160"
+            region = $null
+            area = $null
+            min_land_area = $null
+            max_land_area = $null
+            home_owner_pricing = "`$1m-`$1.5m"
+        }
+    },
     @{
         name = "Frankston, VIC"
         body = @{
@@ -58,7 +100,7 @@ $requests = @(
             area = $null
             min_land_area = $null
             max_land_area = $null
-            home_owner_pricing = "`$3m-`$3.5m"
+            home_owner_pricing = "`$500k-`$1m"
         }
     },
     @{
@@ -79,7 +121,7 @@ $requests = @(
             area = $null
             min_land_area = $null
             max_land_area = $null
-            home_owner_pricing = "`$500k-`$1m"
+            home_owner_pricing = "`$1m-`$1.5m"
         }
     },
     @{
@@ -100,7 +142,7 @@ $requests = @(
             area = $null
             min_land_area = $null
             max_land_area = $null
-            home_owner_pricing = "`$500k-`$1m"
+            home_owner_pricing = "`$1.5m-`$2m"
         }
     },
     @{
@@ -121,7 +163,7 @@ $requests = @(
             area = $null
             min_land_area = $null
             max_land_area = $null
-            home_owner_pricing = "`$1m-`$1.5m"
+            home_owner_pricing = "`$2m-`$2.5m"
         }
     },
     @{
@@ -142,10 +184,198 @@ $requests = @(
             area = $null
             min_land_area = $null
             max_land_area = $null
-            home_owner_pricing = "`$1.5m-`$2m"
+            home_owner_pricing = "`$2.5m-`$3m"
+        }
+    },
+    @{
+        name = "Clovelly, NSW (Deduplication Test)"
+        body = @{
+            suburb = "Clovelly"
+            state = "NSW"
+            property_types = $null
+            min_bedrooms = 1
+            max_bedrooms = $null
+            min_bathrooms = 1
+            max_bathrooms = $null
+            min_carspaces = 1
+            max_carspaces = $null
+            include_surrounding_suburbs = $false
+            post_code = "2031"
+            region = $null
+            area = $null
+            min_land_area = $null
+            max_land_area = $null
+            home_owner_pricing = "`$2.5m-`$3m"
+        }
+    },
+    @{
+        name = "Double Bay, NSW (High-End Test)"
+        body = @{
+            suburb = "Double Bay"
+            state = "NSW"
+            property_types = $null
+            min_bedrooms = 1
+            max_bedrooms = $null
+            min_bathrooms = 1
+            max_bathrooms = $null
+            min_carspaces = 1
+            max_carspaces = $null
+            include_surrounding_suburbs = $false
+            post_code = "2028"
+            region = $null
+            area = $null
+            min_land_area = $null
+            max_land_area = $null
+            home_owner_pricing = "`$3m-`$3.5m"
+        }
+    },
+    @{
+        name = "Mosman, NSW (Premium Test)"
+        body = @{
+            suburb = "Mosman"
+            state = "NSW"
+            property_types = $null
+            min_bedrooms = 1
+            max_bedrooms = $null
+            min_bathrooms = 1
+            max_bathrooms = $null
+            min_carspaces = 1
+            max_carspaces = $null
+            include_surrounding_suburbs = $false
+            post_code = "2088"
+            region = $null
+            area = $null
+            min_land_area = $null
+            max_land_area = $null
+            home_owner_pricing = "`$3.5m-`$4m"
+        }
+    },
+    @{
+        name = "Vaucluse, NSW (Luxury Test)"
+        body = @{
+            suburb = "Vaucluse"
+            state = "NSW"
+            property_types = $null
+            min_bedrooms = 1
+            max_bedrooms = $null
+            min_bathrooms = 1
+            max_bathrooms = $null
+            min_carspaces = 1
+            max_carspaces = $null
+            include_surrounding_suburbs = $false
+            post_code = "2030"
+            region = $null
+            area = $null
+            min_land_area = $null
+            max_land_area = $null
+            home_owner_pricing = "`$4m-`$6m"
+        }
+    },
+    @{
+        name = "Point Piper, NSW (Ultra-Luxury Test)"
+        body = @{
+            suburb = "Point Piper"
+            state = "NSW"
+            property_types = $null
+            min_bedrooms = 1
+            max_bedrooms = $null
+            min_bathrooms = 1
+            max_bathrooms = $null
+            min_carspaces = 1
+            max_carspaces = $null
+            include_surrounding_suburbs = $false
+            post_code = "2027"
+            region = $null
+            area = $null
+            min_land_area = $null
+            max_land_area = $null
+            home_owner_pricing = "`$6m-`$8m"
+        }
+    },
+    @{
+        name = "Bellevue Hill, NSW (Top-Tier Test)"
+        body = @{
+            suburb = "Bellevue Hill"
+            state = "NSW"
+            property_types = $null
+            min_bedrooms = 1
+            max_bedrooms = $null
+            min_bathrooms = 1
+            max_bathrooms = $null
+            min_carspaces = 1
+            max_carspaces = $null
+            include_surrounding_suburbs = $false
+            post_code = "2023"
+            region = $null
+            area = $null
+            min_land_area = $null
+            max_land_area = $null
+            home_owner_pricing = "`$8m-`$10m"
+        }
+    },
+    @{
+        name = "Toorak, VIC (Ultra-Premium Test)"
+        body = @{
+            suburb = "Toorak"
+            state = "VIC"
+            property_types = $null
+            min_bedrooms = 1
+            max_bedrooms = $null
+            min_bathrooms = 1
+            max_bathrooms = $null
+            min_carspaces = 1
+            max_carspaces = $null
+            include_surrounding_suburbs = $false
+            post_code = "3142"
+            region = $null
+            area = $null
+            min_land_area = $null
+            max_land_area = $null
+            home_owner_pricing = "`$10m+"
         }
     }
 )
+
+# Display available requests
+Write-Host ""
+Write-Host "============================================" -ForegroundColor Cyan
+Write-Host "  Available Test Requests" -ForegroundColor Cyan
+Write-Host "============================================" -ForegroundColor Cyan
+Write-Host ""
+for ($i = 0; $i -lt $allRequests.Count; $i++) {
+    Write-Host "  $($i + 1). $($allRequests[$i].name)" -ForegroundColor White
+}
+Write-Host ""
+Write-Host "Enter request numbers separated by commas (e.g., 1,2,3)" -ForegroundColor Yellow
+Write-Host "Or press Enter to run ALL requests" -ForegroundColor Yellow
+Write-Host ""
+$requestSelection = Read-Host "Your selection"
+
+# Parse selection
+$requests = @()
+if ([string]::IsNullOrWhiteSpace($requestSelection)) {
+    # Run all requests
+    $requests = $allRequests
+    Write-Host "[INFO] Running ALL $($allRequests.Count) requests" -ForegroundColor Green
+} else {
+    # Parse comma-separated numbers
+    $selectedIndices = $requestSelection -split ',' | ForEach-Object { $_.Trim() }
+    
+    foreach ($idx in $selectedIndices) {
+        $index = [int]$idx - 1
+        if ($index -ge 0 -and $index -lt $allRequests.Count) {
+            $requests += $allRequests[$index]
+            Write-Host "[INFO] Added: $($allRequests[$index].name)" -ForegroundColor Green
+        } else {
+            Write-Host "[WARNING] Invalid index: $idx (ignored)" -ForegroundColor Yellow
+        }
+    }
+    
+    if ($requests.Count -eq 0) {
+        Write-Host "[ERROR] No valid requests selected. Exiting." -ForegroundColor Red
+        exit 1
+    }
+}
 
 # Test API connection first
 Write-Host "[INFO] Testing API connection..." -ForegroundColor Yellow
@@ -170,14 +400,14 @@ try {
 }
 
 Write-Host ""
-Write-Host "Sending 5 concurrent requests at: $(Get-Date -Format 'HH:mm:ss')" -ForegroundColor Cyan
+Write-Host "Sending $($requests.Count) concurrent request(s) at: $(Get-Date -Format 'HH:mm:ss')" -ForegroundColor Cyan
 Write-Host "--------------------------------------------" -ForegroundColor Gray
 
 # Array to store job IDs and results
 $jobResults = @()
 $jobs = @()
 
-# Send all 5 requests concurrently using background jobs
+# Send all selected requests concurrently using background jobs
 for ($i = 0; $i -lt $requests.Count; $i++) {
     $req = $requests[$i]
     

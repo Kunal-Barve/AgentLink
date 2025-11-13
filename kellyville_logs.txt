@@ -1,0 +1,469 @@
+  Combined Sales Value: $800k
+Agent Kevin Renard metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $800k
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $800k
+  Combined Sales Value: $800k
+Agent Naomi Will metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $830k
+  Total Sales Value (Primary): $830k
+  Joint Sales Value: $0
+  Combined Sales Value: $830k
+Agent Pete Fallon metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $825k
+  Total Sales Value (Primary): $825k
+  Joint Sales Value: $0
+  Combined Sales Value: $825k
+Agent James Marchington metrics:
+  Total Properties: 2
+  Properties with prices: 2
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 1
+  Median Sold Price (All Sales): $791k
+  Total Sales Value (Primary): $757k
+  Joint Sales Value: $825k
+  Combined Sales Value: $1.6m
+Agent Carter Persinos metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $600k
+  Total Sales Value (Primary): $600k
+  Joint Sales Value: $0
+  Combined Sales Value: $600k
+Agent David Ferrari metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $600k
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $600k
+  Combined Sales Value: $600k
+Agent Marco Wenzel metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $644k
+  Total Sales Value (Primary): $644k
+  Joint Sales Value: $0
+  Combined Sales Value: $644k
+Agent Kate O'Rourke metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $644k
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $644k
+  Combined Sales Value: $644k
+Agent Gabrielle Overton metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $1.1m
+  Total Sales Value (Primary): $1.1m
+  Joint Sales Value: $0
+  Combined Sales Value: $1.1m
+Agent Shaun Roberts metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $1.0m
+  Total Sales Value (Primary): $1.0m
+  Joint Sales Value: $0
+  Combined Sales Value: $1.0m
+Agent Dean King metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $1.0m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $1.0m
+  Combined Sales Value: $1.0m
+Agent Mike Cross metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $705k
+  Total Sales Value (Primary): $705k
+  Joint Sales Value: $0
+  Combined Sales Value: $705k
+Agent Tara Witham metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $685k
+  Total Sales Value (Primary): $685k
+  Joint Sales Value: $0
+  Combined Sales Value: $685k
+Agent Sam Conlen metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $685k
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $685k
+  Combined Sales Value: $685k
+Agent Rod Smitheram metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $870k
+  Total Sales Value (Primary): $870k
+  Joint Sales Value: $0
+  Combined Sales Value: $870k
+Agent Chloe Martin metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $870k
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $870k
+  Combined Sales Value: $870k
+Agent Kevin J. Barry metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $647k
+  Total Sales Value (Primary): $647k
+  Joint Sales Value: $0
+  Combined Sales Value: $647k
+Agent Chris O'Brien metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $1.1m
+  Total Sales Value (Primary): $1.1m
+  Joint Sales Value: $0
+  Combined Sales Value: $1.1m
+
+Step 5: Marking top agents as featured...
+
+Marked David Hams as featured agent
+
+Final result: 21 agencies with 52 agents in Seaford rise
+
+===== AGENT DEDUPLICATION PROCESS =====
+Total agents before deduplication: 35
+
+Processing agent group: john lewis (1 occurrences)
+  Single occurrence - Adding agent: John Lewis from OC
+  Agent key: 'john lewis_oc'
+
+Processing agent group: nicole steele (1 occurrences)
+  Single occurrence - Adding agent: Nicole Steele from OC
+  Agent key: 'nicole steele_oc'
+
+Processing agent group: david liston (1 occurrences)
+  Single occurrence - Adding agent: David Liston from OC
+  Agent key: 'david liston_oc'
+
+Processing agent group: jamie hershman (1 occurrences)
+  Single occurrence - Adding agent: Jamie Hershman from Agency Matters
+  Agent key: 'jamie hershman_agency matters'
+
+Processing agent group: derek sobkowiak (1 occurrences)
+  Single occurrence - Adding agent: Derek Sobkowiak from Century 21 Southern | Northside
+  Agent key: 'derek sobkowiak_century 21 southern | northside'
+
+Processing agent group: shelley bezuidenhout (1 occurrences)
+  Single occurrence - Adding agent: Shelley Bezuidenhout from Century 21 SouthCoast / NorthEast
+  Agent key: 'shelley bezuidenhout_century 21 southcoast / northeast'
+
+Processing agent group: david hams (1 occurrences)
+  Single occurrence - Adding agent: David Hams from Magain Real Estate Adelaide
+  Agent key: 'david hams_magain real estate adelaide'
+
+Processing agent group: jacqui wehrmann (1 occurrences)
+  Single occurrence - Adding agent: Jacqui Wehrmann from Magain Real Estate Adelaide
+  Agent key: 'jacqui wehrmann_magain real estate adelaide'
+
+Processing agent group: jemma turner (1 occurrences)
+  Single occurrence - Adding agent: Jemma Turner from Magain Real Estate Adelaide
+  Agent key: 'jemma turner_magain real estate adelaide'
+
+Processing agent group: neil cole (1 occurrences)
+  Single occurrence - Adding agent: Neil Cole from Magain Real Estate Adelaide
+  Agent key: 'neil cole_magain real estate adelaide'
+
+Processing agent group: wilma mace (1 occurrences)
+  Single occurrence - Adding agent: Wilma Mace from Magain Real Estate Adelaide
+  Agent key: 'wilma mace_magain real estate adelaide'
+
+Processing agent group: lindy kriticos (1 occurrences)
+  Single occurrence - Adding agent: Lindy Kriticos from Magain Real Estate Adelaide
+  Agent key: 'lindy kriticos_magain real estate adelaide'
+
+Processing agent group: adam farrelly & marg kneebone (1 occurrences)
+  Single occurrence - Adding agent: Adam Farrelly & Marg Kneebone from Century 21 Coast to Vines Group
+  Agent key: 'adam farrelly & marg kneebone_century 21 coast to vines group'
+
+Processing agent group: marg kneebone & adam farrelly (1 occurrences)
+  Single occurrence - Adding agent: Marg Kneebone & Adam Farrelly from Century 21 Coast to Vines Group
+  Agent key: 'marg kneebone & adam farrelly_century 21 coast to vines group'
+
+Processing agent group: daniel wells (1 occurrences)
+  Single occurrence - Adding agent: Daniel Wells from Ray White Seaford
+  Agent key: 'daniel wells_ray white seaford'
+
+Processing agent group: chanelle zadey (1 occurrences)
+  Single occurrence - Adding agent: Chanelle Zadey from Ray White Seaford
+  Agent key: 'chanelle zadey_ray white seaford'
+
+Processing agent group: jason mills (1 occurrences)
+  Single occurrence - Adding agent: Jason Mills from Ray White Unley | Colonel Light Gardens
+  Agent key: 'jason mills_ray white unley | colonel light gardens'
+
+Processing agent group: carly frost (1 occurrences)
+  Single occurrence - Adding agent: Carly Frost from Harris Real Estate - Wine Coast RLA 335392
+  Agent key: 'carly frost_harris real estate - wine coast rla 335392'
+
+Processing agent group: holly freeland (1 occurrences)
+  Single occurrence - Adding agent: Holly Freeland from Harris Real Estate - Wine Coast RLA 335392
+  Agent key: 'holly freeland_harris real estate - wine coast rla 335392'
+
+Processing agent group: chris cotton (1 occurrences)
+  Single occurrence - Adding agent: Chris Cotton from Harris Real Estate - Wine Coast RLA 335392
+  Agent key: 'chris cotton_harris real estate - wine coast rla 335392'
+
+Processing agent group: shona smart (1 occurrences)
+  Single occurrence - Adding agent: Shona Smart from Harris Real Estate - Wine Coast RLA 335392
+  Agent key: 'shona smart_harris real estate - wine coast rla 335392'
+
+Processing agent group: kate o'rourke (1 occurrences)
+  Single occurrence - Adding agent: Kate O'Rourke from Harris Real Estate - Wine Coast RLA 335392
+  Agent key: 'kate o'rourke_harris real estate - wine coast rla 335392'
+
+Processing agent group: sam bennett (1 occurrences)
+  Single occurrence - Adding agent: Sam Bennett from Harris Real Estate - Wine Coast RLA 335392
+  Agent key: 'sam bennett_harris real estate - wine coast rla 335392'
+
+Processing agent group: naomi will (1 occurrences)
+  Single occurrence - Adding agent: Naomi Will from Naomi Will Real Estate Pty Ltd
+  Agent key: 'naomi will_naomi will real estate pty ltd'
+
+Processing agent group: pete fallon (1 occurrences)
+  Single occurrence - Adding agent: Pete Fallon from Ray White Woodcroft
+  Agent key: 'pete fallon_ray white woodcroft'
+
+Processing agent group: james marchington (1 occurrences)
+  Single occurrence - Adding agent: James Marchington from Ray White Woodcroft
+  Agent key: 'james marchington_ray white woodcroft'
+
+Processing agent group: carter persinos (1 occurrences)
+  Single occurrence - Adding agent: Carter Persinos from Belle Property Glenelg
+  Agent key: 'carter persinos_belle property glenelg'
+
+Processing agent group: marco wenzel (1 occurrences)
+  Single occurrence - Adding agent: Marco Wenzel from Harris Real Estate - Glenelg RLA 343664
+  Agent key: 'marco wenzel_harris real estate - glenelg rla 343664'
+
+Processing agent group: gabrielle overton (1 occurrences)
+  Single occurrence - Adding agent: Gabrielle Overton from LJ Hooker Kensington | Unley
+  Agent key: 'gabrielle overton_lj hooker kensington | unley'
+
+Processing agent group: shaun roberts (1 occurrences)
+  Single occurrence - Adding agent: Shaun Roberts from LJ Hooker Property Specialists
+  Agent key: 'shaun roberts_lj hooker property specialists'
+
+Processing agent group: mike cross (1 occurrences)
+  Single occurrence - Adding agent: Mike Cross from Southgate Real Estate
+  Agent key: 'mike cross_southgate real estate'
+
+Processing agent group: tara witham (1 occurrences)
+  Single occurrence - Adding agent: Tara Witham from Ray White Flagstaff Hill
+  Agent key: 'tara witham_ray white flagstaff hill'
+
+Processing agent group: rod smitheram (1 occurrences)
+  Single occurrence - Adding agent: Rod Smitheram from Ray White Glenelg
+  Agent key: 'rod smitheram_ray white glenelg'
+
+Processing agent group: kevin j. barry (1 occurrences)
+  Single occurrence - Adding agent: Kevin J. Barry from Professionals Christies Beach
+  Agent key: 'kevin j. barry_professionals christies beach'
+
+Processing agent group: chris o'brien (1 occurrences)
+  Single occurrence - Adding agent: Chris O'Brien from South Real Estate
+  Agent key: 'chris o'brien_south real estate'
+
+===== DEDUPLICATION SUMMARY =====
+Reduced 35 agents to 35 unique agents
+Unique agent keys:
+  - 'john lewis_oc'
+  - 'nicole steele_oc'
+  - 'david liston_oc'
+  - 'jamie hershman_agency matters'
+  - 'derek sobkowiak_century 21 southern | northside'
+  - 'shelley bezuidenhout_century 21 southcoast / northeast'
+  - 'david hams_magain real estate adelaide'
+  - 'jacqui wehrmann_magain real estate adelaide'
+  - 'jemma turner_magain real estate adelaide'
+  - 'neil cole_magain real estate adelaide'
+  - 'wilma mace_magain real estate adelaide'
+  - 'lindy kriticos_magain real estate adelaide'
+  - 'adam farrelly & marg kneebone_century 21 coast to vines group'
+  - 'marg kneebone & adam farrelly_century 21 coast to vines group'
+  - 'daniel wells_ray white seaford'
+  - 'chanelle zadey_ray white seaford'
+  - 'jason mills_ray white unley | colonel light gardens'
+  - 'carly frost_harris real estate - wine coast rla 335392'
+  - 'holly freeland_harris real estate - wine coast rla 335392'
+  - 'chris cotton_harris real estate - wine coast rla 335392'
+  - 'shona smart_harris real estate - wine coast rla 335392'
+  - 'kate o'rourke_harris real estate - wine coast rla 335392'
+  - 'sam bennett_harris real estate - wine coast rla 335392'
+  - 'naomi will_naomi will real estate pty ltd'
+  - 'pete fallon_ray white woodcroft'
+  - 'james marchington_ray white woodcroft'
+  - 'carter persinos_belle property glenelg'
+  - 'marco wenzel_harris real estate - glenelg rla 343664'
+  - 'gabrielle overton_lj hooker kensington | unley'
+  - 'shaun roberts_lj hooker property specialists'
+  - 'mike cross_southgate real estate'
+  - 'tara witham_ray white flagstaff hill'
+  - 'rod smitheram_ray white glenelg'
+  - 'kevin j. barry_professionals christies beach'
+  - 'chris o'brien_south real estate'
+
+===== AGENTS LIST =====
+[{'id': 'John Lewis', 'name': 'John Lewis', 'photo': 'https://images.domain.com.au/img/19037/contact_1709847.jpeg?mod=251013-184942', 'properties': {2020055702: {'sold_price': 740000, 'sold_date': '2025-06-25', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 740000, 'joint_sales_value': 0, 'median_sold_price': '$740k', 'median_sold_price_value': 740000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 740000, 'agency': 'OC', 'agency_logo': 'https://images.domain.com.au/img/Agencys/19037/logo_19037.jpeg', 'featured': False, 'featured_plus': False}, {'id': 'Nicole Steele', 'name': 'Nicole Steele', 'photo': 'https://images.domain.com.au/img/19037/contact_1949467.jpeg?mod=251013-170035', 'properties': {2020282469: {'sold_price': None, 'sold_date': '2025-09-04', 'is_primary': True}, 2019956657: {'sold_price': 900000, 'sold_date': '2025-05-15', 'is_primary': True}, 2019995459: {'sold_price': 750000, 'sold_date': '2025-06-02', 'is_primary': True}, 2019989578: {'sold_price': 747000, 'sold_date': '2025-05-22', 'is_primary': True}, 2019989532: {'sold_price': 790000, 'sold_date': '2025-05-21', 'is_primary': True}, 2019645713: {'sold_price': 730000, 'sold_date': '2024-11-27', 'is_primary': True}}, 'total_sales': 6, 'joint_sales': 0, 'total_value': 3917000, 'joint_sales_value': 0, 'median_sold_price': '$750k', 'median_sold_price_value': 750000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 3917000, 'agency': 'OC', 'agency_logo': 'https://images.domain.com.au/img/Agencys/19037/logo_19037.jpeg', 'featured': False, 'featured_plus': False}, {'id': 'David Liston', 'name': 'David Liston', 'photo': 'https://images.domain.com.au/img/19037/contact_1890492.jpeg?mod=251013-155351', 'properties': {2019725977: {'sold_price': 700000, 'sold_date': '2025-01-22', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 700000, 'joint_sales_value': 0, 'median_sold_price': '$700k', 'median_sold_price_value': 700000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 700000, 'agency': 'OC', 'agency_logo': 'https://images.domain.com.au/img/Agencys/19037/logo_19037.jpeg', 'featured': False, 'featured_plus': False}, {'id': 'Jamie Hershman', 'name': 'Jamie Hershman', 'photo': 'https://images.domain.com.au/img/38232/contact_1952981.jpeg?mod=251013-154217', 'properties': {2019742990: {'sold_price': 667000, 'sold_date': '2025-02-14', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 667000, 'joint_sales_value': 0, 'median_sold_price': '$667k', 'median_sold_price_value': 667000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 667000, 'agency': 'Agency Matters', 'agency_logo': 'https://images.domain.com.au/img/Agencys/38232/logo_38232.png', 'featured': False, 'featured_plus': False}, {'id': 'Derek Sobkowiak', 'name': 'Derek Sobkowiak', 'photo': 'https://images.domain.com.au/img/19509/contact_1730291.jpeg?mod=251007-152727', 'properties': {2019626790: {'sold_price': 665000, 'sold_date': '2025-01-06', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 665000, 'joint_sales_value': 0, 'median_sold_price': '$665k', 'median_sold_price_value': 665000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 665000, 'agency': 'Century 21 Southern | Northside', 'agency_logo': 'https://images.domain.com.au/img/Agencys/19509/logo_19509.png?date=131749760738144815', 'featured': False, 'featured_plus': False}, {'id': 'Shelley Bezuidenhout', 'name': 'Shelley Bezuidenhout', 'photo': 'https://images.domain.com.au/img/18345/contact_1826697.png?mod=251013-142423', 'properties': {2019646868: {'sold_price': 925000, 'sold_date': '2024-12-23', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 925000, 'joint_sales_value': 0, 'median_sold_price': '$925k', 'median_sold_price_value': 925000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 925000, 'agency': 'Century 21 SouthCoast / NorthEast', 'agency_logo': 'https://images.domain.com.au/img/Agencys/18345/logo_18345.png', 'featured': False, 'featured_plus': False}, {'id': 'David Hams', 'name': 'David Hams', 'photo': 'https://images.domain.com.au/img/21721/contact_1138192.jpeg?mod=251013-125604', 'properties': {2020208064: {'sold_price': 915000, 'sold_date': '2025-10-07', 'is_primary': True}, 2020162285: {'sold_price': 677000, 'sold_date': '2025-09-29', 'is_primary': True}, 2020226890: {'sold_price': 810000, 'sold_date': '2025-09-29', 'is_primary': True}, 2020121738: {'sold_price': 1006000, 'sold_date': '2025-08-11', 'is_primary': True}, 2020113642: {'sold_price': 901500, 'sold_date': '2025-08-08', 'is_primary': True}, 2019805935: {'sold_price': 925000, 'sold_date': '2025-07-07', 'is_primary': True}, 2019836905: {'sold_price': 910000, 'sold_date': '2025-06-23', 'is_primary': True}, 2019861819: {'sold_price': 717500, 'sold_date': '2025-05-09', 'is_primary': True}, 2019823476: {'sold_price': 880000, 'sold_date': '2025-04-11', 'is_primary': True}, 2019718934: {'sold_price': 827000, 'sold_date': '2025-02-19', 'is_primary': True}, 2019724487: {'sold_price': 707000, 'sold_date': '2025-02-14', 'is_primary': True}, 2019726158: {'sold_price': 627500, 'sold_date': '2025-02-07', 'is_primary': True}, 2019655116: {'sold_price': 718000, 'sold_date': '2025-01-09', 'is_primary': True}, 2019633509: {'sold_price': 785000, 'sold_date': '2024-12-12', 'is_primary': True}, 2019615691: {'sold_price': 760000, 'sold_date': '2024-12-04', 'is_primary': True}}, 'total_sales': 15, 'joint_sales': 0, 'total_value': 12166500, 'joint_sales_value': 0, 'median_sold_price': '$810k', 'median_sold_price_value': 810000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 12166500, 'featured': False, 'agency': 'Magain Real Estate Adelaide', 'agency_logo': 'https://images.domain.com.au/img/Agencys/21721/logo_21721.jpeg', 'featured_plus': False}, {'id': 'Jacqui Wehrmann', 'name': 'Jacqui Wehrmann', 'photo': 'https://images.domain.com.au/img/21721/contact_1969749.jpeg?mod=251013-193351', 'properties': {2020209128: {'sold_price': 748500, 'sold_date': '2025-09-24', 'is_primary': True}, 2020189653: {'sold_price': 875000, 'sold_date': '2025-09-22', 'is_primary': False}, 2020142673: {'sold_price': 796088, 'sold_date': '2025-09-11', 'is_primary': True}, 2020080133: {'sold_price': 685500, 'sold_date': '2025-07-09', 'is_primary': False}, 2019816752: {'sold_price': 800000, 'sold_date': '2025-04-04', 'is_primary': False}}, 'total_sales': 2, 'joint_sales': 3, 'total_value': 1544588, 'joint_sales_value': 2360500, 'median_sold_price': '$796k', 'median_sold_price_value': 796088, 'joint_sales_value_formatted': '$2.4m', 'total_sales_value_combined': 3905088, 'agency': 'Magain Real Estate Adelaide', 'agency_logo': 'https://images.domain.com.au/img/Agencys/21721/logo_21721.jpeg', 'featured': False, 'featured_plus': False}, {'id': 'Jemma Turner', 'name': 'Jemma Turner', 'photo': 'https://images.domain.com.au/img/21721/contact_1184266.jpeg?mod=251013-193351', 'properties': {2020209128: {'sold_price': 748500, 'sold_date': '2025-09-24', 'is_primary': False}, 2020189653: {'sold_price': 875000, 'sold_date': '2025-09-22', 'is_primary': True}, 2020142673: {'sold_price': 796088, 'sold_date': '2025-09-11', 'is_primary': False}, 2020080133: {'sold_price': 685500, 'sold_date': '2025-07-09', 'is_primary': True}, 2019816752: {'sold_price': 800000, 'sold_date': '2025-04-04', 'is_primary': True}}, 'total_sales': 3, 'joint_sales': 2, 'total_value': 2360500, 'joint_sales_value': 1544588, 'median_sold_price': '$796k', 'median_sold_price_value': 796088, 'joint_sales_value_formatted': '$1.5m', 'total_sales_value_combined': 3905088, 'agency': 'Magain Real Estate Adelaide', 'agency_logo': 'https://images.domain.com.au/img/Agencys/21721/logo_21721.jpeg', 'featured': False, 'featured_plus': False}, {'id': 'Neil Cole', 'name': 'Neil Cole', 'photo': 'https://images.domain.com.au/img/21721/contact_1594892.jpeg?mod=250808-113523', 'properties': {2020164924: {'sold_price': 720000, 'sold_date': '2025-08-21', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 720000, 'joint_sales_value': 0, 'median_sold_price': '$720k', 'median_sold_price_value': 720000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 720000, 'agency': 'Magain Real Estate Adelaide', 'agency_logo': 'https://images.domain.com.au/img/Agencys/21721/logo_21721.jpeg', 'featured': False, 'featured_plus': False}, {'id': 'Wilma Mace', 'name': 'Wilma Mace', 'photo': 'https://images.domain.com.au/img/21721/contact_1904006.jpeg?mod=250721-110600', 'properties': {2020033599: {'sold_price': 695000, 'sold_date': '2025-08-04', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 695000, 'joint_sales_value': 0, 'median_sold_price': '$695k', 'median_sold_price_value': 695000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 695000, 'agency': 'Magain Real Estate Adelaide', 'agency_logo': 'https://images.domain.com.au/img/Agencys/21721/logo_21721.jpeg', 'featured': False, 'featured_plus': False}, {'id': 'Lindy Kriticos', 'name': 'Lindy Kriticos', 'photo': 'https://images.domain.com.au/img/21721/contact_1968213.jpeg?mod=251012-105336', 'properties': {2019827296: {'sold_price': 900000, 'sold_date': '2025-04-01', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 900000, 'joint_sales_value': 0, 'median_sold_price': '$900k', 'median_sold_price_value': 900000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 900000, 'agency': 'Magain Real Estate Adelaide', 'agency_logo': 'https://images.domain.com.au/img/Agencys/21721/logo_21721.jpeg', 'featured': False, 'featured_plus': False}, {'id': 'Adam Farrelly & Marg Kneebone', 'name': 'Adam Farrelly & Marg Kneebone', 'photo': 'https://images.domain.com.au/img/36436/contact_1869168.jpeg?mod=251011-190550', 'properties': {2020156029: {'sold_price': 872500, 'sold_date': '2025-08-26', 'is_primary': True}, 2019754834: {'sold_price': 700000, 'sold_date': '2025-02-11', 'is_primary': False}}, 'total_sales': 1, 'joint_sales': 1, 'total_value': 872500, 'joint_sales_value': 700000, 'median_sold_price': '$786k', 'median_sold_price_value': 786250.0, 'joint_sales_value_formatted': '$700k', 'total_sales_value_combined': 1572500, 'agency': 'Century 21 Coast to Vines Group', 'agency_logo': 'https://images.domain.com.au/img/Agencys/36436/logo_36436.png', 'featured': False, 'featured_plus': False}, {'id': 'Marg Kneebone & Adam Farrelly', 'name': 'Marg Kneebone & Adam Farrelly', 'photo': 'https://images.domain.com.au/img/36436/contact_1869170.jpeg?mod=251011-190550', 'properties': {2020156029: {'sold_price': 872500, 'sold_date': '2025-08-26', 'is_primary': False}, 2019754834: {'sold_price': 700000, 'sold_date': '2025-02-11', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 1, 'total_value': 700000, 'joint_sales_value': 872500, 'median_sold_price': '$786k', 'median_sold_price_value': 786250.0, 'joint_sales_value_formatted': '$872k', 'total_sales_value_combined': 1572500, 'agency': 'Century 21 Coast to Vines Group', 'agency_logo': 'https://images.domain.com.au/img/Agencys/36436/logo_36436.png', 'featured': False, 'featured_plus': False}, {'id': 'Daniel Wells', 'name': 'Daniel Wells', 'photo': '', 'properties': {2020218698: {'sold_price': 721000, 'sold_date': '2025-09-15', 'is_primary': True}, 2020125909: {'sold_price': 812000, 'sold_date': '2025-07-29', 'is_primary': True}, 2019952101: {'sold_price': 920000, 'sold_date': '2025-05-13', 'is_primary': True}, 2019919141: {'sold_price': 615000, 'sold_date': '2025-05-05', 'is_primary': True}, 2019625587: {'sold_price': 749000, 'sold_date': '2025-02-07', 'is_primary': True}, 2019720023: {'sold_price': 950000, 'sold_date': '2025-02-03', 'is_primary': False}, 2019625585: {'sold_price': 830000, 'sold_date': '2025-01-09', 'is_primary': True}, 2019608999: {'sold_price': 990000, 'sold_date': '2024-11-20', 'is_primary': True}}, 'total_sales': 7, 'joint_sales': 1, 'total_value': 5637000, 'joint_sales_value': 950000, 'median_sold_price': '$821k', 'median_sold_price_value': 821000.0, 'joint_sales_value_formatted': '$950k', 'total_sales_value_combined': 6587000, 'agency': 'Ray White Seaford', 'agency_logo': 'https://images.domain.com.au/img/Agencys/37009/logo_37009.jpg?date=133646295158095569', 'featured': False, 'featured_plus': False}, {'id': 'Chanelle Zadey', 'name': 'Chanelle Zadey', 'photo': 'https://images.domain.com.au/img/37009/contact_1912637.jpeg?mod=250611-105158', 'properties': {2019908468: {'sold_price': 850000, 'sold_date': '2025-04-24', 'is_primary': True}, 2019720023: {'sold_price': 950000, 'sold_date': '2025-02-03', 'is_primary': True}}, 'total_sales': 2, 'joint_sales': 0, 'total_value': 1800000, 'joint_sales_value': 0, 'median_sold_price': '$900k', 'median_sold_price_value': 900000.0, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 1800000, 'agency': 'Ray White Seaford', 'agency_logo': 'https://images.domain.com.au/img/Agencys/37009/logo_37009.jpg?date=133646295158095569', 'featured': False, 'featured_plus': False}, {'id': 'Jason Mills', 'name': 'Jason Mills', 'photo': 'https://images.domain.com.au/img/28516/contact_1890648.jpeg?mod=251013-165600', 'properties': {2020232735: {'sold_price': 786800, 'sold_date': '2025-09-12', 'is_primary': True}, 2019947663: {'sold_price': 946500, 'sold_date': '2025-06-28', 'is_primary': True}}, 'total_sales': 2, 'joint_sales': 0, 'total_value': 1733300, 'joint_sales_value': 0, 'median_sold_price': '$867k', 'median_sold_price_value': 866650.0, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 1733300, 'agency': 'Ray White Unley | Colonel Light Gardens', 'agency_logo': 'https://images.domain.com.au/img/Agencys/28516/logo_28516.jpg?date=133646292424404054', 'featured': False, 'featured_plus': False}, {'id': 'Carly Frost', 'name': 'Carly Frost', 'photo': 'https://images.domain.com.au/img/5217/contact_1404483.jpeg?mod=251013-184947', 'properties': {2020190675: {'sold_price': 930000, 'sold_date': '2025-08-21', 'is_primary': True}, 2020024308: {'sold_price': 770000, 'sold_date': '2025-06-13', 'is_primary': True}, 2019900303: {'sold_price': 875000, 'sold_date': '2025-04-10', 'is_primary': True}, 2019836347: {'sold_price': 555000, 'sold_date': '2025-03-16', 'is_primary': True}, 2019785217: {'sold_price': 725000, 'sold_date': '2025-02-21', 'is_primary': True}, 2019712699: {'sold_price': 780000, 'sold_date': '2025-02-19', 'is_primary': True}, 2019610217: {'sold_price': 738500, 'sold_date': '2025-01-23', 'is_primary': True}, 2019615282: {'sold_price': 920000, 'sold_date': '2025-01-21', 'is_primary': True}, 2019673852: {'sold_price': 910000, 'sold_date': '2024-12-12', 'is_primary': True}}, 'total_sales': 9, 'joint_sales': 0, 'total_value': 7203500, 'joint_sales_value': 0, 'median_sold_price': '$780k', 'median_sold_price_value': 780000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 7203500, 'agency': 'Harris Real Estate - Wine Coast RLA 335392', 'agency_logo': 'https://images.domain.com.au/img/Agencys/5217/logo_5217.jpeg', 'featured': False, 'featured_plus': False}, {'id': 'Holly Freeland', 'name': 'Holly Freeland', 'photo': 'https://images.domain.com.au/img/5217/contact_1317137.jpeg?mod=251009-201150', 'properties': {2020272210: {'sold_price': None, 'sold_date': '2025-09-25', 'is_primary': True}, 2019898507: {'sold_price': 780000, 'sold_date': '2025-04-15', 'is_primary': True}}, 'total_sales': 2, 'joint_sales': 0, 'total_value': 780000, 'joint_sales_value': 0, 'median_sold_price': '$780k', 'median_sold_price_value': 780000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 780000, 'agency': 'Harris Real Estate - Wine Coast RLA 335392', 'agency_logo': 'https://images.domain.com.au/img/Agencys/5217/logo_5217.jpeg', 'featured': False, 'featured_plus': False}, {'id': 'Chris Cotton', 'name': 'Chris Cotton', 'photo': 'https://images.domain.com.au/img/5217/contact_1268836.jpeg?mod=251019-094733', 'properties': {2019815051: {'sold_price': 950000, 'sold_date': '2025-06-13', 'is_primary': True}, 2020003454: {'sold_price': 735000, 'sold_date': '2025-05-30', 'is_primary': True}, 2019909003: {'sold_price': 1111000, 'sold_date': '2025-04-15', 'is_primary': True}}, 'total_sales': 3, 'joint_sales': 0, 'total_value': 2796000, 'joint_sales_value': 0, 'median_sold_price': '$950k', 'median_sold_price_value': 950000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 2796000, 'agency': 'Harris Real Estate - Wine Coast RLA 335392', 'agency_logo': 'https://images.domain.com.au/img/Agencys/5217/logo_5217.jpeg', 'featured': False, 'featured_plus': False}, {'id': 'Shona Smart', 'name': 'Shona Smart', 'photo': 'https://images.domain.com.au/img/5217/contact_1543434.jpeg?mod=251009-145359', 'properties': {2019901954: {'sold_price': 755000, 'sold_date': '2025-05-27', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 755000, 'joint_sales_value': 0, 'median_sold_price': '$755k', 'median_sold_price_value': 755000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 755000, 'agency': 'Harris Real Estate - Wine Coast RLA 335392', 'agency_logo': 'https://images.domain.com.au/img/Agencys/5217/logo_5217.jpeg', 'featured': False, 'featured_plus': False}, {'id': "Kate O'Rourke", 'name': "Kate O'Rourke", 'photo': 'https://images.domain.com.au/img/5217/contact_1860581.jpeg?mod=251013-125614', 'properties': {2019904046: {'sold_price': 1034000, 'sold_date': '2025-04-29', 'is_primary': True}, 2019916331: {'sold_price': 911000, 'sold_date': '2025-04-21', 'is_primary': True}, 2019851424: {'sold_price': 662999, 'sold_date': '2025-03-22', 'is_primary': True}, 2019788019: {'sold_price': 775000, 'sold_date': '2025-02-19', 'is_primary': True}, 2019612601: {'sold_price': 910000, 'sold_date': '2024-11-20', 'is_primary': True}}, 'total_sales': 5, 'joint_sales': 0, 'total_value': 4292999, 'joint_sales_value': 0, 'median_sold_price': '$910k', 'median_sold_price_value': 910000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 4292999, 'agency': 'Harris Real Estate - Wine Coast RLA 335392', 'agency_logo': 'https://images.domain.com.au/img/Agencys/5217/logo_5217.jpeg', 'featured': False, 'featured_plus': False}, {'id': 'Sam Bennett', 'name': 'Sam Bennett', 'photo': 'https://images.domain.com.au/img/5217/contact_1989925.jpeg?mod=251013-173146', 'properties': {2019939579: {'sold_price': 800000, 'sold_date': '2024-05-17', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 800000, 'joint_sales_value': 0, 'median_sold_price': '$800k', 'median_sold_price_value': 800000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 800000, 'agency': 'Harris Real Estate - Wine Coast RLA 335392', 'agency_logo': 'https://images.domain.com.au/img/Agencys/5217/logo_5217.jpeg', 'featured': False, 'featured_plus': False}, {'id': 'Naomi Will', 'name': 'Naomi Will', 'photo': 'https://images.domain.com.au/img/23252/contact_1161872.jpeg?mod=251013-153630', 'properties': {2019878449: {'sold_price': 830000, 'sold_date': '2025-07-11', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 830000, 'joint_sales_value': 0, 'median_sold_price': '$830k', 'median_sold_price_value': 830000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 830000, 'agency': 'Naomi Will Real Estate Pty Ltd', 'agency_logo': 'https://images.domain.com.au/img/Agencys/23252/logo_23252.GIF', 'featured': False, 'featured_plus': False}, {'id': 'Pete Fallon', 'name': 'Pete Fallon', 'photo': 'https://images.domain.com.au/img/37027/contact_1897722.jpeg?mod=251012-092033', 'properties': {2019958639: {'sold_price': 825000, 'sold_date': '2025-05-21', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 825000, 'joint_sales_value': 0, 'median_sold_price': '$825k', 'median_sold_price_value': 825000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 825000, 'agency': 'Ray White Woodcroft', 'agency_logo': 'https://images.domain.com.au/img/Agencys/37027/logo_37027.jpg?date=133646295159345574', 'featured': False, 'featured_plus': False}, {'id': 'James Marchington', 'name': 'James Marchington', 'photo': 'https://images.domain.com.au/img/37027/contact_1951273.jpeg?mod=251012-110037', 'properties': {2019958639: {'sold_price': 825000, 'sold_date': '2025-05-21', 'is_primary': False}, 2019722564: {'sold_price': 757000, 'sold_date': '2025-01-28', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 1, 'total_value': 757000, 'joint_sales_value': 825000, 'median_sold_price': '$791k', 'median_sold_price_value': 791000.0, 'joint_sales_value_formatted': '$825k', 'total_sales_value_combined': 1582000, 'agency': 'Ray White Woodcroft', 'agency_logo': 'https://images.domain.com.au/img/Agencys/37027/logo_37027.jpg?date=133646295159345574', 'featured': False, 'featured_plus': False}, {'id': 'Carter Persinos', 'name': 'Carter Persinos', 'photo': 'https://images.domain.com.au/img/29157/contact_1965128.jpeg?mod=251009-104750', 'properties': {2019870163: {'sold_price': 600000, 'sold_date': '2025-05-14', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 600000, 'joint_sales_value': 0, 'median_sold_price': '$600k', 'median_sold_price_value': 600000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 600000, 'agency': 'Belle Property Glenelg', 'agency_logo': 'https://images.domain.com.au/img/Agencys/29157/logo_29157.png?date=131866420990056869', 'featured': False, 'featured_plus': False}, {'id': 'Marco Wenzel', 'name': 'Marco Wenzel', 'photo': 'https://images.domain.com.au/img/38246/contact_1953598.jpeg?mod=251013-100001', 'properties': {2019809579: {'sold_price': 644000, 'sold_date': '2025-02-28', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 644000, 'joint_sales_value': 0, 'median_sold_price': '$644k', 'median_sold_price_value': 644000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 644000, 'agency': 'Harris Real Estate - Glenelg RLA 343664', 'agency_logo': 'https://images.domain.com.au/img/Agencys/38246/logo_38246.jpeg', 'featured': False, 'featured_plus': False}, {'id': 'Gabrielle Overton', 'name': 'Gabrielle Overton', 'photo': 'https://images.domain.com.au/img/17613/contact_1256987.png?mod=250923-164829', 'properties': {2019636560: {'sold_price': 1150000, 'sold_date': '2025-02-28', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 1150000, 'joint_sales_value': 0, 'median_sold_price': '$1.1m', 'median_sold_price_value': 1150000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 1150000, 'agency': 'LJ Hooker Kensington | Unley', 'agency_logo': 'https://images.domain.com.au/img/Agencys/17613/logo_17613.png', 'featured': False, 'featured_plus': False}, {'id': 'Shaun Roberts', 'name': 'Shaun Roberts', 'photo': 'https://images.domain.com.au/img/19202/contact_1530042.jpeg?mod=251013-122845', 'properties': {2019720671: {'sold_price': 1000000, 'sold_date': '2025-02-25', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 1000000, 'joint_sales_value': 0, 'median_sold_price': '$1.0m', 'median_sold_price_value': 1000000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 1000000, 'agency': 'LJ Hooker Property Specialists', 'agency_logo': 'https://images.domain.com.au/img/Agencys/19202/logo_19202.png', 'featured': False, 'featured_plus': False}, {'id': 'Mike Cross', 'name': 'Mike Cross', 'photo': 'https://images.domain.com.au/img/19482/contact_986399.jpeg?mod=250501-153025', 'properties': {2019737271: {'sold_price': 705000, 'sold_date': '2025-02-10', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 705000, 'joint_sales_value': 0, 'median_sold_price': '$705k', 'median_sold_price_value': 705000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 705000, 'agency': 'Southgate Real Estate', 'agency_logo': 'https://images.domain.com.au/img/Agencys/19482/logo_19482.GIF?date=2015-07-30-13-44-19', 'featured': False, 'featured_plus': False}, {'id': 'Tara Witham', 'name': 'Tara Witham', 'photo': 'https://images.domain.com.au/img/22038/contact_1902065.jpeg?mod=251011-151223', 'properties': {2019732792: {'sold_price': 685000, 'sold_date': '2025-01-10', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 685000, 'joint_sales_value': 0, 'median_sold_price': '$685k', 'median_sold_price_value': 685000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 685000, 'agency': 'Ray White Flagstaff Hill', 'agency_logo': 'https://images.domain.com.au/img/Agencys/22038/logo_22038.jpg?date=133648664329350528', 'featured': False, 'featured_plus': False}, {'id': 'Rod Smitheram', 'name': 'Rod Smitheram', 'photo': 'https://images.domain.com.au/img/14774/contact_1720016.jpeg?mod=251015-100423', 'properties': {2019549312: {'sold_price': 870000, 'sold_date': '2024-11-18', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 870000, 'joint_sales_value': 0, 'median_sold_price': '$870k', 'median_sold_price_value': 870000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 870000, 'agency': 'Ray White Glenelg', 'agency_logo': 'https://images.domain.com.au/img/Agencys/14774/logo_14774.jpg?date=131775915792054907', 'featured': False, 'featured_plus': False}, {'id': 'Kevin J. Barry', 'name': 'Kevin J. Barry', 'photo': 'https://images.domain.com.au/img/7640/contact_1839128.png?mod=251013-204351', 'properties': {2019835702: {'sold_price': 647000, 'sold_date': '2025-05-30', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 647000, 'joint_sales_value': 0, 'median_sold_price': '$647k', 'median_sold_price_value': 647000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 647000, 'agency': 'Professionals Christies Beach', 'agency_logo': 'https://images.domain.com.au/img/Agencys/7640/logo_7640.jpg?date=133945279967376770', 'featured': False, 'featured_plus': False}, {'id': "Chris O'Brien", 'name': "Chris O'Brien", 'photo': 'https://images.domain.com.au/img/23974/contact_1183091.JPG?mod=251010-225721', 'properties': {2019819942: {'sold_price': 1095000, 'sold_date': '2025-03-21', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 1095000, 'joint_sales_value': 0, 'median_sold_price': '$1.1m', 'median_sold_price_value': 1095000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 1095000, 'agency': 'South Real Estate', 'agency_logo': 'https://images.domain.com.au/img/Agencys/23974/logo_23974.GIF?date=2016-01-13-09-45-32', 'featured': False, 'featured_plus': False}]
+
+===== CHECKING FOR FEATURED AGENTS =====
+Featured agents data: None
+
+===== CHECKING FOR AREA TYPE =====
+DEBUG - Getting area type for suburb: Seaford rise, post code: 5169
+DEBUG - Area type API response: 0
+DEBUG - Mapped area type code 0 to suburb
+Area type for Seaford rise: suburb
+No featured agents found for Seaford rise, SA
+No featured agents found for Seaford rise, SA
+DEBUG - get_agent_commission called with: home_owner_pricing='$500k-$1m', area_type='suburb', state='SA'
+DEBUG - Attempting to fetch rates from webhook for state 'SA' and price '$500k-$1m'
+DEBUG - API response status: 200
+DEBUG - API response data: [
+  {
+    "Less than $500k Commission": "2.20-2.40%",
+    "$500k-$1m Commission": "2.00-2.20%",
+    "$1m-$1.5m Commission": "2.00-2.20%",
+    "$1.5m-$2m Commission": "1.90-2.10%",
+    "$2m-$2.5m Commission": "1.80-2.00%",
+    "$2.5m-$3m Commission": "1.70-1.90%",
+    "$3m-$3.5m Commission": "1.60-1.80%",
+    "$3.5m-$4m Commission": "1.50-1.75%",
+    "$4m-$6m Commission": "1.50-1.75%",
+    "$6m-$8m Commission": "1.45-1.65%",
+    "$8m-$10m Commission": "1.35-1.55%",
+    "$10m+ Commission": "1.30-1.50%",
+    "Less than $500k Marketing": "$3,000-$4,000",
+    "$500k-$1m Marketing": "$3,000-$4,000",
+    "$1m-$1.5m Marketing": "$4,000-$5,000",
+    "$1.5m-$2m Marketing": "$4,000-$5,000",
+    "$2m-$2.5m Marketing": "$4,000-$5,000",
+    "$2.5m-$3m Marketing": "$5,000-$6,000",
+    "$3m-$3.5m Marketing": "$5,000-$6,000",
+    "$3.5m-$4m Marketing": "$5,000-$6,000",
+    "$4m-$6m Marketing": "$5,000-$6,000",
+    "$6m-$8m Marketing": "$7,000-$8,000",
+    "$8m-$10m Marketing": "$7,000-$8,000",
+    "$10m+ Marketing": "$9,000-$10,000"
+  }
+]
+DEBUG - Looking for keys: commission_key='$500k-$1m Commission', marketing_key='$500k-$1m Marketing'
+DEBUG - Found webhook values: commission_rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Using state-based rates from webhook
+DEBUG - Standard commission rate: '2.00-2.20%', marketing: '$3,000-$4,000'
+DEBUG - home_owner_pricing value: '$500k-$1m'
+DEBUG - Added standard commission to agent John Lewis: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Nicole Steele: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent David Liston: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Jamie Hershman: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Derek Sobkowiak: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Shelley Bezuidenhout: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent David Hams: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Jacqui Wehrmann: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Jemma Turner: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Neil Cole: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Wilma Mace: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Lindy Kriticos: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Adam Farrelly & Marg Kneebone: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Marg Kneebone & Adam Farrelly: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Daniel Wells: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Chanelle Zadey: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Jason Mills: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Carly Frost: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Holly Freeland: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Chris Cotton: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Shona Smart: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Kate O'Rourke: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Sam Bennett: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Naomi Will: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Pete Fallon: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent James Marchington: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Carter Persinos: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Marco Wenzel: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Gabrielle Overton: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Shaun Roberts: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Mike Cross: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Tara Witham: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Rod Smitheram: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Kevin J. Barry: rate='2.00-2.20%', marketing='$3,000-$4,000'
+DEBUG - Added standard commission to agent Chris O'Brien: rate='2.00-2.20%', marketing='$3,000-$4,000'
+05:28:54 agentlink-queue: Job OK (42a23424-1392-4cfd-aba1-fe78527a944f)
+05:28:54 Result is kept for 500 seconds
+07:17:38 Worker cf94e95a0545434498316ccc3f13b7dd [PID 1]: warm shut down requested
+06:50:24 Worker rq:worker:af685bd24da94f678fb74ac4951109ae started with PID 1, version 1.15.1
+06:50:24 Subscribing to channel rq:pubsub:af685bd24da94f678fb74ac4951109ae
+06:50:24 *** Listening on agentlink-queue...
+06:50:24 Cleaning registries for queue: agentlink-queue
+07:44:25 Cleaning registries for queue: agentlink-queue
+09:59:26 Cleaning registries for queue: agentlink-queue
+11:47:27 Cleaning registries for queue: agentlink-queue
+12:14:27 Cleaning registries for queue: agentlink-queue
+14:02:28 Cleaning registries for queue: agentlink-queue
+05:00:57 Worker rq:worker:b9c0b6bfec1349a38b18513299ff7f50 started with PID 1, version 1.15.1
+05:00:57 Subscribing to channel rq:pubsub:b9c0b6bfec1349a38b18513299ff7f50
+05:00:57 *** Listening on agentlink-queue...

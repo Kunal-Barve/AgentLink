@@ -1,22 +1,4 @@
-[
-  {
-    "name": "Frankston, VIC",
-    "job_id": "c1803fc5-26e2-46ff-b886-6e61cd9c16dd"
-  },
-  {
-    "name": "Seaford Rise, SA",
-    "job_id": "a42bf457-3912-4503-8331-733684975070"
-  },
-  {
-    "name": "Kingswood, NSW",
-    "job_id": "824bbb6f-c852-40f2-a0a4-f553c39821a8"
-  },
-  {
-    "name": "South Penrith, NSW",
-    "job_id": "828b34d8-c42f-4eab-ac45-a05148ebb4b7"
-  },
-  {
-    "name": "Winston Hills, NSW",
-    "job_id": "42b61802-cefe-47e9-8656-aad9060f1a33"
-  }
-]
+{
+  "job_id": "913d490a-be35-482c-83a8-9e114873a3d3",
+  "name": "Clovelly, NSW (Deduplication Test)"
+}

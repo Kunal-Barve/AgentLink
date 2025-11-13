@@ -1,0 +1,1350 @@
+Getting details for agency ID: 3802
+Added agency: Cutcliffe Properties
+Getting details for agency ID: 26958
+Added agency: Seven Real Estate
+Getting details for agency ID: 382
+Added agency: Gilmour Property Agents
+Getting details for agency ID: 8593
+Added agency: Ray White Blacktown City
+Getting details for agency ID: 19478
+Added agency: The Avenue Real Estate Agency
+Getting details for agency ID: 35100
+Added agency: Opes RE
+Getting details for agency ID: 32969
+Added agency: Property Rhodes
+Getting details for agency ID: 25249
+Added agency: ONE Agency Engadine
+Getting details for agency ID: 32625
+Added agency: LAING & SIMMONS GLENWOOD l STANHOPE GARDENS
+Getting details for agency ID: 20648
+Added agency: Melrose Park Realty
+Found 35 unique agencies in Kellyville
+
+Step 3: Extracting agent information directly from sold listings...
+
+Step 4: Calculating final metrics for each agent...
+Agent Tim Chapman metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $935k
+  Total Sales Value (Primary): $935k
+  Joint Sales Value: $0
+  Combined Sales Value: $935k
+Agent Melissa Williams metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $1.8m
+  Total Sales Value (Primary): $1.8m
+  Joint Sales Value: $0
+  Combined Sales Value: $1.8m
+Agent TAYLOR BREDIN metrics:
+  Total Properties: 8
+  Properties with prices: 8
+  Properties without prices: 0
+  Primary Sales: 8
+  Joint Sales: 0
+  Median Sold Price (All Sales): $2.1m
+  Total Sales Value (Primary): $17.9m
+  Joint Sales Value: $0
+  Combined Sales Value: $17.9m
+Agent MATT LEROY metrics:
+  Total Properties: 2
+  Properties with prices: 2
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 2
+  Median Sold Price (All Sales): $2.1m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $4.1m
+  Combined Sales Value: $4.1m
+Agent JACK NATI metrics:
+  Total Properties: 5
+  Properties with prices: 5
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 5
+  Median Sold Price (All Sales): $1.8m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $10.3m
+  Combined Sales Value: $10.3m
+Agent KEVIN BUCHANAN metrics:
+  Total Properties: 8
+  Properties with prices: 8
+  Properties without prices: 0
+  Primary Sales: 5
+  Joint Sales: 3
+  Median Sold Price (All Sales): $1.9m
+  Total Sales Value (Primary): $10.0m
+  Joint Sales Value: $6.1m
+  Combined Sales Value: $16.1m
+Agent JAY BACANI metrics:
+  Total Properties: 2
+  Properties with prices: 2
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 1
+  Median Sold Price (All Sales): $2.9m
+  Total Sales Value (Primary): $4.0m
+  Joint Sales Value: $1.8m
+  Combined Sales Value: $5.8m
+Agent JONATHAN VIEWEY metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $4.0m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $4.0m
+  Combined Sales Value: $4.0m
+Agent RICHARD HAYEK metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $3.4m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $3.4m
+  Combined Sales Value: $3.4m
+Agent IGOR JUGOVIC metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $1.6m
+  Total Sales Value (Primary): $1.6m
+  Joint Sales Value: $0
+  Combined Sales Value: $1.6m
+Agent DECLAN MORRIS metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $1.6m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $1.6m
+  Combined Sales Value: $1.6m
+Agent SCOTT DUNGER metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $1.8m
+  Total Sales Value (Primary): $1.8m
+  Joint Sales Value: $0
+  Combined Sales Value: $1.8m
+Agent ANNIE ZENG metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $1.9m
+  Total Sales Value (Primary): $1.9m
+  Joint Sales Value: $0
+  Combined Sales Value: $1.9m
+Agent BEN ZHENG metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $1.9m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $1.9m
+  Combined Sales Value: $1.9m
+Agent Nathan Lee metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $1.9m
+  Total Sales Value (Primary): $1.9m
+  Joint Sales Value: $0
+  Combined Sales Value: $1.9m
+Agent Mona Ghanbari metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $1.9m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $1.9m
+  Combined Sales Value: $1.9m
+Agent Shiv Nair metrics:
+  Total Properties: 4
+  Properties with prices: 4
+  Properties without prices: 0
+  Primary Sales: 4
+  Joint Sales: 0
+  Median Sold Price (All Sales): $2.5m
+  Total Sales Value (Primary): $10.0m
+  Joint Sales Value: $0
+  Combined Sales Value: $10.0m
+Agent Amy Yang metrics:
+  Total Properties: 3
+  Properties with prices: 3
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 3
+  Median Sold Price (All Sales): $2.3m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $6.9m
+  Combined Sales Value: $6.9m
+Agent Meagan Vaughan metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $3.1m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $3.1m
+  Combined Sales Value: $3.1m
+Agent Corie Sciberras metrics:
+  Total Properties: 12
+  Properties with prices: 12
+  Properties without prices: 0
+  Primary Sales: 11
+  Joint Sales: 1
+  Median Sold Price (All Sales): $1.9m
+  Total Sales Value (Primary): $20.3m
+  Joint Sales Value: $1.9m
+  Combined Sales Value: $22.2m
+Agent Josh Best metrics:
+  Total Properties: 9
+  Properties with prices: 9
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 9
+  Median Sold Price (All Sales): $1.9m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $17.6m
+  Combined Sales Value: $17.6m
+Agent Louis Stapleton metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $3.7m
+  Total Sales Value (Primary): $3.7m
+  Joint Sales Value: $0
+  Combined Sales Value: $3.7m
+Agent Glenn Hanrahan metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $470k
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $470k
+  Combined Sales Value: $470k
+Agent Daniel Sarzano metrics:
+  Total Properties: 2
+  Properties with prices: 2
+  Properties without prices: 0
+  Primary Sales: 2
+  Joint Sales: 0
+  Median Sold Price (All Sales): $1.3m
+  Total Sales Value (Primary): $2.6m
+  Joint Sales Value: $0
+  Combined Sales Value: $2.6m
+Agent Priya Palaiyan metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $680k
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $680k
+  Combined Sales Value: $680k
+Agent Adam Hosseini metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $770k
+  Total Sales Value (Primary): $770k
+  Joint Sales Value: $0
+  Combined Sales Value: $770k
+Agent Plus Notable Resale metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $770k
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $770k
+  Combined Sales Value: $770k
+Agent Irving Gunawan metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $2.0m
+  Total Sales Value (Primary): $2.0m
+  Joint Sales Value: $0
+  Combined Sales Value: $2.0m
+Agent Anik Singh metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $2.0m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $2.0m
+  Combined Sales Value: $2.0m
+Agent Vivek Tailor metrics:
+  Total Properties: 3
+  Properties with prices: 3
+  Properties without prices: 0
+  Primary Sales: 3
+  Joint Sales: 0
+  Median Sold Price (All Sales): $825k
+  Total Sales Value (Primary): $2.6m
+  Joint Sales Value: $0
+  Combined Sales Value: $2.6m
+Agent Jesse Di Loreto metrics:
+  Total Properties: 2
+  Properties with prices: 2
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 2
+  Median Sold Price (All Sales): $810k
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $1.6m
+  Combined Sales Value: $1.6m
+Agent Ahsan Amer Butt metrics:
+  Total Properties: 2
+  Properties with prices: 2
+  Properties without prices: 0
+  Primary Sales: 2
+  Joint Sales: 0
+  Median Sold Price (All Sales): $1.5m
+  Total Sales Value (Primary): $3.0m
+  Joint Sales Value: $0
+  Combined Sales Value: $3.0m
+Agent (Allen) Lijing Yan metrics:
+  Total Properties: 3
+  Properties with prices: 3
+  Properties without prices: 0
+  Primary Sales: 2
+  Joint Sales: 1
+  Median Sold Price (All Sales): $2.1m
+  Total Sales Value (Primary): $4.0m
+  Joint Sales Value: $2.4m
+  Combined Sales Value: $6.5m
+Agent (Angelina) Min Wen metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $2.0m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $2.0m
+  Combined Sales Value: $2.0m
+Agent (Kevin) Qicheng Zhu metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $2.1m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $2.1m
+  Combined Sales Value: $2.1m
+Agent (Leslie) Kheng Phuy Tan metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $1.3m
+  Total Sales Value (Primary): $1.3m
+  Joint Sales Value: $0
+  Combined Sales Value: $1.3m
+Agent Badia Ge metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $1.3m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $1.3m
+  Combined Sales Value: $1.3m
+Agent Fan Li metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $2.0m
+  Total Sales Value (Primary): $2.0m
+  Joint Sales Value: $0
+  Combined Sales Value: $2.0m
+Agent (Millie) Minwen Huang metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $2.0m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $2.0m
+  Combined Sales Value: $2.0m
+Agent (Tracy) Ping Ye metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $615k
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $615k
+  Combined Sales Value: $615k
+Agent Jack Ho metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $2.7m
+  Total Sales Value (Primary): $2.7m
+  Joint Sales Value: $0
+  Combined Sales Value: $2.7m
+Agent Sean (qing) Shang metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $2.7m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $2.7m
+  Combined Sales Value: $2.7m
+Agent Kylie Bezzina metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $2.3m
+  Total Sales Value (Primary): $2.3m
+  Joint Sales Value: $0
+  Combined Sales Value: $2.3m
+Agent Mitchell Hann metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $2.3m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $2.3m
+  Combined Sales Value: $2.3m
+Agent Antonio Jimenez metrics:
+  Total Properties: 8
+  Properties with prices: 8
+  Properties without prices: 0
+  Primary Sales: 8
+  Joint Sales: 0
+  Median Sold Price (All Sales): $2.5m
+  Total Sales Value (Primary): $21.0m
+  Joint Sales Value: $0
+  Combined Sales Value: $21.0m
+Agent Lachlan Edwards metrics:
+  Total Properties: 4
+  Properties with prices: 4
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 4
+  Median Sold Price (All Sales): $2.5m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $10.3m
+  Combined Sales Value: $10.3m
+Agent Ismail Ates metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $2.2m
+  Total Sales Value (Primary): $2.2m
+  Joint Sales Value: $0
+  Combined Sales Value: $2.2m
+Agent MJ Dela Cruz metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $2.2m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $2.2m
+  Combined Sales Value: $2.2m
+Agent Jonathan Bartlett metrics:
+  Total Properties: 7
+  Properties with prices: 7
+  Properties without prices: 0
+  Primary Sales: 3
+  Joint Sales: 4
+  Median Sold Price (All Sales): $2.3m
+  Total Sales Value (Primary): $2.3m
+  Joint Sales Value: $10.7m
+  Combined Sales Value: $13.0m
+Agent Marvin Dayupay metrics:
+  Total Properties: 2
+  Properties with prices: 2
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 2
+  Median Sold Price (All Sales): $722k
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $1.4m
+  Combined Sales Value: $1.4m
+Agent Leah Li metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $2.1m
+  Total Sales Value (Primary): $2.1m
+  Joint Sales Value: $0
+  Combined Sales Value: $2.1m
+Agent Christian Fogarty metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $2.1m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $2.1m
+  Combined Sales Value: $2.1m
+Agent Kael Sharp metrics:
+  Total Properties: 5
+  Properties with prices: 5
+  Properties without prices: 0
+  Primary Sales: 5
+  Joint Sales: 0
+  Median Sold Price (All Sales): $1.7m
+  Total Sales Value (Primary): $7.3m
+  Joint Sales Value: $0
+  Combined Sales Value: $7.3m
+Agent Mustafa  Hidari metrics:
+  Total Properties: 4
+  Properties with prices: 4
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 4
+  Median Sold Price (All Sales): $1.6m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $5.5m
+  Combined Sales Value: $5.5m
+Agent Angela Xu metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $1.7m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $1.7m
+  Combined Sales Value: $1.7m
+Agent Yating Wang (jenny) metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $1.9m
+  Total Sales Value (Primary): $1.9m
+  Joint Sales Value: $0
+  Combined Sales Value: $1.9m
+Agent Jielong (jay) Li metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $1.9m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $1.9m
+  Combined Sales Value: $1.9m
+Agent Chris  Carr metrics:
+  Total Properties: 3
+  Properties with prices: 3
+  Properties without prices: 0
+  Primary Sales: 3
+  Joint Sales: 0
+  Median Sold Price (All Sales): $2.0m
+  Total Sales Value (Primary): $5.4m
+  Joint Sales Value: $0
+  Combined Sales Value: $5.4m
+Agent Marlie Gerlich metrics:
+  Total Properties: 2
+  Properties with prices: 2
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 2
+  Median Sold Price (All Sales): $1.7m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $3.4m
+  Combined Sales Value: $3.4m
+Agent Scott Matthews metrics:
+  Total Properties: 2
+  Properties with prices: 2
+  Properties without prices: 0
+  Primary Sales: 2
+  Joint Sales: 0
+  Median Sold Price (All Sales): $2.6m
+  Total Sales Value (Primary): $5.2m
+  Joint Sales Value: $0
+  Combined Sales Value: $5.2m
+Agent Peter Van Den Hooven metrics:
+  Total Properties: 3
+  Properties with prices: 3
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 2
+  Median Sold Price (All Sales): $2.1m
+  Total Sales Value (Primary): $2.1m
+  Joint Sales Value: $5.2m
+  Combined Sales Value: $7.2m
+Agent Glen(Zhenwei)  CHEN metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $1.4m
+  Total Sales Value (Primary): $1.4m
+  Joint Sales Value: $0
+  Combined Sales Value: $1.4m
+Agent Connie (Youan) Cong metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $1.4m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $1.4m
+  Combined Sales Value: $1.4m
+Agent Julia Stella metrics:
+  Total Properties: 2
+  Properties with prices: 2
+  Properties without prices: 0
+  Primary Sales: 2
+  Joint Sales: 0
+  Median Sold Price (All Sales): $1.6m
+  Total Sales Value (Primary): $3.2m
+  Joint Sales Value: $0
+  Combined Sales Value: $3.2m
+Agent Ricky Chan metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $1.6m
+  Total Sales Value (Primary): $1.6m
+  Joint Sales Value: $0
+  Combined Sales Value: $1.6m
+Agent Eva Xu metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $1.6m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $1.6m
+  Combined Sales Value: $1.6m
+Agent Sophia(huichun) Su metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $1.8m
+  Total Sales Value (Primary): $1.8m
+  Joint Sales Value: $0
+  Combined Sales Value: $1.8m
+Agent Jack(zhentong) Lin metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $1.8m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $1.8m
+  Combined Sales Value: $1.8m
+Agent Dean Muriti metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $2.0m
+  Total Sales Value (Primary): $2.0m
+  Joint Sales Value: $0
+  Combined Sales Value: $2.0m
+Agent Kim McChlery metrics:
+  Total Properties: 2
+  Properties with prices: 2
+  Properties without prices: 0
+  Primary Sales: 2
+  Joint Sales: 0
+  Median Sold Price (All Sales): $1.4m
+  Total Sales Value (Primary): $2.8m
+  Joint Sales Value: $0
+  Combined Sales Value: $2.8m
+Agent Jen Anderson metrics:
+  Total Properties: 2
+  Properties with prices: 2
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 2
+  Median Sold Price (All Sales): $1.4m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $2.8m
+  Combined Sales Value: $2.8m
+Agent Cindy Luu metrics:
+  Total Properties: 2
+  Properties with prices: 2
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 2
+  Median Sold Price (All Sales): $1.4m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $2.8m
+  Combined Sales Value: $2.8m
+Agent Malwinder Pandher metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $1.3m
+  Total Sales Value (Primary): $1.3m
+  Joint Sales Value: $0
+  Combined Sales Value: $1.3m
+Agent Andy Lin metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $2.4m
+  Total Sales Value (Primary): $2.4m
+  Joint Sales Value: $0
+  Combined Sales Value: $2.4m
+Agent Sarah Lin metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $2.4m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $2.4m
+  Combined Sales Value: $2.4m
+Agent Adrienne Robinson metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $1.8m
+  Total Sales Value (Primary): $1.8m
+  Joint Sales Value: $0
+  Combined Sales Value: $1.8m
+Agent Sam Dalgliesh metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $1.6m
+  Total Sales Value (Primary): $1.6m
+  Joint Sales Value: $0
+  Combined Sales Value: $1.6m
+Agent Arthur Kolovos metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $1.6m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $1.6m
+  Combined Sales Value: $1.6m
+Agent Maree McCrorie metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $3.4m
+  Total Sales Value (Primary): $3.4m
+  Joint Sales Value: $0
+  Combined Sales Value: $3.4m
+Agent Vicky Yin metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $3.4m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $3.4m
+  Combined Sales Value: $3.4m
+Agent Francesco Terranova metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $1.9m
+  Total Sales Value (Primary): $1.9m
+  Joint Sales Value: $0
+  Combined Sales Value: $1.9m
+Agent Tim Cutcliffe metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $1.9m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $1.9m
+  Combined Sales Value: $1.9m
+Agent Michael HU metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $1.4m
+  Total Sales Value (Primary): $1.4m
+  Joint Sales Value: $0
+  Combined Sales Value: $1.4m
+Agent Kenny Ling metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $1.4m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $1.4m
+  Combined Sales Value: $1.4m
+Agent Jun CHEN metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $1.3m
+  Total Sales Value (Primary): $1.3m
+  Joint Sales Value: $0
+  Combined Sales Value: $1.3m
+Agent Brendan Dabaja metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $1.9m
+  Total Sales Value (Primary): $1.9m
+  Joint Sales Value: $0
+  Combined Sales Value: $1.9m
+Agent Rachana Singh metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $1.2m
+  Total Sales Value (Primary): $1.2m
+  Joint Sales Value: $0
+  Combined Sales Value: $1.2m
+Agent Rebecca Habkouk metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $2.0m
+  Total Sales Value (Primary): $2.0m
+  Joint Sales Value: $0
+  Combined Sales Value: $2.0m
+Agent Chris De Celis metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $2.0m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $2.0m
+  Combined Sales Value: $2.0m
+Agent Alexandra Meadth metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $2.1m
+  Total Sales Value (Primary): $2.1m
+  Joint Sales Value: $0
+  Combined Sales Value: $2.1m
+Agent Laura Nasr metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $2.1m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $2.1m
+  Combined Sales Value: $2.1m
+Agent Angelina Sun metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $790k
+  Total Sales Value (Primary): $790k
+  Joint Sales Value: $0
+  Combined Sales Value: $790k
+Agent Daniel Makovec metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $1.3m
+  Total Sales Value (Primary): $1.3m
+  Joint Sales Value: $0
+  Combined Sales Value: $1.3m
+Agent Madison Kelly-Makovec metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $1.3m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $1.3m
+  Combined Sales Value: $1.3m
+Agent Tony Garay metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $1.6m
+  Total Sales Value (Primary): $1.6m
+  Joint Sales Value: $0
+  Combined Sales Value: $1.6m
+Agent Harry Park metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 1
+  Joint Sales: 0
+  Median Sold Price (All Sales): $2.3m
+  Total Sales Value (Primary): $2.3m
+  Joint Sales Value: $0
+  Combined Sales Value: $2.3m
+Agent Joseph  Loiacono metrics:
+  Total Properties: 1
+  Properties with prices: 1
+  Properties without prices: 0
+  Primary Sales: 0
+  Joint Sales: 1
+  Median Sold Price (All Sales): $2.3m
+  Total Sales Value (Primary): $0
+  Joint Sales Value: $2.3m
+  Combined Sales Value: $2.3m
+
+Step 5: Marking top agents as featured...
+
+Marked Corie Sciberras as featured agent
+
+Final result: 35 agencies with 97 agents in Kellyville
+
+===== AGENT DEDUPLICATION PROCESS =====
+Total agents before deduplication: 53
+
+Processing agent group: tim chapman (1 occurrences)
+  Single occurrence - Adding agent: Tim Chapman from Response Walsh Sullivan Baulkham Hills & Northmead
+  Agent key: 'tim chapman_response walsh sullivan baulkham hills & northmead'
+
+Processing agent group: melissa williams (1 occurrences)
+  Single occurrence - Adding agent: Melissa Williams from Response Walsh Sullivan Baulkham Hills & Northmead
+  Agent key: 'melissa williams_response walsh sullivan baulkham hills & northmead'
+
+Processing agent group: taylor bredin (1 occurrences)
+  Single occurrence - Adding agent: TAYLOR BREDIN from Manor Real Estate
+  Agent key: 'taylor bredin_manor real estate'
+
+Processing agent group: kevin buchanan (1 occurrences)
+  Single occurrence - Adding agent: KEVIN BUCHANAN from Manor Real Estate
+  Agent key: 'kevin buchanan_manor real estate'
+
+Processing agent group: jay bacani (1 occurrences)
+  Single occurrence - Adding agent: JAY BACANI from Manor Real Estate
+  Agent key: 'jay bacani_manor real estate'
+
+Processing agent group: igor jugovic (1 occurrences)
+  Single occurrence - Adding agent: IGOR JUGOVIC from Manor Real Estate
+  Agent key: 'igor jugovic_manor real estate'
+
+Processing agent group: scott dunger (1 occurrences)
+  Single occurrence - Adding agent: SCOTT DUNGER from Manor Real Estate
+  Agent key: 'scott dunger_manor real estate'
+
+Processing agent group: annie zeng (1 occurrences)
+  Single occurrence - Adding agent: ANNIE ZENG from Manor Real Estate
+  Agent key: 'annie zeng_manor real estate'
+
+Processing agent group: nathan lee (1 occurrences)
+  Single occurrence - Adding agent: Nathan Lee from Ray White (United Group)
+  Agent key: 'nathan lee_ray white (united group)'
+
+Processing agent group: shiv nair (1 occurrences)
+  Single occurrence - Adding agent: Shiv Nair from Ray White (United Group)
+  Agent key: 'shiv nair_ray white (united group)'
+
+Processing agent group: corie sciberras (1 occurrences)
+  Single occurrence - Adding agent: Corie Sciberras from McGrath Northwest
+  Agent key: 'corie sciberras_mcgrath northwest'
+
+Processing agent group: louis stapleton (1 occurrences)
+  Single occurrence - Adding agent: Louis Stapleton from McGrath Northwest
+  Agent key: 'louis stapleton_mcgrath northwest'
+
+Processing agent group: daniel sarzano (1 occurrences)
+  Single occurrence - Adding agent: Daniel Sarzano from McGrath Northwest
+  Agent key: 'daniel sarzano_mcgrath northwest'
+
+Processing agent group: adam hosseini (1 occurrences)
+  Single occurrence - Adding agent: Adam Hosseini from Plus Notable
+  Agent key: 'adam hosseini_plus notable'
+
+Processing agent group: irving gunawan (1 occurrences)
+  Single occurrence - Adding agent: Irving Gunawan from Irving G Property
+  Agent key: 'irving gunawan_irving g property'
+
+Processing agent group: vivek tailor (1 occurrences)
+  Single occurrence - Adding agent: Vivek Tailor from Richard Matthews Real Estate
+  Agent key: 'vivek tailor_richard matthews real estate'
+
+Processing agent group: ahsan amer butt (1 occurrences)
+  Single occurrence - Adding agent: Ahsan Amer Butt from Ray White Everest Group
+  Agent key: 'ahsan amer butt_ray white everest group'
+
+Processing agent group: (allen) lijing yan (1 occurrences)
+  Single occurrence - Adding agent: (Allen) Lijing Yan from Ray White Everest Group
+  Agent key: '(allen) lijing yan_ray white everest group'
+
+Processing agent group: (leslie) kheng phuy tan (1 occurrences)
+  Single occurrence - Adding agent: (Leslie) Kheng Phuy Tan from Ray White Everest Group
+  Agent key: '(leslie) kheng phuy tan_ray white everest group'
+
+Processing agent group: fan li (1 occurrences)
+  Single occurrence - Adding agent: Fan Li from Ray White Everest Group
+  Agent key: 'fan li_ray white everest group'
+
+Processing agent group: jack ho (1 occurrences)
+  Single occurrence - Adding agent: Jack Ho from Murdoch Lee Estate Agents Castle Hill & Cherrybrook
+  Agent key: 'jack ho_murdoch lee estate agents castle hill & cherrybrook'
+
+Processing agent group: kylie bezzina (1 occurrences)
+  Single occurrence - Adding agent: Kylie Bezzina from Ray White Upper North Shore
+  Agent key: 'kylie bezzina_ray white upper north shore'
+
+Processing agent group: antonio jimenez (1 occurrences)
+  Single occurrence - Adding agent: Antonio Jimenez from The Studio Estate Agents
+  Agent key: 'antonio jimenez_the studio estate agents'
+
+Processing agent group: ismail ates (1 occurrences)
+  Single occurrence - Adding agent: Ismail Ates from The Studio Estate Agents
+  Agent key: 'ismail ates_the studio estate agents'
+
+Processing agent group: jonathan bartlett (1 occurrences)
+  Single occurrence - Adding agent: Jonathan Bartlett from The Studio Estate Agents
+  Agent key: 'jonathan bartlett_the studio estate agents'
+
+Processing agent group: leah li (1 occurrences)
+  Single occurrence - Adding agent: Leah Li from Ray White Castle Hill 
+  Agent key: 'leah li_ray white castle hill'
+
+Processing agent group: kael sharp (1 occurrences)
+  Single occurrence - Adding agent: Kael Sharp from Ray White Castle Hill 
+  Agent key: 'kael sharp_ray white castle hill'
+
+Processing agent group: yating wang (jenny) (1 occurrences)
+  Single occurrence - Adding agent: Yating Wang (jenny) from PW Realty
+  Agent key: 'yating wang (jenny)_pw realty'
+
+Processing agent group: chris  carr (1 occurrences)
+  Single occurrence - Adding agent: Chris  Carr from Response Real Estate Norwest
+  Agent key: 'chris  carr_response real estate norwest'
+
+Processing agent group: scott matthews (1 occurrences)
+  Single occurrence - Adding agent: Scott Matthews from Wiseberry Baulkham Hills
+  Agent key: 'scott matthews_wiseberry baulkham hills'
+
+Processing agent group: peter van den hooven (1 occurrences)
+  Single occurrence - Adding agent: Peter Van Den Hooven from Wiseberry Baulkham Hills
+  Agent key: 'peter van den hooven_wiseberry baulkham hills'
+
+Processing agent group: glen(zhenwei)  chen (1 occurrences)
+  Single occurrence - Adding agent: Glen(Zhenwei)  CHEN from B&M Property Partners
+  Agent key: 'glen(zhenwei)  chen_b&m property partners'
+
+Processing agent group: julia stella (1 occurrences)
+  Single occurrence - Adding agent: Julia Stella from Stella & Co Real Estate
+  Agent key: 'julia stella_stella & co real estate'
+
+Processing agent group: ricky chan (1 occurrences)
+  Single occurrence - Adding agent: Ricky Chan from VUE Property Estate Agents
+  Agent key: 'ricky chan_vue property estate agents'
+
+Processing agent group: sophia(huichun) su (1 occurrences)
+  Single occurrence - Adding agent: Sophia(huichun) Su from Fortune Connex Pty Ltd
+  Agent key: 'sophia(huichun) su_fortune connex pty ltd'
+
+Processing agent group: dean muriti (1 occurrences)
+  Single occurrence - Adding agent: Dean Muriti from Louis Carr Hills District
+  Agent key: 'dean muriti_louis carr hills district'
+
+Processing agent group: kim mcchlery (1 occurrences)
+  Single occurrence - Adding agent: Kim McChlery from McGrath Parramatta
+  Agent key: 'kim mcchlery_mcgrath parramatta'
+
+Processing agent group: malwinder pandher (1 occurrences)
+  Single occurrence - Adding agent: Malwinder Pandher from Mountview RE
+  Agent key: 'malwinder pandher_mountview re'
+
+Processing agent group: andy lin (1 occurrences)
+  Single occurrence - Adding agent: Andy Lin from Uniland Real Estate | Epping & Castle Hill
+  Agent key: 'andy lin_uniland real estate | epping & castle hill'
+
+Processing agent group: adrienne robinson (1 occurrences)
+  Single occurrence - Adding agent: Adrienne Robinson from Homeway First National
+  Agent key: 'adrienne robinson_homeway first national'
+
+Processing agent group: sam dalgliesh (1 occurrences)
+  Single occurrence - Adding agent: Sam Dalgliesh from McGrath Castle Hill
+  Agent key: 'sam dalgliesh_mcgrath castle hill'
+
+Processing agent group: maree mccrorie (1 occurrences)
+  Single occurrence - Adding agent: Maree McCrorie from McGrath Castle Hill
+  Agent key: 'maree mccrorie_mcgrath castle hill'
+
+Processing agent group: francesco terranova (1 occurrences)
+  Single occurrence - Adding agent: Francesco Terranova from Cutcliffe Properties
+  Agent key: 'francesco terranova_cutcliffe properties'
+
+Processing agent group: michael hu (1 occurrences)
+  Single occurrence - Adding agent: Michael HU from Seven Real Estate
+  Agent key: 'michael hu_seven real estate'
+
+Processing agent group: jun chen (1 occurrences)
+  Single occurrence - Adding agent: Jun CHEN from Seven Real Estate
+  Agent key: 'jun chen_seven real estate'
+
+Processing agent group: brendan dabaja (1 occurrences)
+  Single occurrence - Adding agent: Brendan Dabaja from Gilmour Property Agents
+  Agent key: 'brendan dabaja_gilmour property agents'
+
+Processing agent group: rachana singh (1 occurrences)
+  Single occurrence - Adding agent: Rachana Singh from Ray White Blacktown City
+  Agent key: 'rachana singh_ray white blacktown city'
+
+Processing agent group: rebecca habkouk (1 occurrences)
+  Single occurrence - Adding agent: Rebecca Habkouk from The Avenue Real Estate Agency
+  Agent key: 'rebecca habkouk_the avenue real estate agency'
+
+Processing agent group: alexandra meadth (1 occurrences)
+  Single occurrence - Adding agent: Alexandra Meadth from Opes RE
+  Agent key: 'alexandra meadth_opes re'
+
+Processing agent group: angelina sun (1 occurrences)
+  Single occurrence - Adding agent: Angelina Sun from Property Rhodes
+  Agent key: 'angelina sun_property rhodes'
+
+Processing agent group: daniel makovec (1 occurrences)
+  Single occurrence - Adding agent: Daniel Makovec from ONE Agency Engadine
+  Agent key: 'daniel makovec_one agency engadine'
+
+Processing agent group: tony garay (1 occurrences)
+  Single occurrence - Adding agent: Tony Garay from LAING & SIMMONS GLENWOOD l STANHOPE GARDENS
+  Agent key: 'tony garay_laing & simmons glenwood l stanhope gardens'
+
+Processing agent group: harry park (1 occurrences)
+  Single occurrence - Adding agent: Harry Park from Melrose Park Realty
+  Agent key: 'harry park_melrose park realty'
+
+===== DEDUPLICATION SUMMARY =====
+Reduced 53 agents to 53 unique agents
+Unique agent keys:
+  - 'tim chapman_response walsh sullivan baulkham hills & northmead'
+  - 'melissa williams_response walsh sullivan baulkham hills & northmead'
+  - 'taylor bredin_manor real estate'
+  - 'kevin buchanan_manor real estate'
+  - 'jay bacani_manor real estate'
+  - 'igor jugovic_manor real estate'
+  - 'scott dunger_manor real estate'
+  - 'annie zeng_manor real estate'
+  - 'nathan lee_ray white (united group)'
+  - 'shiv nair_ray white (united group)'
+  - 'corie sciberras_mcgrath northwest'
+  - 'louis stapleton_mcgrath northwest'
+  - 'daniel sarzano_mcgrath northwest'
+  - 'adam hosseini_plus notable'
+  - 'irving gunawan_irving g property'
+  - 'vivek tailor_richard matthews real estate'
+  - 'ahsan amer butt_ray white everest group'
+  - '(allen) lijing yan_ray white everest group'
+  - '(leslie) kheng phuy tan_ray white everest group'
+  - 'fan li_ray white everest group'
+  - 'jack ho_murdoch lee estate agents castle hill & cherrybrook'
+  - 'kylie bezzina_ray white upper north shore'
+  - 'antonio jimenez_the studio estate agents'
+  - 'ismail ates_the studio estate agents'
+  - 'jonathan bartlett_the studio estate agents'
+  - 'leah li_ray white castle hill'
+  - 'kael sharp_ray white castle hill'
+  - 'yating wang (jenny)_pw realty'
+  - 'chris  carr_response real estate norwest'
+  - 'scott matthews_wiseberry baulkham hills'
+  - 'peter van den hooven_wiseberry baulkham hills'
+  - 'glen(zhenwei)  chen_b&m property partners'
+  - 'julia stella_stella & co real estate'
+  - 'ricky chan_vue property estate agents'
+  - 'sophia(huichun) su_fortune connex pty ltd'
+  - 'dean muriti_louis carr hills district'
+  - 'kim mcchlery_mcgrath parramatta'
+  - 'malwinder pandher_mountview re'
+  - 'andy lin_uniland real estate | epping & castle hill'
+  - 'adrienne robinson_homeway first national'
+  - 'sam dalgliesh_mcgrath castle hill'
+  - 'maree mccrorie_mcgrath castle hill'
+  - 'francesco terranova_cutcliffe properties'
+  - 'michael hu_seven real estate'
+  - 'jun chen_seven real estate'
+  - 'brendan dabaja_gilmour property agents'
+  - 'rachana singh_ray white blacktown city'
+  - 'rebecca habkouk_the avenue real estate agency'
+  - 'alexandra meadth_opes re'
+  - 'angelina sun_property rhodes'
+  - 'daniel makovec_one agency engadine'
+  - 'tony garay_laing & simmons glenwood l stanhope gardens'
+  - 'harry park_melrose park realty'
+
+===== AGENTS LIST =====
+[{'id': 'Tim Chapman', 'name': 'Tim Chapman', 'photo': 'https://images.domain.com.au/img/4423/contact_1940173.jpeg?mod=251019-123135', 'properties': {2020277997: {'sold_price': 935000, 'sold_date': '2025-10-20', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 935000, 'joint_sales_value': 0, 'median_sold_price': '$935k', 'median_sold_price_value': 935000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 935000, 'agency': 'Response Walsh Sullivan Baulkham Hills & Northmead', 'agency_logo': 'https://images.domain.com.au/img/Agencys/4423/logo_4423.png', 'featured': False, 'featured_plus': False}, {'id': 'Melissa Williams', 'name': 'Melissa Williams', 'photo': 'https://images.domain.com.au/img/4423/contact_1943555.png?mod=251013-164958', 'properties': {2020270483: {'sold_price': 1750000, 'sold_date': '2025-09-15', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 1750000, 'joint_sales_value': 0, 'median_sold_price': '$1.8m', 'median_sold_price_value': 1750000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 1750000, 'agency': 'Response Walsh Sullivan Baulkham Hills & Northmead', 'agency_logo': 'https://images.domain.com.au/img/Agencys/4423/logo_4423.png', 'featured': False, 'featured_plus': False}, {'id': 'TAYLOR BREDIN', 'name': 'TAYLOR BREDIN', 'photo': 'https://images.domain.com.au/img/27978/contact_1970007.jpeg?mod=251022-100004', 'properties': {2020295808: {'sold_price': 2320000, 'sold_date': '2025-10-18', 'is_primary': True}, 2020316061: {'sold_price': 2570000, 'sold_date': '2025-10-18', 'is_primary': True}, 2020204604: {'sold_price': 1870000, 'sold_date': '2025-10-10', 'is_primary': True}, 2020211382: {'sold_price': 2235000, 'sold_date': '2025-09-13', 'is_primary': True}, 2020069049: {'sold_price': 1725000, 'sold_date': '2025-09-12', 'is_primary': True}, 2020097879: {'sold_price': 3360000, 'sold_date': '2025-09-11', 'is_primary': True}, 2020195452: {'sold_price': 2000000, 'sold_date': '2025-09-04', 'is_primary': True}, 2019889842: {'sold_price': 1800000, 'sold_date': '2025-05-21', 'is_primary': True}}, 'total_sales': 8, 'joint_sales': 0, 'total_value': 17880000, 'joint_sales_value': 0, 'median_sold_price': '$2.1m', 'median_sold_price_value': 2117500.0, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 17880000, 'agency': 'Manor Real Estate', 'agency_logo': 'https://images.domain.com.au/img/Agencys/27978/logo_27978.png', 'featured': False, 'featured_plus': False}, {'id': 'KEVIN BUCHANAN', 'name': 'KEVIN BUCHANAN', 'photo': 'https://images.domain.com.au/img/27978/contact_1486449.jpeg?mod=251013-183749', 'properties': {2020204604: {'sold_price': 1870000, 'sold_date': '2025-10-10', 'is_primary': False}, 2020211382: {'sold_price': 2235000, 'sold_date': '2025-09-13', 'is_primary': False}, 2020195452: {'sold_price': 2000000, 'sold_date': '2025-09-04', 'is_primary': False}, 2020042528: {'sold_price': 1805000, 'sold_date': '2025-07-21', 'is_primary': True}, 2020055065: {'sold_price': 2345000, 'sold_date': '2025-07-12', 'is_primary': True}, 2019984169: {'sold_price': 1820000, 'sold_date': '2025-06-19', 'is_primary': True}, 2019992428: {'sold_price': 1785000, 'sold_date': '2025-06-14', 'is_primary': True}, 2019942377: {'sold_price': 2225000, 'sold_date': '2025-05-17', 'is_primary': True}}, 'total_sales': 5, 'joint_sales': 3, 'total_value': 9980000, 'joint_sales_value': 6105000, 'median_sold_price': '$1.9m', 'median_sold_price_value': 1935000.0, 'joint_sales_value_formatted': '$6.1m', 'total_sales_value_combined': 16085000, 'agency': 'Manor Real Estate', 'agency_logo': 'https://images.domain.com.au/img/Agencys/27978/logo_27978.png', 'featured': False, 'featured_plus': False}, {'id': 'JAY BACANI', 'name': 'JAY BACANI', 'photo': 'https://images.domain.com.au/img/27978/contact_1324654.jpeg?mod=251013-205943', 'properties': {2020302788: {'sold_price': 4050000, 'sold_date': '2025-10-02', 'is_primary': True}, 2019992428: {'sold_price': 1785000, 'sold_date': '2025-06-14', 'is_primary': False}}, 'total_sales': 1, 'joint_sales': 1, 'total_value': 4050000, 'joint_sales_value': 1785000, 'median_sold_price': '$2.9m', 'median_sold_price_value': 2917500.0, 'joint_sales_value_formatted': '$1.8m', 'total_sales_value_combined': 5835000, 'agency': 'Manor Real Estate', 'agency_logo': 'https://images.domain.com.au/img/Agencys/27978/logo_27978.png', 'featured': False, 'featured_plus': False}, {'id': 'IGOR JUGOVIC', 'name': 'IGOR JUGOVIC', 'photo': 'https://images.domain.com.au/img/27978/contact_1324650.jpeg?mod=251013-162649', 'properties': {2019922622: {'sold_price': 1617500, 'sold_date': '2025-07-10', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 1617500, 'joint_sales_value': 0, 'median_sold_price': '$1.6m', 'median_sold_price_value': 1617500, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 1617500, 'agency': 'Manor Real Estate', 'agency_logo': 'https://images.domain.com.au/img/Agencys/27978/logo_27978.png', 'featured': False, 'featured_plus': False}, {'id': 'SCOTT DUNGER', 'name': 'SCOTT DUNGER', 'photo': 'https://images.domain.com.au/img/27978/contact_1747658.jpeg?mod=251013-123411', 'properties': {2020001007: {'sold_price': 1830000, 'sold_date': '2025-06-14', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 1830000, 'joint_sales_value': 0, 'median_sold_price': '$1.8m', 'median_sold_price_value': 1830000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 1830000, 'agency': 'Manor Real Estate', 'agency_logo': 'https://images.domain.com.au/img/Agencys/27978/logo_27978.png', 'featured': False, 'featured_plus': False}, {'id': 'ANNIE ZENG', 'name': 'ANNIE ZENG', 'photo': 'https://images.domain.com.au/img/27978/contact_1965789.jpeg?mod=251013-213333', 'properties': {2019982302: {'sold_price': 1940000, 'sold_date': '2025-05-31', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 1940000, 'joint_sales_value': 0, 'median_sold_price': '$1.9m', 'median_sold_price_value': 1940000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 1940000, 'agency': 'Manor Real Estate', 'agency_logo': 'https://images.domain.com.au/img/Agencys/27978/logo_27978.png', 'featured': False, 'featured_plus': False}, {'id': 'Nathan Lee', 'name': 'Nathan Lee', 'photo': 'https://images.domain.com.au/img/34790/contact_1849138.jpeg?mod=251019-221417', 'properties': {2020289631: {'sold_price': 1915000, 'sold_date': '2025-10-17', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 1915000, 'joint_sales_value': 0, 'median_sold_price': '$1.9m', 'median_sold_price_value': 1915000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 1915000, 'agency': 'Ray White (United Group)', 'agency_logo': 'https://images.domain.com.au/img/Agencys/34790/logo_34790.jpg?date=133646295118547405', 'featured': False, 'featured_plus': False}, {'id': 'Shiv Nair', 'name': 'Shiv Nair', 'photo': 'https://images.domain.com.au/img/34790/contact_1988297.jpeg?mod=251013-184101', 'properties': {2020244689: {'sold_price': 2272500, 'sold_date': '2025-10-04', 'is_primary': True}, 2020208063: {'sold_price': 1896000, 'sold_date': '2025-09-14', 'is_primary': True}, 2020182450: {'sold_price': 3100888, 'sold_date': '2025-09-13', 'is_primary': True}, 2020151105: {'sold_price': 2688000, 'sold_date': '2025-08-16', 'is_primary': True}}, 'total_sales': 4, 'joint_sales': 0, 'total_value': 9957388, 'joint_sales_value': 0, 'median_sold_price': '$2.5m', 'median_sold_price_value': 2480250.0, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 9957388, 'agency': 'Ray White (United Group)', 'agency_logo': 'https://images.domain.com.au/img/Agencys/34790/logo_34790.jpg?date=133646295118547405', 'featured': False, 'featured_plus': False}, {'id': 'Corie Sciberras', 'name': 'Corie Sciberras', 'photo': 'https://images.domain.com.au/img/23863/contact_1928691.jpeg?mod=251013-165957', 'properties': {2019866373: {'sold_price': 2250000, 'sold_date': '2025-10-13', 'is_primary': True}, 2020160977: {'sold_price': 1555000, 'sold_date': '2025-09-24', 'is_primary': True}, 2020226009: {'sold_price': 2120000, 'sold_date': '2025-09-20', 'is_primary': True}, 2020216732: {'sold_price': 1770000, 'sold_date': '2025-09-02', 'is_primary': True}, 2020133668: {'sold_price': 2458000, 'sold_date': '2025-08-28', 'is_primary': True}, 2020127242: {'sold_price': 2160000, 'sold_date': '2025-08-09', 'is_primary': True}, 2020105418: {'sold_price': 1880000, 'sold_date': '2025-08-02', 'is_primary': True}, 2019992160: {'sold_price': 1770000, 'sold_date': '2025-07-25', 'is_primary': True}, 2020021873: {'sold_price': 470000, 'sold_date': '2025-07-03', 'is_primary': True}, 2019958144: {'sold_price': 1675000, 'sold_date': '2025-06-26', 'is_primary': True}, 2019951649: {'sold_price': 1885000, 'sold_date': '2025-05-18', 'is_primary': False}, 2019884212: {'sold_price': 2200000, 'sold_date': '2025-05-10', 'is_primary': True}}, 'total_sales': 11, 'joint_sales': 1, 'total_value': 20308000, 'joint_sales_value': 1885000, 'median_sold_price': '$1.9m', 'median_sold_price_value': 1882500.0, 'joint_sales_value_formatted': '$1.9m', 'total_sales_value_combined': 22193000, 'featured': False, 'agency': 'McGrath Northwest', 'agency_logo': 'https://images.domain.com.au/img/Agencys/23863/logo_23863.png?date=133520028524300050', 'featured_plus': False}, {'id': 'Louis Stapleton', 'name': 'Louis Stapleton', 'photo': 'https://images.domain.com.au/img/23863/contact_1822817.jpeg?mod=251013-140356', 'properties': {2020244232: {'sold_price': 3726000, 'sold_date': '2025-09-16', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 3726000, 'joint_sales_value': 0, 'median_sold_price': '$3.7m', 'median_sold_price_value': 3726000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 3726000, 'agency': 'McGrath Northwest', 'agency_logo': 'https://images.domain.com.au/img/Agencys/23863/logo_23863.png?date=133520028524300050', 'featured': False, 'featured_plus': False}, {'id': 'Daniel Sarzano', 'name': 'Daniel Sarzano', 'photo': 'https://images.domain.com.au/img/23863/contact_1928694.jpeg?mod=251013-201746', 'properties': {2019987868: {'sold_price': 680000, 'sold_date': '2025-05-21', 'is_primary': True}, 2019951649: {'sold_price': 1885000, 'sold_date': '2025-05-18', 'is_primary': True}}, 'total_sales': 2, 'joint_sales': 0, 'total_value': 2565000, 'joint_sales_value': 0, 'median_sold_price': '$1.3m', 'median_sold_price_value': 1282500.0, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 2565000, 'agency': 'McGrath Northwest', 'agency_logo': 'https://images.domain.com.au/img/Agencys/23863/logo_23863.png?date=133520028524300050', 'featured': False, 'featured_plus': False}, {'id': 'Adam Hosseini', 'name': 'Adam Hosseini', 'photo': 'https://images.domain.com.au/img/37594/contact_1951338.jpeg?mod=251020-103133', 'properties': {2020255163: {'sold_price': 770000, 'sold_date': '2025-10-13', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 770000, 'joint_sales_value': 0, 'median_sold_price': '$770k', 'median_sold_price_value': 770000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 770000, 'agency': 'Plus Notable', 'agency_logo': 'https://images.domain.com.au/img/Agencys/37594/logo_37594.png', 'featured': False, 'featured_plus': False}, {'id': 'Irving Gunawan', 'name': 'Irving Gunawan', 'photo': 'https://images.domain.com.au/img/38429/contact_1961454.jpeg?mod=251014-094713', 'properties': {2020279559: {'sold_price': 1970000, 'sold_date': '2025-10-12', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 1970000, 'joint_sales_value': 0, 'median_sold_price': '$2.0m', 'median_sold_price_value': 1970000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 1970000, 'agency': 'Irving G Property', 'agency_logo': 'https://images.domain.com.au/img/Agencys/38429/logo_38429.png', 'featured': False, 'featured_plus': False}, {'id': 'Vivek Tailor', 'name': 'Vivek Tailor', 'photo': 'https://images.domain.com.au/img/18189/contact_1520215.png?mod=251013-181950', 'properties': {2020127239: {'sold_price': 825000, 'sold_date': '2025-10-10', 'is_primary': True}, 2020113025: {'sold_price': 795000, 'sold_date': '2025-08-15', 'is_primary': True}, 2019930488: {'sold_price': 992000, 'sold_date': '2025-06-02', 'is_primary': True}}, 'total_sales': 3, 'joint_sales': 0, 'total_value': 2612000, 'joint_sales_value': 0, 'median_sold_price': '$825k', 'median_sold_price_value': 825000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 2612000, 'agency': 'Richard Matthews Real Estate', 'agency_logo': 'https://images.domain.com.au/img/Agencys/18189/logo_18189.jpeg', 'featured': False, 'featured_plus': False}, {'id': 'Ahsan Amer Butt', 'name': 'Ahsan Amer Butt', 'photo': 'https://images.domain.com.au/img/30039/contact_1811154.jpeg?mod=251011-144656', 'properties': {2020261154: {'sold_price': 2425786, 'sold_date': '2025-10-07', 'is_primary': True}, 2020139430: {'sold_price': 615000, 'sold_date': '2025-07-30', 'is_primary': True}}, 'total_sales': 2, 'joint_sales': 0, 'total_value': 3040786, 'joint_sales_value': 0, 'median_sold_price': '$1.5m', 'median_sold_price_value': 1520393.0, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 3040786, 'agency': 'Ray White Everest Group', 'agency_logo': 'https://images.domain.com.au/img/Agencys/30039/logo_30039.jpg?date=133646295058523524', 'featured': False, 'featured_plus': False}, {'id': '(Allen) Lijing Yan', 'name': '(Allen) Lijing Yan', 'photo': 'https://images.domain.com.au/img/30039/contact_1785352.jpeg?mod=251013-215920', 'properties': {2020261154: {'sold_price': 2425786, 'sold_date': '2025-10-07', 'is_primary': False}, 2020261137: {'sold_price': 1980000, 'sold_date': '2025-10-02', 'is_primary': True}, 2020178109: {'sold_price': 2060000, 'sold_date': '2025-09-20', 'is_primary': True}}, 'total_sales': 2, 'joint_sales': 1, 'total_value': 4040000, 'joint_sales_value': 2425786, 'median_sold_price': '$2.1m', 'median_sold_price_value': 2060000, 'joint_sales_value_formatted': '$2.4m', 'total_sales_value_combined': 6465786, 'agency': 'Ray White Everest Group', 'agency_logo': 'https://images.domain.com.au/img/Agencys/30039/logo_30039.jpg?date=133646295058523524', 'featured': False, 'featured_plus': False}, {'id': '(Leslie) Kheng Phuy Tan', 'name': '(Leslie) Kheng Phuy Tan', 'photo': 'https://images.domain.com.au/img/30039/contact_1787418.jpeg?mod=250906-105638', 'properties': {2020114034: {'sold_price': 1284000, 'sold_date': '2025-09-05', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 1284000, 'joint_sales_value': 0, 'median_sold_price': '$1.3m', 'median_sold_price_value': 1284000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 1284000, 'agency': 'Ray White Everest Group', 'agency_logo': 'https://images.domain.com.au/img/Agencys/30039/logo_30039.jpg?date=133646295058523524', 'featured': False, 'featured_plus': False}, {'id': 'Fan Li', 'name': 'Fan Li', 'photo': 'https://images.domain.com.au/img/30039/contact_1870878.jpeg?mod=251013-215623', 'properties': {2020087952: {'sold_price': 1950888, 'sold_date': '2025-08-28', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 1950888, 'joint_sales_value': 0, 'median_sold_price': '$2.0m', 'median_sold_price_value': 1950888, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 1950888, 'agency': 'Ray White Everest Group', 'agency_logo': 'https://images.domain.com.au/img/Agencys/30039/logo_30039.jpg?date=133646295058523524', 'featured': False, 'featured_plus': False}, {'id': 'Jack Ho', 'name': 'Jack Ho', 'photo': 'https://images.domain.com.au/img/27424/contact_1898030.jpeg?mod=251013-224144', 'properties': {2020220310: {'sold_price': 2660000, 'sold_date': '2025-09-27', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 2660000, 'joint_sales_value': 0, 'median_sold_price': '$2.7m', 'median_sold_price_value': 2660000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 2660000, 'agency': 'Murdoch Lee Estate Agents Castle Hill & Cherrybrook', 'agency_logo': 'https://images.domain.com.au/img/Agencys/27424/logo_27424.jpeg', 'featured': False, 'featured_plus': False}, {'id': 'Kylie Bezzina', 'name': 'Kylie Bezzina', 'photo': 'https://images.domain.com.au/img/3405/contact_1915614.png?mod=251013-233522', 'properties': {2020230296: {'sold_price': 2300000, 'sold_date': '2025-09-27', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 2300000, 'joint_sales_value': 0, 'median_sold_price': '$2.3m', 'median_sold_price_value': 2300000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 2300000, 'agency': 'Ray White Upper North Shore', 'agency_logo': 'https://images.domain.com.au/img/Agencys/3405/logo_3405.jpg?date=133646283752609727', 'featured': False, 'featured_plus': False}, {'id': 'Antonio Jimenez', 'name': 'Antonio Jimenez', 'photo': 'https://images.domain.com.au/img/34461/contact_1874548.jpeg?mod=251009-095944', 'properties': {2020283119: {'sold_price': 1720000, 'sold_date': '2025-09-15', 'is_primary': True}, 2020283106: {'sold_price': 2300000, 'sold_date': '2025-08-25', 'is_primary': True}, 2020283117: {'sold_price': 2620000, 'sold_date': '2025-08-20', 'is_primary': True}, 2020191122: {'sold_price': 3650000, 'sold_date': '2025-08-12', 'is_primary': True}, 2020051905: {'sold_price': 3396900, 'sold_date': '2025-07-22', 'is_primary': True}, 2020283116: {'sold_price': 2307000, 'sold_date': '2025-07-21', 'is_primary': True}, 2020073541: {'sold_price': 2600500, 'sold_date': '2025-07-21', 'is_primary': True}, 2020089159: {'sold_price': 2415000, 'sold_date': '2025-05-27', 'is_primary': True}}, 'total_sales': 8, 'joint_sales': 0, 'total_value': 21009400, 'joint_sales_value': 0, 'median_sold_price': '$2.5m', 'median_sold_price_value': 2507750.0, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 21009400, 'agency': 'The Studio Estate Agents', 'agency_logo': 'https://images.domain.com.au/img/Agencys/34461/logo_34461.png', 'featured': False, 'featured_plus': False}, {'id': 'Ismail Ates', 'name': 'Ismail Ates', 'photo': 'https://images.domain.com.au/img/34461/contact_1787940.jpeg?mod=251013-171402', 'properties': {2020283097: {'sold_price': 2238000, 'sold_date': '2025-09-15', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 2238000, 'joint_sales_value': 0, 'median_sold_price': '$2.2m', 'median_sold_price_value': 2238000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 2238000, 'agency': 'The Studio Estate Agents', 'agency_logo': 'https://images.domain.com.au/img/Agencys/34461/logo_34461.png', 'featured': False, 'featured_plus': False}, {'id': 'Jonathan Bartlett', 'name': 'Jonathan Bartlett', 'photo': 'https://images.domain.com.au/img/34461/contact_1889728.jpeg?mod=250923-142033', 'properties': {2020283100: {'sold_price': 830000, 'sold_date': '2025-08-19', 'is_primary': True}, 2020051905: {'sold_price': 3396900, 'sold_date': '2025-07-22', 'is_primary': False}, 2020283116: {'sold_price': 2307000, 'sold_date': '2025-07-21', 'is_primary': False}, 2020073541: {'sold_price': 2600500, 'sold_date': '2025-07-21', 'is_primary': False}, 2020127035: {'sold_price': 685000, 'sold_date': '2025-07-14', 'is_primary': True}, 2020089223: {'sold_price': 760000, 'sold_date': '2025-06-19', 'is_primary': True}, 2020089159: {'sold_price': 2415000, 'sold_date': '2025-05-27', 'is_primary': False}}, 'total_sales': 3, 'joint_sales': 4, 'total_value': 2275000, 'joint_sales_value': 10719400, 'median_sold_price': '$2.3m', 'median_sold_price_value': 2307000, 'joint_sales_value_formatted': '$10.7m', 'total_sales_value_combined': 12994400, 'agency': 'The Studio Estate Agents', 'agency_logo': 'https://images.domain.com.au/img/Agencys/34461/logo_34461.png', 'featured': False, 'featured_plus': False}, {'id': 'Leah Li', 'name': 'Leah Li', 'photo': 'https://images.domain.com.au/img/22760/contact_1950069.jpeg?mod=251013-154936', 'properties': {2020213514: {'sold_price': 2148888, 'sold_date': '2025-09-15', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 2148888, 'joint_sales_value': 0, 'median_sold_price': '$2.1m', 'median_sold_price_value': 2148888, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 2148888, 'agency': 'Ray White Castle Hill ', 'agency_logo': 'https://images.domain.com.au/img/Agencys/22760/logo_22760.jpg?date=133646292341373245', 'featured': False, 'featured_plus': False}, {'id': 'Kael Sharp', 'name': 'Kael Sharp', 'photo': 'https://images.domain.com.au/img/22760/contact_1382306.jpeg?mod=251020-094854', 'properties': {2020168901: {'sold_price': 638000, 'sold_date': '2025-09-05', 'is_primary': True}, 2019982712: {'sold_price': 1710000, 'sold_date': '2025-06-14', 'is_primary': True}, 2019973760: {'sold_price': 1462000, 'sold_date': '2025-06-01', 'is_primary': True}, 2019977469: {'sold_price': 1742000, 'sold_date': '2025-06-01', 'is_primary': True}, 2019991763: {'sold_price': 1709500, 'sold_date': '2025-05-21', 'is_primary': True}}, 'total_sales': 5, 'joint_sales': 0, 'total_value': 7261500, 'joint_sales_value': 0, 'median_sold_price': '$1.7m', 'median_sold_price_value': 1709500, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 7261500, 'agency': 'Ray White Castle Hill ', 'agency_logo': 'https://images.domain.com.au/img/Agencys/22760/logo_22760.jpg?date=133646292341373245', 'featured': False, 'featured_plus': False}, {'id': 'Yating Wang (jenny)', 'name': 'Yating Wang (jenny)', 'photo': 'https://images.domain.com.au/img/27887/contact_1667112.png?mod=251013-143814', 'properties': {2020195176: {'sold_price': 1905000, 'sold_date': '2025-09-13', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 1905000, 'joint_sales_value': 0, 'median_sold_price': '$1.9m', 'median_sold_price_value': 1905000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 1905000, 'agency': 'PW Realty', 'agency_logo': 'https://images.domain.com.au/img/Agencys/27887/logo_27887.png', 'featured': False, 'featured_plus': False}, {'id': 'Chris  Carr', 'name': 'Chris  Carr', 'photo': 'https://images.domain.com.au/img/26447/contact_2006851.jpeg?mod=251013-141553', 'properties': {2020140797: {'sold_price': 2035000, 'sold_date': '2025-09-08', 'is_primary': True}, 2020187970: {'sold_price': 2000000, 'sold_date': '2025-08-29', 'is_primary': True}, 2020194583: {'sold_price': 1350000, 'sold_date': '2025-08-22', 'is_primary': True}}, 'total_sales': 3, 'joint_sales': 0, 'total_value': 5385000, 'joint_sales_value': 0, 'median_sold_price': '$2.0m', 'median_sold_price_value': 2000000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 5385000, 'agency': 'Response Real Estate Norwest', 'agency_logo': 'https://images.domain.com.au/img/Agencys/26447/logo_26447.png', 'featured': False, 'featured_plus': False}, {'id': 'Scott Matthews', 'name': 'Scott Matthews', 'photo': 'https://images.domain.com.au/img/25785/contact_1247330.jpeg?mod=251013-160639', 'properties': {2020228312: {'sold_price': 1570000, 'sold_date': '2025-09-06', 'is_primary': True}, 2020090439: {'sold_price': 3600000, 'sold_date': '2025-07-15', 'is_primary': True}}, 'total_sales': 2, 'joint_sales': 0, 'total_value': 5170000, 'joint_sales_value': 0, 'median_sold_price': '$2.6m', 'median_sold_price_value': 2585000.0, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 5170000, 'agency': 'Wiseberry Baulkham Hills', 'agency_logo': 'https://images.domain.com.au/img/Agencys/25785/logo_25785.GIF?date=2015-05-06-11-21-38', 'featured': False, 'featured_plus': False}, {'id': 'Peter Van Den Hooven', 'name': 'Peter Van Den Hooven', 'photo': 'https://images.domain.com.au/img/25785/contact_1818215.jpeg?mod=250929-114000', 'properties': {2020228312: {'sold_price': 1570000, 'sold_date': '2025-09-06', 'is_primary': False}, 2020090439: {'sold_price': 3600000, 'sold_date': '2025-07-15', 'is_primary': False}, 2020023167: {'sold_price': 2070000, 'sold_date': '2025-06-12', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 2, 'total_value': 2070000, 'joint_sales_value': 5170000, 'median_sold_price': '$2.1m', 'median_sold_price_value': 2070000, 'joint_sales_value_formatted': '$5.2m', 'total_sales_value_combined': 7240000, 'agency': 'Wiseberry Baulkham Hills', 'agency_logo': 'https://images.domain.com.au/img/Agencys/25785/logo_25785.GIF?date=2015-05-06-11-21-38', 'featured': False, 'featured_plus': False}, {'id': 'Glen(Zhenwei)  CHEN', 'name': 'Glen(Zhenwei)  CHEN', 'photo': 'https://images.domain.com.au/img/38609/contact_1971315.jpeg?mod=251014-001630', 'properties': {2020123743: {'sold_price': 1425000, 'sold_date': '2025-09-04', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 1425000, 'joint_sales_value': 0, 'median_sold_price': '$1.4m', 'median_sold_price_value': 1425000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 1425000, 'agency': 'B&M Property Partners', 'agency_logo': 'https://images.domain.com.au/img/Agencys/38609/logo_38609.png', 'featured': False, 'featured_plus': False}, {'id': 'Julia Stella', 'name': 'Julia Stella', 'photo': 'https://images.domain.com.au/img/38989/contact_1986688.jpeg?mod=251008-171204', 'properties': {2020211948: {'sold_price': 1721888, 'sold_date': '2025-08-30', 'is_primary': True}, 2019943028: {'sold_price': 1450000, 'sold_date': '2025-05-21', 'is_primary': True}}, 'total_sales': 2, 'joint_sales': 0, 'total_value': 3171888, 'joint_sales_value': 0, 'median_sold_price': '$1.6m', 'median_sold_price_value': 1585944.0, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 3171888, 'agency': 'Stella & Co Real Estate', 'agency_logo': 'https://images.domain.com.au/img/Agencys/38989/logo_38989.png', 'featured': False, 'featured_plus': False}, {'id': 'Ricky Chan', 'name': 'Ricky Chan', 'photo': 'https://images.domain.com.au/img/39252/contact_1999463.jpeg?mod=251014-144207', 'properties': {2020193715: {'sold_price': 1610000, 'sold_date': '2025-08-28', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 1610000, 'joint_sales_value': 0, 'median_sold_price': '$1.6m', 'median_sold_price_value': 1610000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 1610000, 'agency': 'VUE Property Estate Agents', 'agency_logo': 'https://images.domain.com.au/img/Agencys/39252/logo_39252.jpeg', 'featured': False, 'featured_plus': False}, {'id': 'Sophia(huichun) Su', 'name': 'Sophia(huichun) Su', 'photo': 'https://images.domain.com.au/img/34988/contact_1955397.jpeg?mod=251013-124348', 'properties': {2020173013: {'sold_price': 1795000, 'sold_date': '2025-08-27', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 1795000, 'joint_sales_value': 0, 'median_sold_price': '$1.8m', 'median_sold_price_value': 1795000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 1795000, 'agency': 'Fortune Connex Pty Ltd', 'agency_logo': 'https://images.domain.com.au/img/Agencys/34988/logo_34988.jpeg', 'featured': False, 'featured_plus': False}, {'id': 'Dean Muriti', 'name': 'Dean Muriti', 'photo': 'https://images.domain.com.au/img/18922/contact_1433262.jpeg?mod=250925-090415', 'properties': {2020127222: {'sold_price': 2048000, 'sold_date': '2025-08-26', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 2048000, 'joint_sales_value': 0, 'median_sold_price': '$2.0m', 'median_sold_price_value': 2048000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 2048000, 'agency': 'Louis Carr Hills District', 'agency_logo': 'https://images.domain.com.au/img/Agencys/18922/logo_18922.GIF', 'featured': False, 'featured_plus': False}, {'id': 'Kim McChlery', 'name': 'Kim McChlery', 'photo': 'https://images.domain.com.au/img/15092/contact_1597438.jpeg?mod=251022-201524', 'properties': {2020077080: {'sold_price': 2100000, 'sold_date': '2025-08-22', 'is_primary': True}, 2019821853: {'sold_price': 710000, 'sold_date': '2025-05-13', 'is_primary': True}}, 'total_sales': 2, 'joint_sales': 0, 'total_value': 2810000, 'joint_sales_value': 0, 'median_sold_price': '$1.4m', 'median_sold_price_value': 1405000.0, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 2810000, 'agency': 'McGrath Parramatta', 'agency_logo': 'https://images.domain.com.au/img/Agencys/15092/logo_15092.png?date=133520028487555770', 'featured': False, 'featured_plus': False}, {'id': 'Malwinder Pandher', 'name': 'Malwinder Pandher', 'photo': 'https://images.domain.com.au/img/17170/contact_913525.png?mod=251015-122615', 'properties': {2020134173: {'sold_price': 1288000, 'sold_date': '2025-08-08', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 1288000, 'joint_sales_value': 0, 'median_sold_price': '$1.3m', 'median_sold_price_value': 1288000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 1288000, 'agency': 'Mountview RE', 'agency_logo': 'https://images.domain.com.au/img/Agencys/17170/logo_17170.jpg?date=132085800334256724', 'featured': False, 'featured_plus': False}, {'id': 'Andy Lin', 'name': 'Andy Lin', 'photo': 'https://images.domain.com.au/img/31192/contact_1515128.jpeg?mod=251013-233735', 'properties': {2020122823: {'sold_price': 2359888, 'sold_date': '2025-08-03', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 2359888, 'joint_sales_value': 0, 'median_sold_price': '$2.4m', 'median_sold_price_value': 2359888, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 2359888, 'agency': 'Uniland Real Estate | Epping & Castle Hill', 'agency_logo': 'https://images.domain.com.au/img/Agencys/31192/logo_31192.jpg?date=131698989628357989', 'featured': False, 'featured_plus': False}, {'id': 'Adrienne Robinson', 'name': 'Adrienne Robinson', 'photo': 'https://images.domain.com.au/img/6704/contact_1139696.jpeg?mod=251011-143138', 'properties': {2020067785: {'sold_price': 1840000, 'sold_date': '2025-08-02', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 1840000, 'joint_sales_value': 0, 'median_sold_price': '$1.8m', 'median_sold_price_value': 1840000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 1840000, 'agency': 'Homeway First National', 'agency_logo': 'https://images.domain.com.au/img/Agencys/6704/logo_6704.GIF', 'featured': False, 'featured_plus': False}, {'id': 'Sam Dalgliesh', 'name': 'Sam Dalgliesh', 'photo': 'https://images.domain.com.au/img/15823/contact_1888992.jpeg?mod=251012-175352', 'properties': {2020072229: {'sold_price': 1580000, 'sold_date': '2025-07-11', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 1580000, 'joint_sales_value': 0, 'median_sold_price': '$1.6m', 'median_sold_price_value': 1580000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 1580000, 'agency': 'McGrath Castle Hill', 'agency_logo': 'https://images.domain.com.au/img/Agencys/15823/logo_15823.png?date=133520028491930845', 'featured': False, 'featured_plus': False}, {'id': 'Maree McCrorie', 'name': 'Maree McCrorie', 'photo': 'https://images.domain.com.au/img/15823/contact_1080970.jpeg?mod=251013-115209', 'properties': {2019962360: {'sold_price': 3350000, 'sold_date': '2025-06-11', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 3350000, 'joint_sales_value': 0, 'median_sold_price': '$3.4m', 'median_sold_price_value': 3350000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 3350000, 'agency': 'McGrath Castle Hill', 'agency_logo': 'https://images.domain.com.au/img/Agencys/15823/logo_15823.png?date=133520028491930845', 'featured': False, 'featured_plus': False}, {'id': 'Francesco Terranova', 'name': 'Francesco Terranova', 'photo': 'https://images.domain.com.au/img/3802/contact_1757882.jpeg?mod=251021-091236', 'properties': {2020033673: {'sold_price': 1850000, 'sold_date': '2025-07-05', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 1850000, 'joint_sales_value': 0, 'median_sold_price': '$1.9m', 'median_sold_price_value': 1850000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 1850000, 'agency': 'Cutcliffe Properties', 'agency_logo': 'https://images.domain.com.au/img/Agencys/3802/logo_3802.png', 'featured': False, 'featured_plus': False}, {'id': 'Michael HU', 'name': 'Michael HU', 'photo': 'https://images.domain.com.au/img/26958/contact_1278573.jpeg?mod=251008-180157', 'properties': {2019905278: {'sold_price': 1355000, 'sold_date': '2025-06-25', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 1355000, 'joint_sales_value': 0, 'median_sold_price': '$1.4m', 'median_sold_price_value': 1355000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 1355000, 'agency': 'Seven Real Estate', 'agency_logo': 'https://images.domain.com.au/img/Agencys/26958/logo_26958.png', 'featured': False, 'featured_plus': False}, {'id': 'Jun CHEN', 'name': 'Jun CHEN', 'photo': 'https://images.domain.com.au/img/26958/contact_1752680.jpeg?mod=250902-091725', 'properties': {2019952363: {'sold_price': 1250800, 'sold_date': '2025-05-22', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 1250800, 'joint_sales_value': 0, 'median_sold_price': '$1.3m', 'median_sold_price_value': 1250800, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 1250800, 'agency': 'Seven Real Estate', 'agency_logo': 'https://images.domain.com.au/img/Agencys/26958/logo_26958.png', 'featured': False, 'featured_plus': False}, {'id': 'Brendan Dabaja', 'name': 'Brendan Dabaja', 'photo': 'https://images.domain.com.au/img/382/contact_1486614.jpeg?mod=251013-161157', 'properties': {2019978345: {'sold_price': 1911000, 'sold_date': '2025-05-30', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 1911000, 'joint_sales_value': 0, 'median_sold_price': '$1.9m', 'median_sold_price_value': 1911000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 1911000, 'agency': 'Gilmour Property Agents', 'agency_logo': 'https://images.domain.com.au/img/Agencys/382/logo_382.png?date=132611855655800258', 'featured': False, 'featured_plus': False}, {'id': 'Rachana Singh', 'name': 'Rachana Singh', 'photo': 'https://images.domain.com.au/img/8593/contact_1811181.jpeg?mod=250916-121707', 'properties': {2020031387: {'sold_price': 1155000, 'sold_date': '2025-05-30', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 1155000, 'joint_sales_value': 0, 'median_sold_price': '$1.2m', 'median_sold_price_value': 1155000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 1155000, 'agency': 'Ray White Blacktown City', 'agency_logo': 'https://images.domain.com.au/img/Agencys/8593/logo_8593.jpg?date=133646285699645263', 'featured': False, 'featured_plus': False}, {'id': 'Rebecca Habkouk', 'name': 'Rebecca Habkouk', 'photo': 'https://images.domain.com.au/img/19478/contact_1904826.jpeg?mod=251002-115536', 'properties': {2019959120: {'sold_price': 1980000, 'sold_date': '2025-05-27', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 1980000, 'joint_sales_value': 0, 'median_sold_price': '$2.0m', 'median_sold_price_value': 1980000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 1980000, 'agency': 'The Avenue Real Estate Agency', 'agency_logo': 'https://images.domain.com.au/img/Agencys/19478/logo_19478.png?date=131521586758130759', 'featured': False, 'featured_plus': False}, {'id': 'Alexandra Meadth', 'name': 'Alexandra Meadth', 'photo': 'https://images.domain.com.au/img/35100/contact_1861326.jpeg?mod=251013-143750', 'properties': {2019954072: {'sold_price': 2100000, 'sold_date': '2025-05-27', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 2100000, 'joint_sales_value': 0, 'median_sold_price': '$2.1m', 'median_sold_price_value': 2100000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 2100000, 'agency': 'Opes RE', 'agency_logo': 'https://images.domain.com.au/img/Agencys/35100/logo_35100.jpeg', 'featured': False, 'featured_plus': False}, {'id': 'Angelina Sun', 'name': 'Angelina Sun', 'photo': 'https://images.domain.com.au/img/32969/contact_1678711.jpeg?mod=251013-140553', 'properties': {2019996571: {'sold_price': 790000, 'sold_date': '2025-05-21', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 790000, 'joint_sales_value': 0, 'median_sold_price': '$790k', 'median_sold_price_value': 790000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 790000, 'agency': 'Property Rhodes', 'agency_logo': 'https://images.domain.com.au/img/Agencys/32969/logo_32969.jpeg', 'featured': False, 'featured_plus': False}, {'id': 'Daniel Makovec', 'name': 'Daniel Makovec', 'photo': 'https://images.domain.com.au/img/25249/contact_1229637.jpeg?mod=251013-140402', 'properties': {2019966747: {'sold_price': 1275000, 'sold_date': '2025-05-20', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 1275000, 'joint_sales_value': 0, 'median_sold_price': '$1.3m', 'median_sold_price_value': 1275000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 1275000, 'agency': 'ONE Agency Engadine', 'agency_logo': 'https://images.domain.com.au/img/Agencys/25249/logo_25249.jpg?date=131975183829090357', 'featured': False, 'featured_plus': False}, {'id': 'Tony Garay', 'name': 'Tony Garay', 'photo': 'https://images.domain.com.au/img/32625/contact_1761796.jpeg?mod=251013-144552', 'properties': {2019911287: {'sold_price': 1650000, 'sold_date': '2025-05-13', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 1650000, 'joint_sales_value': 0, 'median_sold_price': '$1.6m', 'median_sold_price_value': 1650000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 1650000, 'agency': 'LAING & SIMMONS GLENWOOD l STANHOPE GARDENS', 'agency_logo': 'https://images.domain.com.au/img/Agencys/32625/logo_32625.jpeg', 'featured': False, 'featured_plus': False}, {'id': 'Harry Park', 'name': 'Harry Park', 'photo': 'https://images.domain.com.au/img/20648/contact_1082540.jpeg?mod=251013-184153', 'properties': {2019871138: {'sold_price': 2300000, 'sold_date': '2025-05-12', 'is_primary': True}}, 'total_sales': 1, 'joint_sales': 0, 'total_value': 2300000, 'joint_sales_value': 0, 'median_sold_price': '$2.3m', 'median_sold_price_value': 2300000, 'joint_sales_value_formatted': '$0', 'total_sales_value_combined': 2300000, 'agency': 'Melrose Park Realty', 'agency_logo': 'https://images.domain.com.au/img/Agencys/20648/logo_20648.jpeg', 'featured': False, 'featured_plus': False}]
+
+===== CHECKING FOR FEATURED AGENTS =====
+Featured agents data: [{'Name': 'Amit Shrestha', 'Email': 'amit.shrestha@randw.com.au', 'Phone': '0416 678 195', 'State': 'NSW', 'Suburb': 'Kellyville', 'Manully Pull Data': ' Yes', 'Total Sales': '2', 'Total Sales Value': '$2.05m', 'Median Sold Price': '$1.02m', 'Agency': 'R&W Kellyville', 'Agent Photo': 'https://www.dropbox.com/scl/fi/0uuuqkg4j457avu5996qk/Amit-Photo.jpg?rlkey=7dc0x8axzfuz8y54d0bbfjcbb&st=p5aytzhz&dl=0', 'Agency Photo': 'https://www.dropbox.com/scl/fi/nudgw6lyqidlygbkna7lq/RW_Secondary-199-CMYK.png?rlkey=nvf8wfms5uogybu2gtqzfcxlr&st=gsajyhes&dl=0', 'Subscription Type': 'Featured'}]
+
+===== CHECKING FOR AREA TYPE =====
+DEBUG - Getting area type for suburb: Kellyville, post code: 2155
+DEBUG - Area type API response: 0
+DEBUG - Mapped area type code 0 to suburb
+Area type for Kellyville: suburb
+Found 1 featured agents for Kellyville, NSW
+Processing manually entered featured agent: Amit Shrestha
+Agent Amit Shrestha is Featured Plus: False
+DEBUG - get_featured_agent_commission called with: agent_name='Amit Shrestha', home_owner_pricing='$2.5m-$3m', suburb='Kellyville', state='NSW'
+DEBUG - API request params: {'agent_name': 'Amit Shrestha', 'suburb': 'Kellyville', 'state_code': 'NSW'}
+DEBUG - API response status: 200
+DEBUG - API response headers: {'Date': 'Thu, 23 Oct 2025 05:14:22 GMT', 'Content-Length': '937', 'Connection': 'keep-alive', 'CF-RAY': '992ec016d8ec795c-AMD', 'x-powered-by': 'Make Gateway/production', 'access-control-allow-origin': '*', 'x-make-scenario-execution-id': 'fec355e0cc3944b38ff05375cd767eb2', 'make-actual-status': '200', 'cf-cache-status': 'DYNAMIC', 'Set-Cookie': '__cf_bm=hZOdvq9AaEO8Dczdb1f6Mc87_T0hq_rhKR_F8eHZ7mE-1761196462-1.0.1.1-gmbayJWKIfIyb_abBrpnifEnm9.npMlo6DrypJnbBvVhPL5rnrS0hQONm8rNwdRkOsFPil4TP9UQwl5hfYbBW6Cu639rgUe.sBtdWyPPHNc; path=/; expires=Thu, 23-Oct-25 05:44:22 GMT; domain=.eu2.make.com; HttpOnly; Secure; SameSite=None', 'Server': 'cloudflare'}
+DEBUG - Raw API response text: [
+{
+"Less than $500k Commission": "2.80-3.00%",
+"$500k-$1m Commission": "1.40-1.60%",
+"$1m-$1.5m Commission": "1.40-1.60%",
+"$1.5m-$2m Commission": "1.30-1.50%",
+"$2m-$2.5m Commission": "1.30-1.50%",
+"$2.5m-$3m Commission": "1.10-1.30%",
+"$3m-$3.5m Commission": "1.30-1.50%",
+"$3.5m-$4m Commission": "1.30-1.50%",
+"$4m-$6m Commission": "1.20-1.40%",
+"$6m-$8m Commission": "1.00-1.20%",
+"$8m-$10m Commission": "1.00-1.20%",
+"$10m+ Commission": "1.00-1.20%",
+"Less than $500k Marketing": "$3,000-$4,000
+DEBUG - Parsed API response data: [
+  {
+    "Less than $500k Commission": "2.80-3.00%",
+    "$500k-$1m Commission": "1.40-1.60%",
+    "$1m-$1.5m Commission": "1.40-1.60%",
+    "$1.5m-$2m Commission": "1.30-1.50%",
+    "$2m-$2.5m Commission": "1.30-1.50%",
+    "$2.5m-$3m Commission": "1.10-1.30%",
+    "$3m-$3.5m Commission": "1.30-1.50%",
+    "$3.5m-$4m Commission": "1.30-1.50%",
+    "$4m-$6m Commission": "1.20-1.40%",
+    "$6m-$8m Commission": "1.00-1.20%",
+    "$8m-$10m Commission": "1.00-1.20%",
+    "$10m+ Commission": "1.00-1.20%",
+    "Less than $500k Marketing": "$3,000-$4,000",
+    "$500k-$1m Marketing": "$5,000-$6,000",
+    "$1m-$1.5m Marketing": "$5,000-$6,000",
+    "$1.5m-$2m Marketing": "$5,000-$6,000",
+    "$2m-$2.5m Marketing": "$7,000-$8,000",
+    "$2.5m-$3m Marketing": "$7,000-$8,000",
+    "$3m-$3.5m Marketing": "$7,000-$8,000",
+    "$3.5m-$4m Marketing": "$7,000-$8,000",
+    "$4m-$6m Marketing": "$8,000-$9,000",
+    "$6m-$8m Marketing": "$8,000-$9,000",
+    "$8m-$10m Marketing": "$8,000-$9,000",
+    "$10m+ Marketing": "$9,000-$10,000"
+  }
+]
+DEBUG - Commission data keys: ['Less than $500k Commission', '$500k-$1m Commission', '$1m-$1.5m Commission', '$1.5m-$2m Commission', '$2m-$2.5m Commission', '$2.5m-$3m Commission', '$3m-$3.5m Commission', '$3.5m-$4m Commission', '$4m-$6m Commission', '$6m-$8m Commission', '$8m-$10m Commission', '$10m+ Commission', 'Less than $500k Marketing', '$500k-$1m Marketing', '$1m-$1.5m Marketing', '$1.5m-$2m Marketing', '$2m-$2.5m Marketing', '$2.5m-$3m Marketing', '$3m-$3.5m Marketing', '$3.5m-$4m Marketing', '$4m-$6m Marketing', '$6m-$8m Marketing', '$8m-$10m Marketing', '$10m+ Marketing']
+DEBUG - Looking for keys: commission_key='$2.5m-$3m Commission', marketing_key='$2.5m-$3m Marketing'
+DEBUG - Found values: commission_rate='1.10-1.30%', marketing='$7,000-$8,000'
+DEBUG - Extracted lowest rate: 1.1
+DEBUG - Extracted lowest price: $2,500,000
+DEBUG - Raw discount calculation: $1,375.00
+DEBUG - Rounded discount: $1,500
+DEBUG - Returning result: {'commission_rate': '1.10-1.30%', 'discount': '$1,500', 'marketing': '$7,000-$8,000'}
+DEBUG - Featured agent commission for Amit Shrestha: rate='1.10-1.30%', discount='$1,500', marketing='$7,000-$8,000'
+DEBUG - home_owner_pricing value: '$2.5m-$3m'
+DEBUG - New agent object commission values: rate='1.10-1.30%', discount='$1,500', marketing='$7,000-$8,000'
+Added manually entered featured agent: Amit Shrestha
+05:15:58 agentlink-queue: Job OK (ce31ed0f-dc7a-4ee2-9045-c628c0377758)
+05:15:58 Result is kept for 500 seconds
+05:15:58 Cleaning registries for queue: agentlink-queue

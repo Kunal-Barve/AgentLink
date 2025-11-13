@@ -75,8 +75,8 @@ def get_featured_agent_commission(agent_name, home_owner_pricing, suburb, state)
                     print(f"DEBUG - Failed to fix malformed JSON: {str(fix_error)}")
                     return get_agent_commission(home_owner_pricing, state=state)
             
-            # Debug: Print parsed data
-            print(f"DEBUG - Parsed API response data: {json.dumps(data, indent=2)}")
+            # Debug: Print parsed data - print FULL response to see all available keys
+            print(f"DEBUG - Parsed API response data (FULL): {json.dumps(data, indent=2)}")
             
             # If no data returned or empty list
             if not data or len(data) == 0:

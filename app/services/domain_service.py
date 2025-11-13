@@ -354,9 +354,22 @@ async def fetch_property_data(
                 # Debug: Print the agent object to verify commission values were added
                 print(f"DEBUG - New agent object commission values: rate='{new_agent['commission_rate']}', discount='{new_agent['discount']}', marketing='{new_agent['marketing']}'")
                 
-                # Add the new agent to the agents list
-                agents_list.append(new_agent)
-                print(f"Added manually entered featured agent: {agent_name}")
+                # Check if this agent already exists in the list
+                existing_agent = None
+                for idx, agent in enumerate(agents_list):
+                    if agent['name'].strip().lower() == agent_name.lower():
+                        existing_agent = idx
+                        break
+                
+                if existing_agent is not None:
+                    # Update the existing agent instead of adding a duplicate
+                    print(f"Agent {agent_name} already exists in list at index {existing_agent}. Updating instead of adding duplicate.")
+                    agents_list[existing_agent].update(new_agent)
+                    print(f"Updated existing agent to featured: {agent_name}")
+                else:
+                    # Add the new agent to the agents list
+                    agents_list.append(new_agent)
+                    print(f"Added manually entered featured agent: {agent_name}")
             else:
                 # For non-manual agents, check if they match any existing agents
                 agent_name = featured_agent_info.get("Name", "").strip().lower()
@@ -450,6 +463,49 @@ async def fetch_property_data(
                 std_sub_status_cache[agent_name] = has_std_subscription
                 if has_std_subscription:
                     logger.info(f"Agent {agent_name} has standard subscription")
+    
+    # Final deduplication step - ensure no duplicates make it to the final list
+    print("\n===== FINAL DEDUPLICATION BEFORE CATEGORIZATION =====")
+    print(f"Total agents before final deduplication: {len(agents_list)}")
+    
+    final_unique_agents = {}
+    for agent in agents_list:
+        agent_name = agent['name'].strip().lower()
+        agent_key = agent_name  # Use just the name as key for final deduplication
+        
+        if agent_key in final_unique_agents:
+            # Duplicate found - keep the one with featured status, or the one with more data
+            existing = final_unique_agents[agent_key]
+            print(f"Duplicate found: {agent['name']} (Featured: {agent.get('featured', False)}) vs existing (Featured: {existing.get('featured', False)})")
+            
+            # Prioritize featured agents
+            if agent.get('featured', False) and not existing.get('featured', False):
+                print(f"  Keeping new agent (featured)")
+                final_unique_agents[agent_key] = agent
+            elif not agent.get('featured', False) and existing.get('featured', False):
+                print(f"  Keeping existing agent (featured)")
+                # Keep existing
+            elif agent.get('featured', False) and existing.get('featured', False):
+                # Both are featured, merge the data and keep the one with more complete information
+                print(f"  Both are featured - merging data")
+                # Use the one with more sales data, or manual data if available
+                if agent.get('total_sales', 0) > existing.get('total_sales', 0):
+                    final_unique_agents[agent_key] = agent
+                # Keep existing if it has equal or more sales
+            else:
+                # Neither is featured, keep the one with more sales
+                if agent.get('total_sales', 0) > existing.get('total_sales', 0):
+                    print(f"  Keeping new agent (higher sales)")
+                    final_unique_agents[agent_key] = agent
+                else:
+                    print(f"  Keeping existing agent (higher or equal sales)")
+        else:
+            final_unique_agents[agent_key] = agent
+    
+    agents_list = list(final_unique_agents.values())
+    print(f"Total agents after final deduplication: {len(agents_list)}")
+    print("=" * 50)
+    
     # Separate agents into three categories: featured, standard subscription, and regular
     featured_agents = [agent for agent in agents_list if agent['featured']]
     std_sub_agents = [agent for agent in agents_list if not agent['featured'] and agent.get('standard_subscription', False)]
