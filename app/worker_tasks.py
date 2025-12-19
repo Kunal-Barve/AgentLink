@@ -15,6 +15,16 @@ from app.services.dropbox_service import upload_to_dropbox
 from app.services.html_pdf_service import generate_pdf_with_weasyprint
 from app.services.agent_commission import get_agent_commission, get_area_type
 
+# Toggle for Backblaze vs Dropbox
+USE_BACKBLAZE = os.getenv("USE_BACKBLAZE", "false").lower() == "true"
+
+if USE_BACKBLAZE:
+    from app.services.backblaze_service import upload_to_backblaze
+    from app.services.upload_to_backblaze import create_and_upload_completed_pdf
+    upload_service = upload_to_backblaze
+else:
+    upload_service = upload_to_dropbox
+
 # Set up logging
 logger = logging.getLogger("articflow.worker")
 
@@ -95,18 +105,16 @@ async def get_commission_rate_async(agents_data, job_id, suburb, home_owner_pric
         )
         
         filename = f"{suburb}_Commission_{job_id}.pdf"
-        dropbox_folder = "/Commission Rate"
-        dropbox_url = await upload_to_dropbox(pdf_path, filename, folder_path=dropbox_folder)
+        folder_path = "Commission_Rates" if USE_BACKBLAZE else "/Commission Rate"
+        storage_url = await upload_service(pdf_path, filename, folder_path=folder_path)
         
-        # Clean up temporary file
-        if os.path.exists(pdf_path):
-            os.remove(pdf_path)
-            
-        return dropbox_url, filename, commission_rate, discount
+        # Don't clean up yet - we need the file for completed PDF merge
+        # Return the pdf_path so it can be used later
+        return storage_url, filename, commission_rate, discount, pdf_path
         
     except Exception as e:
         logger.error(f"Error generating commission report for job {job_id}: {str(e)}", exc_info=True)
-        return None, None, "", ""
+        return None, None, "", "", None
 
 
 def process_agents_report_task(
@@ -170,9 +178,10 @@ def process_agents_report_task(
         commission_filename = None
         commission_rate = ""
         discount = ""
+        commission_pdf_path = None
         if home_owner_pricing:
             update_job_status(job_id, "generating_commission_pdf")
-            commission_dropbox_url, commission_filename, commission_rate, discount = loop.run_until_complete(
+            commission_dropbox_url, commission_filename, commission_rate, discount, commission_pdf_path = loop.run_until_complete(
                 get_commission_rate_async(agents_data, job_id, suburb, home_owner_pricing, post_code, state)
             )
             logger.info(f"Job {job_id}: Commission report generated: {commission_dropbox_url}")
@@ -195,29 +204,52 @@ def process_agents_report_task(
         
         logger.info(f"Job {job_id}: PDF generated at {pdf_path}")
         
-        # Step 3: Upload to Dropbox
-        update_job_status(job_id, "uploading_to_dropbox")
+        # Step 3: Upload to storage (Backblaze or Dropbox)
+        storage_name = "Backblaze" if USE_BACKBLAZE else "Dropbox"
+        update_job_status(job_id, "uploading_to_dropbox")  # Keep status name for compatibility
         
         filename = f"{suburb}_Top_Agents_{job_id}.pdf"
-        dropbox_folder = "/Suburbs Top Agents"
-        dropbox_url = loop.run_until_complete(upload_to_dropbox(pdf_path, filename, folder_path=dropbox_folder))
+        folder_path = "Suburbs_Top_Agents" if USE_BACKBLAZE else "/Suburbs Top Agents"
+        storage_url = loop.run_until_complete(upload_service(pdf_path, filename, folder_path=folder_path))
         
-        logger.info(f"Job {job_id}: PDF uploaded to Dropbox: {dropbox_url}")
+        logger.info(f"Job {job_id}: PDF uploaded to {storage_name}: {storage_url}")
         
-        # Clean up
+        # Step 4: Create completed PDF (Backblaze only)
+        completed_pdf_url = None
+        completed_filename = None
+        if USE_BACKBLAZE and home_owner_pricing:
+            update_job_status(job_id, "creating_completed_pdf")
+            try:
+                completed_pdf_url, completed_filename = loop.run_until_complete(
+                    create_and_upload_completed_pdf(
+                        suburb=suburb,
+                        job_id=job_id,
+                        agent_report_path=pdf_path,
+                        commission_report_path=commission_pdf_path
+                    )
+                )
+                logger.info(f"Job {job_id}: Completed PDF created: {completed_pdf_url}")
+            except Exception as e:
+                logger.error(f"Job {job_id}: Failed to create completed PDF: {e}")
+        
+        # Clean up temporary files
         if os.path.exists(pdf_path):
             os.remove(pdf_path)
+        if commission_pdf_path and os.path.exists(commission_pdf_path):
+            os.remove(commission_pdf_path)
         
         # Update final status
         update_job_status(
             job_id, 
             "completed",
-            dropbox_url=dropbox_url,
+            dropbox_url=storage_url,  # Keep key name for backwards compatibility
             filename=filename,
             commission_dropbox_url=commission_dropbox_url or "",
             commission_filename=commission_filename or "",
             commission_rate=commission_rate,
             discount=discount,
+            completed_pdf_url=completed_pdf_url or "",
+            completed_filename=completed_filename or "",
             error=""
         )
         

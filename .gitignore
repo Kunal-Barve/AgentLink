@@ -172,3 +172,16 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Credentials and sensitive files
+credentials/
+google_sheets_config.json
+*.credentials.json
+service-account*.json
+
+# Temporary/test files
+job_ids.json
+tests/test_pdfs/output/
+
+# Apify scraper (contains API tokens and large files)
+apifyscraper/

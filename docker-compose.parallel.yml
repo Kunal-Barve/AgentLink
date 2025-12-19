@@ -23,6 +23,11 @@ services:
       DROPBOX_ACCESS_TOKEN: ${DROPBOX_ACCESS_TOKEN}
       DROPBOX_REFRESH_TOKEN: ${DROPBOX_REFRESH_TOKEN}
       REDIS_URL: redis://redis:6379/0
+      USE_BACKBLAZE: ${USE_BACKBLAZE}
+      B2_ENDPOINT_URL: ${B2_ENDPOINT_URL}
+      B2_KEY_ID: ${B2_KEY_ID}
+      B2_APPLICATION_KEY: ${B2_APPLICATION_KEY}
+      B2_BUCKET_NAME: ${B2_BUCKET_NAME}
     volumes:
       - ./app/templates:/app/app/templates
       - ./app/assets:/app/app/assets
@@ -44,6 +49,11 @@ services:
       DROPBOX_ACCESS_TOKEN: ${DROPBOX_ACCESS_TOKEN}
       DROPBOX_REFRESH_TOKEN: ${DROPBOX_REFRESH_TOKEN}
       REDIS_URL: redis://redis:6379/0
+      USE_BACKBLAZE: ${USE_BACKBLAZE}
+      B2_ENDPOINT_URL: ${B2_ENDPOINT_URL}
+      B2_KEY_ID: ${B2_KEY_ID}
+      B2_APPLICATION_KEY: ${B2_APPLICATION_KEY}
+      B2_BUCKET_NAME: ${B2_BUCKET_NAME}
     volumes:
       - ./app/templates:/app/app/templates
       - ./app/assets:/app/app/assets
@@ -65,6 +75,11 @@ services:
       DROPBOX_ACCESS_TOKEN: ${DROPBOX_ACCESS_TOKEN}
       DROPBOX_REFRESH_TOKEN: ${DROPBOX_REFRESH_TOKEN}
       REDIS_URL: redis://redis:6379/0
+      USE_BACKBLAZE: ${USE_BACKBLAZE}
+      B2_ENDPOINT_URL: ${B2_ENDPOINT_URL}
+      B2_KEY_ID: ${B2_KEY_ID}
+      B2_APPLICATION_KEY: ${B2_APPLICATION_KEY}
+      B2_BUCKET_NAME: ${B2_BUCKET_NAME}
     volumes:
       - ./app/templates:/app/app/templates
       - ./app/assets:/app/app/assets
@@ -86,6 +101,11 @@ services:
       DROPBOX_ACCESS_TOKEN: ${DROPBOX_ACCESS_TOKEN}
       DROPBOX_REFRESH_TOKEN: ${DROPBOX_REFRESH_TOKEN}
       REDIS_URL: redis://redis:6379/0
+      USE_BACKBLAZE: ${USE_BACKBLAZE}
+      B2_ENDPOINT_URL: ${B2_ENDPOINT_URL}
+      B2_KEY_ID: ${B2_KEY_ID}
+      B2_APPLICATION_KEY: ${B2_APPLICATION_KEY}
+      B2_BUCKET_NAME: ${B2_BUCKET_NAME}
     volumes:
       - ./app/templates:/app/app/templates
       - ./app/assets:/app/app/assets
@@ -107,6 +127,11 @@ services:
       DROPBOX_ACCESS_TOKEN: ${DROPBOX_ACCESS_TOKEN}
       DROPBOX_REFRESH_TOKEN: ${DROPBOX_REFRESH_TOKEN}
       REDIS_URL: redis://redis:6379/0
+      USE_BACKBLAZE: ${USE_BACKBLAZE}
+      B2_ENDPOINT_URL: ${B2_ENDPOINT_URL}
+      B2_KEY_ID: ${B2_KEY_ID}
+      B2_APPLICATION_KEY: ${B2_APPLICATION_KEY}
+      B2_BUCKET_NAME: ${B2_BUCKET_NAME}
     volumes:
       - ./app/templates:/app/app/templates
       - ./app/assets:/app/app/assets
@@ -128,6 +153,11 @@ services:
       DROPBOX_ACCESS_TOKEN: ${DROPBOX_ACCESS_TOKEN}
       DROPBOX_REFRESH_TOKEN: ${DROPBOX_REFRESH_TOKEN}
       REDIS_URL: redis://redis:6379/0
+      USE_BACKBLAZE: ${USE_BACKBLAZE}
+      B2_ENDPOINT_URL: ${B2_ENDPOINT_URL}
+      B2_KEY_ID: ${B2_KEY_ID}
+      B2_APPLICATION_KEY: ${B2_APPLICATION_KEY}
+      B2_BUCKET_NAME: ${B2_BUCKET_NAME}
     volumes:
       - ./app/templates:/app/app/templates
       - ./app/assets:/app/app/assets

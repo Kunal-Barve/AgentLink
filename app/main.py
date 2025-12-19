@@ -129,6 +129,8 @@ class JobStatusResponse(BaseModel):
     commission_filename: Optional[str] = None  
     commission_rate: Optional[str] = ""  
     discount: Optional[str] = ""  
+    completed_pdf_url: Optional[str] = ""  
+    completed_filename: Optional[str] = ""  
     error: Optional[str] = ""  # Changed from None to empty string as default
 
 
@@ -176,6 +178,8 @@ async def job_status_endpoint(job_id: str):
         progress = 60
     elif status == "uploading_to_dropbox":
         progress = 85
+    elif status == "creating_completed_pdf":
+        progress = 92
     elif status == "completed":
         progress = 100
     elif status == "failed":
@@ -198,6 +202,8 @@ async def job_status_endpoint(job_id: str):
         "commission_filename": job.get("commission_filename", ""),
         "commission_rate": job.get("commission_rate", ""),
         "discount": job.get("discount", ""),
+        "completed_pdf_url": job.get("completed_pdf_url", ""),
+        "completed_filename": job.get("completed_filename", ""),
         "error": error
     }
 
