@@ -43,7 +43,9 @@ def update_job_status(job_id: str, status: str, **kwargs):
         "status": status,
         "updated_at": datetime.now().isoformat()
     }
-    job_data.update(kwargs)
+    # Filter out None values - Redis can't store them
+    filtered_kwargs = {k: v for k, v in kwargs.items() if v is not None}
+    job_data.update(filtered_kwargs)
     redis_conn.hset(f"job:{job_id}", mapping=job_data)
     redis_conn.expire(f"job:{job_id}", 3600)  # Expire after 1 hour
     logger.info(f"Job {job_id} status updated to: {status}")
