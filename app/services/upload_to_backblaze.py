@@ -29,6 +29,8 @@ REQUIRED_FOLDERS = [
     "Commission_Rates",
     "Suburbs_Top_Agents",
     "Completed_Pdfs",
+    "Suburbs_Top_Rental_Agencies",
+    "Completed_Pdfs_Leased_Agencies",
 ]
 
 
@@ -204,6 +206,7 @@ def get_folder_file_count(folder_name: str) -> int:
 STATIC_PDFS_DIR = Path(__file__).parent.parent / "assets" / "pdfs"
 SALES_PDF = STATIC_PDFS_DIR / "Sales.pdf"
 COMMISSION_MARKETING_PDF = STATIC_PDFS_DIR / "Commission_and_Marketing.pdf"
+LEASE_PDF = STATIC_PDFS_DIR / "Lease.pdf"
 
 
 def merge_pdfs_to_completed(pdf_files: list, output_path: str) -> bool:
@@ -335,6 +338,91 @@ async def create_and_upload_completed_pdf(
         
     except Exception as e:
         logger.error(f"Error creating completed PDF: {e}", exc_info=True)
+        return None, None
+        
+    finally:
+        # Clean up temp file
+        if os.path.exists(merged_pdf_path):
+            os.remove(merged_pdf_path)
+            logger.debug(f"Cleaned up temp file: {merged_pdf_path}")
+
+
+async def create_and_upload_completed_leasing_pdf(
+    agency_report_path: str,
+    commission_pdf_path: str,
+    suburb: str,
+    job_id: str
+) -> tuple:
+    """
+    Create a completed leasing PDF by merging:
+    1. Lease.pdf (static)
+    2. Agency Report PDF (dynamic)
+    3. Commission Rate PDF (based on rental value)
+    
+    Then upload to Backblaze B2 Completed_Pdfs_Leased_Agencies folder.
+    
+    Args:
+        agency_report_path: Path to the generated agency report PDF
+        commission_pdf_path: Path to the commission PDF matching rental value
+        suburb: Suburb name for the filename
+        job_id: Job ID for unique filename
+    
+    Returns:
+        tuple: (completed_pdf_url, completed_filename) or (None, None) if failed
+    """
+    logger.info(f"Creating completed leasing PDF for {suburb} (job: {job_id})")
+    
+    # Check if static PDF exists
+    if not LEASE_PDF.exists():
+        logger.error(f"Static PDF not found: {LEASE_PDF}")
+        return None, None
+    
+    # Build list of PDFs to merge in order
+    pdfs_to_merge = []
+    
+    # 1. Lease.pdf (static)
+    pdfs_to_merge.append(str(LEASE_PDF))
+    
+    # 2. Agency Report PDF (dynamic)
+    if agency_report_path and os.path.exists(agency_report_path):
+        pdfs_to_merge.append(agency_report_path)
+    else:
+        logger.warning(f"Agency report PDF not found: {agency_report_path}")
+    
+    # 3. Commission PDF (dynamic)
+    if commission_pdf_path and os.path.exists(commission_pdf_path):
+        pdfs_to_merge.append(str(commission_pdf_path))
+    else:
+        logger.warning(f"Commission PDF not found: {commission_pdf_path}")
+    
+    logger.info(f"Merging {len(pdfs_to_merge)} PDFs for leasing report...")
+    
+    # Create temp file for merged PDF
+    with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp_file:
+        merged_pdf_path = tmp_file.name
+    
+    try:
+        # Merge PDFs
+        success = merge_pdfs_to_completed(pdfs_to_merge, merged_pdf_path)
+        
+        if not success:
+            logger.error("Failed to merge leasing PDFs")
+            return None, None
+        
+        # Upload to Backblaze
+        # Format suburb name: replace spaces with underscores
+        suburb_formatted = suburb.replace(" ", "_")
+        filename = f"AgentLink_{suburb_formatted}_Completed_Leasing_Report.pdf"
+        folder_path = "Completed_Pdfs_Leased_Agencies"
+        
+        logger.info(f"Uploading completed leasing PDF: {filename}")
+        completed_url = await upload_to_backblaze(merged_pdf_path, filename, folder_path=folder_path)
+        
+        logger.info(f"✅ Completed leasing PDF uploaded: {completed_url}")
+        return completed_url, filename
+        
+    except Exception as e:
+        logger.error(f"Error creating completed leasing PDF: {e}", exc_info=True)
         return None, None
         
     finally:

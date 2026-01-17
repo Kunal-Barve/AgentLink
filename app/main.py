@@ -114,6 +114,7 @@ class AgencyReportRequest(BaseModel):
     min_land_area: Optional[int] = None  # Added parameter for minimum land size
     max_land_area: Optional[int] = None  # Added parameter for maximum land size
     home_owner_pricing: Optional[str] = None
+    rental_value: Optional[str] = None  # Rental value for commission PDF selection
 
 class JobResponse(BaseModel):
     job_id: str
@@ -261,7 +262,7 @@ async def generate_agency_report(request: AgencyReportRequest):
     logger.info(f"Request details: suburb={request.suburb}, state={request.state}, property_types={request.property_types}")
     
     # Initialize job status in Redis
-    update_job_status(job_id, "processing", suburb=request.suburb)
+    update_job_status(job_id, "processing", suburb=request.suburb, state=request.state, property_types=request.property_types)
     logger.info(f"Agency report job {job_id} initialized with status 'processing'")
     
     # Enqueue task to RQ worker
@@ -284,6 +285,7 @@ async def generate_agency_report(request: AgencyReportRequest):
         featured_agency_id=request.featured_agency_id,
         min_land_area=request.min_land_area,
         max_land_area=request.max_land_area,
+        rental_value=request.rental_value,
         job_timeout='10m'  # 10 minute timeout for PDF generation
     )
     logger.info(f"RQ task enqueued for agency report job {job_id}, RQ Job ID: {rq_job.id}")
@@ -295,4 +297,4 @@ if __name__ == "__main__":
     # Add a test log message to verify logging is working
     logger.info("Starting the application server")
     print("Direct print: Starting the application server")  # Direct print for testing
-    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True) 

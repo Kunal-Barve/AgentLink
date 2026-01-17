@@ -14,13 +14,14 @@ from app.services.domain_agency_service import fetch_rented_property_data
 from app.services.dropbox_service import upload_to_dropbox
 from app.services.html_pdf_service import generate_pdf_with_weasyprint
 from app.services.agent_commission import get_agent_commission, get_area_type
+from app.services.commission_leasing_service import get_leasing_commission_info
 
 # Toggle for Backblaze vs Dropbox
 USE_BACKBLAZE = os.getenv("USE_BACKBLAZE", "false").lower() == "true"
 
 if USE_BACKBLAZE:
     from app.services.backblaze_service import upload_to_backblaze
-    from app.services.upload_to_backblaze import create_and_upload_completed_pdf
+    from app.services.upload_to_backblaze import create_and_upload_completed_pdf, create_and_upload_completed_leasing_pdf
     upload_service = upload_to_backblaze
 else:
     upload_service = upload_to_dropbox
@@ -278,7 +279,8 @@ def process_agency_report_task(
     area: str = None,
     featured_agency_id: str = None,
     min_land_area: int = None,
-    max_land_area: int = None
+    max_land_area: int = None,
+    rental_value: str = None
 ):
     """
     RQ Task: Process agency report generation
@@ -331,25 +333,78 @@ def process_agency_report_task(
         
         logger.info(f"Job {job_id}: Agency PDF generated at {pdf_path}")
         
-        # Step 3: Upload to Dropbox
-        update_job_status(job_id, "uploading_to_dropbox")
+        # Step 3: Get commission PDF (if rental_value is provided)
+        commission_pdf_path = None
+        commission_sheet = None
+        completed_pdf_url = None
+        completed_filename = None
         
-        filename = f"{suburb}_Top_Rental_Agencies_{job_id}.pdf"
-        dropbox_folder = "/Suburbs Top Rental Agencies"
-        dropbox_url = loop.run_until_complete(upload_to_dropbox(pdf_path, filename, folder_path=dropbox_folder))
+        if rental_value and post_code:
+            logger.info(f"Job {job_id}: Getting commission info for rental_value={rental_value}")
+            update_job_status(job_id, "fetching_commission_info")
+            
+            # Call webhook and get commission PDF
+            commission_pdf_path, commission_sheet = get_leasing_commission_info(
+                suburb=suburb,
+                state=state,
+                post_code=post_code,
+                rental_value=rental_value
+            )
+            
+            if commission_pdf_path:
+                logger.info(f"Job {job_id}: Commission PDF found at {commission_pdf_path}")
+            else:
+                logger.warning(f"Job {job_id}: Commission PDF not found for rental_value={rental_value}")
         
-        logger.info(f"Job {job_id}: PDF uploaded to Dropbox: {dropbox_url}")
+        # Step 4: Upload to Backblaze (if USE_BACKBLAZE=true) or Dropbox
+        if USE_BACKBLAZE:
+            update_job_status(job_id, "uploading_to_backblaze")
+            
+            filename = f"{suburb}_Top_Rental_Agencies_{job_id}.pdf"
+            backblaze_folder = "Suburbs_Top_Rental_Agencies"
+            pdf_url = loop.run_until_complete(upload_to_backblaze(pdf_path, filename, folder_path=backblaze_folder))
+            
+            logger.info(f"Job {job_id}: Agency report PDF uploaded to Backblaze: {pdf_url}")
+            
+            # Step 5: Create and upload completed leasing PDF (if commission PDF exists)
+            if commission_pdf_path and rental_value:
+                update_job_status(job_id, "creating_completed_pdf")
+                logger.info(f"Job {job_id}: Creating completed leasing PDF...")
+                
+                completed_pdf_url, completed_filename = loop.run_until_complete(
+                    create_and_upload_completed_leasing_pdf(
+                        agency_report_path=pdf_path,
+                        commission_pdf_path=str(commission_pdf_path),
+                        suburb=suburb,
+                        job_id=job_id
+                    )
+                )
+                
+                if completed_pdf_url:
+                    logger.info(f"Job {job_id}: Completed leasing PDF uploaded: {completed_pdf_url}")
+                else:
+                    logger.warning(f"Job {job_id}: Failed to create/upload completed leasing PDF")
+        else:
+            update_job_status(job_id, "uploading_to_dropbox")
+            
+            filename = f"{suburb}_Top_Rental_Agencies_{job_id}.pdf"
+            dropbox_folder = "/Suburbs Top Rental Agencies"
+            pdf_url = loop.run_until_complete(upload_to_dropbox(pdf_path, filename, folder_path=dropbox_folder))
+            
+            logger.info(f"Job {job_id}: PDF uploaded to Dropbox: {pdf_url}")
         
-        # Clean up
+        # Clean up agency report PDF
         if os.path.exists(pdf_path):
             os.remove(pdf_path)
         
-        # Update final status
+        # Update final status with both URLs
         update_job_status(
             job_id, 
             "completed",
-            dropbox_url=dropbox_url,
+            dropbox_url=pdf_url,
             filename=filename,
+            completed_pdf_url=completed_pdf_url or "",
+            completed_filename=completed_filename or "",
             error=""
         )
         

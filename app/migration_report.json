@@ -1,0 +1,166 @@
+[
+  {
+    "file": "Agents Subscribed.xlsx",
+    "sheets": [
+      {
+        "sheet_name": "Sheet1",
+        "table_name": "agents_subscribed",
+        "rows_total": 628,
+        "rows_inserted": 628,
+        "success": true,
+        "errors": []
+      },
+      {
+        "sheet_name": "Costs & Charges",
+        "table_name": "agents_subscribed_costs_charges",
+        "rows_total": 46,
+        "rows_inserted": 46,
+        "success": true,
+        "errors": []
+      },
+      {
+        "sheet_name": "Agents Cancelled Subscriptions",
+        "table_name": "agents_subscribed_agents_cancelled_subscriptions",
+        "rows_total": 71,
+        "rows_inserted": 71,
+        "success": true,
+        "errors": []
+      },
+      {
+        "sheet_name": "Area Key",
+        "table_name": "agents_subscribed_area_key",
+        "rows_total": 4,
+        "rows_inserted": 4,
+        "success": true,
+        "errors": []
+      }
+    ]
+  },
+  {
+    "file": "Copy of Leads Sent.xlsx",
+    "sheets": [
+      {
+        "sheet_name": "Sheet1",
+        "table_name": "leads_sent",
+        "rows_total": 2382,
+        "rows_inserted": 2382,
+        "success": true,
+        "errors": []
+      },
+      {
+        "sheet_name": "Advocacy",
+        "table_name": "leads_sent_advocacy",
+        "rows_total": 390,
+        "rows_inserted": 390,
+        "success": true,
+        "errors": []
+      },
+      {
+        "sheet_name": "Leaderboard",
+        "table_name": "leads_sent_leaderboard",
+        "rows_total": 125,
+        "rows_inserted": 125,
+        "success": true,
+        "errors": []
+      },
+      {
+        "sheet_name": "Agent Report",
+        "table_name": "leads_sent_agent_report",
+        "rows_total": 2645,
+        "rows_inserted": 2645,
+        "success": true,
+        "errors": []
+      }
+    ]
+  },
+  {
+    "file": "Featured Agent Controls.xlsx",
+    "sheets": [
+      {
+        "sheet_name": "Sheet1",
+        "table_name": "featured_agent_controls",
+        "rows_total": 708,
+        "rows_inserted": 708,
+        "success": true,
+        "errors": []
+      },
+      {
+        "sheet_name": "Sheet3",
+        "table_name": "featured_agent_controls_sheet3",
+        "rows_total": 412,
+        "rows_inserted": 412,
+        "success": true,
+        "errors": []
+      }
+    ]
+  },
+  {
+    "file": "Suburb Leads, No Agent.xlsx",
+    "sheets": [
+      {
+        "sheet_name": "Sheet1",
+        "table_name": "suburb_leads_no_agent",
+        "rows_total": 5,
+        "rows_inserted": 5,
+        "success": true,
+        "errors": []
+      },
+      {
+        "sheet_name": "NSW",
+        "table_name": "suburb_leads_no_agent_nsw",
+        "rows_total": 66,
+        "rows_inserted": 66,
+        "success": true,
+        "errors": []
+      },
+      {
+        "sheet_name": "QLD",
+        "table_name": "suburb_leads_no_agent_qld",
+        "rows_total": 67,
+        "rows_inserted": 67,
+        "success": true,
+        "errors": []
+      },
+      {
+        "sheet_name": "VIC",
+        "table_name": "suburb_leads_no_agent_vic",
+        "rows_total": 55,
+        "rows_inserted": 55,
+        "success": true,
+        "errors": []
+      },
+      {
+        "sheet_name": "SA",
+        "table_name": "suburb_leads_no_agent_sa",
+        "rows_total": 10,
+        "rows_inserted": 10,
+        "success": true,
+        "errors": []
+      },
+      {
+        "sheet_name": "WA",
+        "table_name": "suburb_leads_no_agent_wa",
+        "rows_total": 43,
+        "rows_inserted": 43,
+        "success": true,
+        "errors": []
+      },
+      {
+        "sheet_name": "NT",
+        "table_name": "suburb_leads_no_agent_nt",
+        "rows_total": 1,
+        "rows_inserted": 1,
+        "success": true,
+        "errors": []
+      },
+      {
+        "sheet_name": "TAS",
+        "table_name": "suburb_leads_no_agent_tas",
+        "rows_total": 1,
+        "rows_inserted": 1,
+        "success": true,
+        "errors": []
+      }
+    ]
+  }
+]

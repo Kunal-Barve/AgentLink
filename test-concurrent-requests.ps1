@@ -9,6 +9,35 @@ Write-Host "  Testing 5 simultaneous requests..." -ForegroundColor Cyan
 Write-Host "============================================" -ForegroundColor Cyan
 Write-Host ""
 
+# Test Type Selection
+Write-Host "Select test type:" -ForegroundColor Yellow
+Write-Host "  1. Top Agents Report (generate-agents-report)" -ForegroundColor White
+Write-Host "  2. Top Leasing Agencies Report (generate-agency-report)" -ForegroundColor White
+Write-Host ""
+$testTypeChoice = Read-Host "Enter your choice (1 or 2)"
+
+switch ($testTypeChoice) {
+    "1" {
+        $TEST_TYPE = "agents"
+        $TEST_NAME = "Top Agents Report"
+        $ENDPOINT_PATH = "/api/generate-agents-report"
+        Write-Host "[INFO] Selected: $TEST_NAME" -ForegroundColor Green
+    }
+    "2" {
+        $TEST_TYPE = "agencies"
+        $TEST_NAME = "Top Leasing Agencies Report"
+        $ENDPOINT_PATH = "/api/generate-agency-report"
+        Write-Host "[INFO] Selected: $TEST_NAME" -ForegroundColor Green
+    }
+    default {
+        Write-Host "[ERROR] Invalid choice. Defaulting to Top Agents Report." -ForegroundColor Red
+        $TEST_TYPE = "agents"
+        $TEST_NAME = "Top Agents Report"
+        $ENDPOINT_PATH = "/api/generate-agents-report"
+    }
+}
+Write-Host ""
+
 # Server Selection
 Write-Host "Select target server:" -ForegroundColor Yellow
 Write-Host "  1. Local (localhost:8000)" -ForegroundColor White
@@ -34,12 +63,12 @@ switch ($serverChoice) {
     }
 }
 
-$API_URL = "$API_BASE_URL/api/generate-agents-report"
+$API_URL = "$API_BASE_URL$ENDPOINT_PATH"
 $STATUS_URL = "$API_BASE_URL/api/job-status"
 Write-Host ""
 
-# Define all available requests
-$allRequests = @(
+# Define all available requests for AGENTS
+$agentRequests = @(
     @{
         name = "Kellyville, NSW"
         body = @{
@@ -336,10 +365,121 @@ $allRequests = @(
     }
 )
 
+# Define all available requests for LEASING AGENCIES
+$agencyRequests = @(
+    @{
+        name = "Palm Beach, QLD (Leasing)"
+        body = @{
+            suburb = "Palm Beach"
+            state = "QLD"
+            property_types = $null
+            min_bedrooms = 1
+            max_bedrooms = $null
+            min_bathrooms = 1
+            max_bathrooms = $null
+            min_carspaces = 1
+            max_carspaces = $null
+            include_surrounding_suburbs = $false
+            post_code = "4221"
+            region = $null
+            area = $null
+            min_land_area = $null
+            max_land_area = $null
+        }
+    },
+    @{
+        name = "Surfers Paradise, QLD (Leasing)"
+        body = @{
+            suburb = "Surfers Paradise"
+            state = "QLD"
+            property_types = $null
+            min_bedrooms = 1
+            max_bedrooms = $null
+            min_bathrooms = 1
+            max_bathrooms = $null
+            min_carspaces = 1
+            max_carspaces = $null
+            include_surrounding_suburbs = $false
+            post_code = "4217"
+            region = $null
+            area = $null
+            min_land_area = $null
+            max_land_area = $null
+        }
+    },
+    @{
+        name = "Broadbeach, QLD (Leasing)"
+        body = @{
+            suburb = "Broadbeach"
+            state = "QLD"
+            property_types = $null
+            min_bedrooms = 1
+            max_bedrooms = $null
+            min_bathrooms = 1
+            max_bathrooms = $null
+            min_carspaces = 1
+            max_carspaces = $null
+            include_surrounding_suburbs = $false
+            post_code = "4218"
+            region = $null
+            area = $null
+            min_land_area = $null
+            max_land_area = $null
+        }
+    },
+    @{
+        name = "Southport, QLD (Leasing)"
+        body = @{
+            suburb = "Southport"
+            state = "QLD"
+            property_types = $null
+            min_bedrooms = 1
+            max_bedrooms = $null
+            min_bathrooms = 1
+            max_bathrooms = $null
+            min_carspaces = 1
+            max_carspaces = $null
+            include_surrounding_suburbs = $false
+            post_code = "4215"
+            region = $null
+            area = $null
+            min_land_area = $null
+            max_land_area = $null
+        }
+    },
+    @{
+        name = "Burleigh Heads, QLD (Leasing)"
+        body = @{
+            suburb = "Burleigh Heads"
+            state = "QLD"
+            property_types = $null
+            min_bedrooms = 1
+            max_bedrooms = $null
+            min_bathrooms = 1
+            max_bathrooms = $null
+            min_carspaces = 1
+            max_carspaces = $null
+            include_surrounding_suburbs = $false
+            post_code = "4220"
+            region = $null
+            area = $null
+            min_land_area = $null
+            max_land_area = $null
+        }
+    }
+)
+
+# Select the appropriate request list based on test type
+if ($TEST_TYPE -eq "agents") {
+    $allRequests = $agentRequests
+} else {
+    $allRequests = $agencyRequests
+}
+
 # Display available requests
 Write-Host ""
 Write-Host "============================================" -ForegroundColor Cyan
-Write-Host "  Available Test Requests" -ForegroundColor Cyan
+Write-Host "  Available Test Requests - $TEST_NAME" -ForegroundColor Cyan
 Write-Host "============================================" -ForegroundColor Cyan
 Write-Host ""
 for ($i = 0; $i -lt $allRequests.Count; $i++) {
