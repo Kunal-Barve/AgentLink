@@ -12,6 +12,44 @@ DOMAIN_API_SECRET = os.getenv("DOMAIN_API_SECRET")
 logger = logging.getLogger("articflow.domain.utils")
 
 
+def normalize_home_owner_pricing(home_owner_pricing):
+    """
+    Normalize home_owner_pricing to the expected format.
+    Handles both JotForm format ("Less than $500k") and Meta form format ("less_than_$500k").
+    
+    Args:
+        home_owner_pricing: Price range string in any format
+        
+    Returns:
+        Normalized price range string in the expected format
+    """
+    if not home_owner_pricing:
+        return home_owner_pricing
+    
+    # Mapping from Meta form format to expected format
+    normalization_map = {
+        "less_than_$500k": "Less than $500k",
+        "$500k_$1m": "$500k-$1m",
+        "$1m_$1.5m": "$1m-$1.5m",
+        "$1.5m_$2m": "$1.5m-$2m",
+        "$2m_$2.5m": "$2m-$2.5m",
+        "$2.5m_$3m": "$2.5m-$3m",
+        "$3m_$3.5m": "$3m-$3.5m",
+        "$3.5m_$4m": "$3.5m-$4m",
+        "$4m_$6m": "$4m-$6m",
+        "$6m_$8m": "$6m-$8m",
+        "$8m_$10m": "$8m-$10m",
+        "$10m+": "$10m+"
+    }
+    
+    # Try direct mapping first (for Meta form format)
+    if home_owner_pricing in normalization_map:
+        return normalization_map[home_owner_pricing]
+    
+    # If already in correct format, return as-is
+    return home_owner_pricing
+
+
 def get_featured_agent_commission(agent_name, home_owner_pricing, suburb, state):
     """
     Get commission rates for a featured agent by making a request to Make.com webhook
@@ -26,6 +64,9 @@ def get_featured_agent_commission(agent_name, home_owner_pricing, suburb, state)
         Dictionary containing commission_rate, discount, and marketing
     """
     try:
+        # Normalize home_owner_pricing to handle different input formats
+        home_owner_pricing = normalize_home_owner_pricing(home_owner_pricing)
+        
         # Debug: Print input parameters
         print(f"DEBUG - get_featured_agent_commission called with: agent_name='{agent_name}', home_owner_pricing='{home_owner_pricing}', suburb='{suburb}', state='{state}'")
         
@@ -222,6 +263,9 @@ def get_agent_commission(home_owner_pricing, area_type="suburb", state=None):
         Dictionary containing commission_rate and marketing
     """
     try:
+        # Normalize home_owner_pricing to handle different input formats
+        home_owner_pricing = normalize_home_owner_pricing(home_owner_pricing)
+        
         # Debug: Print input parameters
         print(f"DEBUG - get_agent_commission called with: home_owner_pricing='{home_owner_pricing}', area_type='{area_type}', state='{state}'")
         
