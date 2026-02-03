@@ -104,6 +104,27 @@ $allRequests = @(
         }
     },
     @{
+        name = "Maribyrnong, VIC"
+        body = @{
+            suburb = "Maribyrnong"
+            state = "VIC"
+            property_types = $null
+            min_bedrooms = 1
+            max_bedrooms = $null
+            min_bathrooms = 1
+            max_bathrooms = $null
+            min_carspaces = 1
+            max_carspaces = $null
+            include_surrounding_suburbs = $false
+            post_code = "3032"
+            region = $null
+            area = $null
+            min_land_area = $null
+            max_land_area = $null
+            home_owner_pricing = 'less_than_$500k'
+        }
+    },
+    @{
         name = "Seaford Rise, SA"
         body = @{
             suburb = "Seaford rise"

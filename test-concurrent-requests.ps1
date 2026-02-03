@@ -133,6 +133,48 @@ $agentRequests = @(
         }
     },
     @{
+        name = "Maribyrnong, VIC"
+        body = @{
+            suburb = "Maribyrnong"
+            state = "VIC"
+            property_types = $null
+            min_bedrooms = 1
+            max_bedrooms = $null
+            min_bathrooms = 1
+            max_bathrooms = $null
+            min_carspaces = 1
+            max_carspaces = $null
+            include_surrounding_suburbs = $false
+            post_code = "3032"
+            region = $null
+            area = $null
+            min_land_area = $null
+            max_land_area = $null
+            home_owner_pricing = 'less_than_$500k'
+        }
+    },
+    @{
+        name = "McDowall, QLD"
+        body = @{
+            suburb = "McDowall"
+            state = "QLD"
+            property_types = $null
+            min_bedrooms = 1
+            max_bedrooms = $null
+            min_bathrooms = 1
+            max_bathrooms = $null
+            min_carspaces = 1
+            max_carspaces = $null
+            include_surrounding_suburbs = $false
+            post_code = "4053"
+            region = $null
+            area = $null
+            min_land_area = $null
+            max_land_area = $null
+            home_owner_pricing = "`$1.5m-`$2m"
+        }
+    },
+    @{
         name = "Seaford Rise, SA"
         body = @{
             suburb = "Seaford rise"
@@ -385,6 +427,7 @@ $agencyRequests = @(
             area = $null
             min_land_area = $null
             max_land_area = $null
+            rental_value = "`$1500-`$2000pw"
         }
     },
     @{
@@ -405,6 +448,7 @@ $agencyRequests = @(
             area = $null
             min_land_area = $null
             max_land_area = $null
+            rental_value = "`$2000+pw"
         }
     },
     @{
@@ -425,6 +469,7 @@ $agencyRequests = @(
             area = $null
             min_land_area = $null
             max_land_area = $null
+            rental_value = "`$1000-`$1500pw"
         }
     },
     @{
@@ -445,6 +490,7 @@ $agencyRequests = @(
             area = $null
             min_land_area = $null
             max_land_area = $null
+            rental_value = "`$500-`$1000pw"
         }
     },
     @{
@@ -465,6 +511,7 @@ $agencyRequests = @(
             area = $null
             min_land_area = $null
             max_land_area = $null
+            rental_value = "Less than `$500pw"
         }
     }
 )
@@ -726,14 +773,31 @@ if ($successCount -gt 0) {
                     if ($status.status -eq "completed") {
                         Write-Host ""
                         Write-Host "[OK] $($job.name)" -ForegroundColor Green
-                        Write-Host "  Agent Report: $($status.dropbox_url)" -ForegroundColor Gray
-                        if ($status.commission_dropbox_url) {
-                            Write-Host "  Commission Report: $($status.commission_dropbox_url)" -ForegroundColor Gray
+                        
+                        # For Agents Report - show individual and completed PDF
+                        if ($TEST_TYPE -eq "agents") {
+                            Write-Host "  Agent Report: $($status.dropbox_url)" -ForegroundColor Gray
+                            if ($status.commission_dropbox_url) {
+                                Write-Host "  Commission Report: $($status.commission_dropbox_url)" -ForegroundColor Gray
+                            }
+                            if ($status.completed_pdf_url) {
+                                Write-Host "  Completed Report (Sales + Agent + Commission): $($status.completed_pdf_url)" -ForegroundColor Green
+                            }
                             if ($status.commission_rate) {
                                 Write-Host "  Commission Rate: $($status.commission_rate)" -ForegroundColor Cyan
                             }
                             if ($status.discount) {
                                 Write-Host "  Discount: $($status.discount)" -ForegroundColor Cyan
+                            }
+                        }
+                        # For Agency Report - show individual and completed leasing PDF
+                        elseif ($TEST_TYPE -eq "agencies") {
+                            Write-Host "  Agency Report: $($status.dropbox_url)" -ForegroundColor Gray
+                            if ($status.commission_pdf_url) {
+                                Write-Host "  Commission PDF: $($status.commission_pdf_url)" -ForegroundColor Gray
+                            }
+                            if ($status.completed_pdf_url) {
+                                Write-Host "  Completed Leasing Report (Lease + Agency + Commission): $($status.completed_pdf_url)" -ForegroundColor Green
                             }
                         }
                     } else {

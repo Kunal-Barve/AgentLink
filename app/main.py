@@ -25,6 +25,9 @@ from app.worker_tasks import (
     update_job_status
 )
 
+# Google Sheets sync router
+from app.routes.google_sheets_sync import router as sheets_sync_router
+
 # Configure logging with date and time in filename
 log_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "logs")
 os.makedirs(log_dir, exist_ok=True)
@@ -65,6 +68,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 logger.info("CORS middleware configured")
+
+# Include Google Sheets sync router
+app.include_router(sheets_sync_router)
+logger.info("Google Sheets sync router registered")
 
 # Job storage is now in Redis via worker_tasks.py
 logger.info("Using Redis for job storage")
