@@ -15,7 +15,10 @@ logger = logging.getLogger("articflow.domain.utils")
 def normalize_home_owner_pricing(home_owner_pricing):
     """
     Normalize home_owner_pricing to the expected format.
-    Handles both JotForm format ("Less than $500k") and Meta form format ("less_than_$500k").
+    Handles multiple formats:
+    - JotForm: "Less than $500k"
+    - Meta form: "less_than_$500k"
+    - N8N: "$3-$3.5m" (missing 'm' on first number)
     
     Args:
         home_owner_pricing: Price range string in any format
@@ -25,6 +28,17 @@ def normalize_home_owner_pricing(home_owner_pricing):
     """
     if not home_owner_pricing:
         return home_owner_pricing
+    
+    import re
+    
+    # Fix n8n format: $3-$3.5m → $3m-$3.5m (add missing 'm' on first number)
+    # Pattern: $X-$Y.Ym or $X-$Ym where first number is missing the 'm'
+    pattern = r'\$(\d+(?:\.\d+)?)-\$(\d+(?:\.\d+)?)m'
+    match = re.match(pattern, home_owner_pricing)
+    if match:
+        first_num = match.group(1)
+        second_num = match.group(2)
+        home_owner_pricing = f"${first_num}m-${second_num}m"
     
     # Mapping from Meta form format to expected format
     normalization_map = {
