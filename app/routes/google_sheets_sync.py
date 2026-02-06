@@ -242,14 +242,25 @@ async def sync_sheet(
                 "table_name": table_name
             }
         
+        # DELETE ALL EXISTING ROWS (full replace strategy to prevent duplicates)
+        logger.info(f"🗑️ Deleting existing data from {table_name}...")
+        try:
+            # Delete all rows where id > 0 (effectively all rows)
+            supabase.table(table_name).delete().neq("id", 0).execute()
+            logger.info(f"  ✅ Cleared existing data")
+        except Exception as e:
+            logger.warning(f"  ⚠️ Delete failed (table might be empty): {e}")
+        
+        # INSERT FRESH DATA
         batch_size = 100
         total_synced = 0
         
         for i in range(0, len(cleaned_data), batch_size):
             batch = cleaned_data[i:i + batch_size]
-            result = supabase.table(table_name).upsert(batch).execute()
+            # Use INSERT instead of UPSERT to avoid confusion
+            result = supabase.table(table_name).insert(batch).execute()
             total_synced += len(batch)
-            logger.info(f"  ✅ Synced batch {i//batch_size + 1}: {len(batch)} rows")
+            logger.info(f"  ✅ Inserted batch {i//batch_size + 1}: {len(batch)} rows")
         
         return {
             "status": "success",
