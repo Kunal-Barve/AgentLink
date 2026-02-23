@@ -95,7 +95,7 @@ def get_featured_agent_commission(agent_name, home_owner_pricing, suburb, state)
         print(f"DEBUG - API request params: {params}")
         
         # Make the API request
-        url = "https://hook.eu2.make.com/4d6cv0gxrw8aok5becjj1odpb55mpiqw"
+        url = "https://n8n.srv1165267.hstgr.cloud/webhook/search-featured-agent-commission"
         response = requests.get(url, params=params)
         
         # Debug: Print response status and headers
