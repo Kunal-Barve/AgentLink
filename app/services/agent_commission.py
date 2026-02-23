@@ -94,9 +94,9 @@ def get_featured_agent_commission(agent_name, home_owner_pricing, suburb, state)
         # Debug: Print request parameters
         print(f"DEBUG - API request params: {params}")
         
-        # Make the API request
+        # Make the API request (n8n webhook requires POST with JSON body)
         url = "https://n8n.srv1165267.hstgr.cloud/webhook/search-featured-agent-commission"
-        response = requests.get(url, params=params)
+        response = requests.post(url, json=params)
         
         # Debug: Print response status and headers
         print(f"DEBUG - API response status: {response.status_code}")
