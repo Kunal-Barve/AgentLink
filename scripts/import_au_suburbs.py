@@ -35,7 +35,7 @@ def load_xlsx(path: Path) -> list[dict]:
     ws = wb.active
 
     rows = []
-    seen = set()  # track (suburb, state) pairs to deduplicate
+    seen = set()  # track (suburb, state, postcode) to deduplicate exact duplicates only
 
     for i, row in enumerate(ws.iter_rows(min_row=2, values_only=True)):
         suburb_raw, state_raw, postcode_raw = row[0], row[1], row[2]
@@ -49,9 +49,9 @@ def load_xlsx(path: Path) -> list[dict]:
         # Postcode arrives as float (e.g. 800.0) from xlsx — convert safely
         postcode = str(int(float(postcode_raw))).zfill(4)
 
-        key = (suburb.upper(), state)
+        key = (suburb.upper(), state, postcode)
         if key in seen:
-            print(f"  [SKIP duplicate] {suburb} | {state}")
+            print(f"  [SKIP exact duplicate] {suburb} | {state} | {postcode}")
             continue
         seen.add(key)
 
@@ -76,7 +76,7 @@ def upsert_to_supabase(supabase: Client, rows: list[dict]) -> None:
         try:
             supabase.table(TABLE_NAME).upsert(
                 batch,
-                on_conflict="suburb,state"
+                on_conflict="suburb,state,postcode"
             ).execute()
             inserted += len(batch)
             pct = (inserted / total) * 100
