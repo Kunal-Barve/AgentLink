@@ -17,18 +17,11 @@
 
 // ===== CONFIGURATION - EDIT THESE VALUES =====
 const CONFIG = {
-  // Your FastAPI endpoint URL (change to your server URL after deployment)
-  API_URL: 'http://srv1165267.hstgr.cloud:8000/api/sheets/sync',
-  
-  // Webhook secret (must match SHEETS_WEBHOOK_SECRET in your .env)
-  WEBHOOK_SECRET: 'your-secret-key-change-this',
-  
-  // Spreadsheet info - will be auto-detected
+  API_URL: 'http://72.62.64.72:9000/sync',
+  WEBHOOK_SECRET: 'nimdt332mkAfvm',
   SPREADSHEET_ID: SpreadsheetApp.getActiveSpreadsheet().getId(),
   SPREADSHEET_NAME: SpreadsheetApp.getActiveSpreadsheet().getName(),
-  
-  // Settings
-  AUTO_CREATE_TABLE: true,  // Auto-create tables for new tabs
+  AUTO_CREATE_TABLE: true,
   BATCH_SIZE: 100
 };
 // ============================================
@@ -117,14 +110,46 @@ function getSheetData(sheet) {
   const dataRange = sheet.getDataRange();
   const values = dataRange.getValues();
   
-  if (values.length < 2) {
+  if (values.length === 0) {
     return [];
   }
   
-  const headers = values[0].map(h => cleanColumnName(h));
-  const rows = values.slice(1);
+  // Check if row 1 looks like headers or data
+  const firstRow = values[0];
+  const hasHeaders = firstRow.some(cell => {
+    const str = String(cell).toLowerCase();
+    // Common header patterns
+    return str.includes('name') || str.includes('email') || str.includes('phone') || 
+           str.includes('state') || str.includes('suburb') || str.includes('address') ||
+           str.includes('date') || str.includes('agent') || str === 'id';
+  });
   
-  return rows.map(row => {
+  let headers;
+  let dataRows;
+  
+  if (!hasHeaders && values.length >= 1) {
+    // No headers detected - auto-generate all column names and include row 1 as data
+    console.log(`⚠️ No headers detected in "${sheet.getName()}" - auto-generating column names`);
+    headers = firstRow.map((_, index) => `column_${index + 1}`);
+    dataRows = values; // Include all rows including first row
+  } else {
+    // Normal case: row 1 is headers
+    headers = firstRow.map((h, index) => {
+      const cleaned = cleanColumnName(h);
+      // If header is empty after cleaning, generate a name based on position
+      if (!cleaned || cleaned === '') {
+        return `column_${index + 1}`;
+      }
+      return cleaned;
+    });
+    dataRows = values.slice(1);
+  }
+  
+  if (dataRows.length === 0) {
+    return [];
+  }
+  
+  return dataRows.map(row => {
     const obj = {};
     headers.forEach((header, index) => {
       let value = row[index];
@@ -175,22 +200,56 @@ function manualSync() {
 }
 
 /**
- * Log errors to a separate sheet
+ * Sync ALL tabs in the spreadsheet - Run this to sync everything at once
+ */
+function syncAllTabs() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const allSheets = ss.getSheets();
+  
+  // Skip system/log tabs and unwanted tabs
+  const skipTabs = ['Sync Logs', 'sync logs', 'logs', 'errors', 'Sheet1', 'Sheet6', 'Sheet3'];
+  const sheets = allSheets.filter(sheet => {
+    const name = sheet.getName();
+    return !skipTabs.includes(name);
+  });
+  
+  console.log('🔄 Starting sync for ALL tabs...');
+  console.log(`📋 Spreadsheet: ${CONFIG.SPREADSHEET_NAME}`);
+  console.log(`📊 Total tabs: ${allSheets.length}, Syncing: ${sheets.length} (skipped ${allSheets.length - sheets.length} system tabs)`);
+  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  
+  let successCount = 0;
+  let failCount = 0;
+  let skippedCount = 0;
+  
+  sheets.forEach((sheet, index) => {
+    const tabName = sheet.getName();
+    console.log(`\n[${index + 1}/${sheets.length}] Syncing: ${tabName}`);
+    
+    try {
+      const success = syncSheetToAPI(sheet, tabName);
+      if (success) {
+        successCount++;
+      } else {
+        failCount++;
+      }
+    } catch (error) {
+      console.error(`❌ Failed to sync ${tabName}:`, error);
+      failCount++;
+    }
+  });
+  
+  console.log('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  console.log(`✅ Sync complete: ${successCount} successful, ${failCount} failed`);
+  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+}
+
+/**
+ * Log errors to console only (no sheet creation for sensitive data)
  */
 function logError(message) {
-  try {
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
-    let logSheet = ss.getSheetByName('Sync Logs');
-    
-    if (!logSheet) {
-      logSheet = ss.insertSheet('Sync Logs');
-      logSheet.appendRow(['Timestamp', 'Error Message']);
-    }
-    
-    logSheet.appendRow([new Date(), message]);
-  } catch (e) {
-    console.error('Failed to log error:', e);
-  }
+  // Only log to execution log, don't create sheets
+  console.error('🔴 Error:', message);
 }
 
 /**
@@ -233,4 +292,46 @@ function viewConfig() {
   console.log('Spreadsheet Name:', CONFIG.SPREADSHEET_NAME);
   console.log('Auto Create Tables:', CONFIG.AUTO_CREATE_TABLE);
   console.log('Webhook Secret Set:', CONFIG.WEBHOOK_SECRET !== 'your-secret-key-change-this');
+}
+
+/**
+ * Find empty columns in ALL tabs - Run this to debug empty column issues
+ */
+function findEmptyColumns() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sheets = ss.getSheets();
+  
+  console.log('🔍 Scanning all tabs for empty columns...');
+  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  
+  let totalEmpty = 0;
+  
+  sheets.forEach(sheet => {
+    const tabName = sheet.getName();
+    const lastCol = sheet.getLastColumn();
+    const headers = sheet.getRange(1, 1, 1, lastCol).getValues()[0];
+    
+    let emptyCount = 0;
+    const emptyPositions = [];
+    
+    headers.forEach((header, index) => {
+      if (header === '' || header === null || String(header).trim() === '') {
+        emptyCount++;
+        totalEmpty++;
+        const colLetter = String.fromCharCode(65 + (index % 26));
+        emptyPositions.push(`Column ${colLetter} (position ${index + 1})`);
+      }
+    });
+    
+    if (emptyCount > 0) {
+      console.log(`\n❌ Tab "${tabName}": ${emptyCount} empty column(s)`);
+      emptyPositions.forEach(pos => console.log(`   - ${pos}`));
+    } else {
+      console.log(`\n✅ Tab "${tabName}": No empty columns`);
+    }
+  });
+  
+  console.log('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  console.log(`Total empty columns found: ${totalEmpty}`);
+  console.log('💡 Tip: Delete empty columns or add header names to fix sync issues');
 }

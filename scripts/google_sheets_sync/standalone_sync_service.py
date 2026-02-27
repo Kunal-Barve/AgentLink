@@ -221,7 +221,18 @@ async def sync_sheet(
                 "table_name": table_name
             }
         
-        # Batch insert - table will be auto-created if needed
+        # Delete existing data first to prevent duplicates
+        # Apps Script sends full snapshot, so we replace all data
+        try:
+            logger.info(f"  🗑️ Clearing existing data from {table_name}...")
+            # Delete all rows (using neq filter to match all rows)
+            supabase.table(table_name).delete().neq("id", 0).execute()
+            logger.info(f"  ✅ Cleared existing data")
+        except Exception as e:
+            # Table might not exist yet, that's fine
+            logger.info(f"  ℹ️ No existing data to clear (table may not exist yet)")
+        
+        # Batch insert fresh data
         batch_size = 100
         total_synced = 0
         table_created = False
@@ -229,9 +240,9 @@ async def sync_sheet(
         for i in range(0, len(cleaned_data), batch_size):
             batch = cleaned_data[i:i + batch_size]
             try:
-                result = supabase.table(table_name).upsert(batch).execute()
+                result = supabase.table(table_name).insert(batch).execute()
                 total_synced += len(batch)
-                logger.info(f"  ✅ Synced batch {i//batch_size + 1}: {len(batch)} rows")
+                logger.info(f"  ✅ Inserted batch {i//batch_size + 1}: {len(batch)} rows")
                 if i == 0:
                     table_created = True  # Assume table was created on first successful insert
             except Exception as e:

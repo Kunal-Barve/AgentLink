@@ -154,6 +154,27 @@ $agentRequests = @(
         }
     },
     @{
+        name = "Brighton, VIC"
+        body = @{
+            suburb = "Brighton"
+            state = "VIC"
+            property_types = $null
+            min_bedrooms = 1
+            max_bedrooms = $null
+            min_bathrooms = 1
+            max_bathrooms = $null
+            min_carspaces = 1
+            max_carspaces = $null
+            include_surrounding_suburbs = $false
+            post_code = "3186"
+            region = $null
+            area = $null
+            min_land_area = $null
+            max_land_area = $null
+            home_owner_pricing = "`$1m-`$1.5m"
+        }
+    },
+    @{
         name = "McDowall, QLD"
         body = @{
             suburb = "McDowall"
@@ -167,6 +188,27 @@ $agentRequests = @(
             max_carspaces = $null
             include_surrounding_suburbs = $false
             post_code = "4053"
+            region = $null
+            area = $null
+            min_land_area = $null
+            max_land_area = $null
+            home_owner_pricing = "`$1.5m-`$2m"
+        }
+    },
+    @{
+        name = "Armidale, NSW"
+        body = @{
+            suburb = "Armidale"
+            state = "NSW"
+            property_types = $null
+            min_bedrooms = 1
+            max_bedrooms = $null
+            min_bathrooms = 1
+            max_bathrooms = $null
+            min_carspaces = 1
+            max_carspaces = $null
+            include_surrounding_suburbs = $false
+            post_code = "2350"
             region = $null
             area = $null
             min_land_area = $null
