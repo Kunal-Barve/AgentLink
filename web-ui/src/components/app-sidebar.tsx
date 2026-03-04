@@ -4,12 +4,13 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Home, Database, Settings, ChevronDown, ChevronRight } from 'lucide-react'
-import { SHEETS_CONFIG } from '@/lib/sheet-config'
+import { useSheets } from '@/lib/sheets-context'
 import { cn } from '@/lib/utils'
 
 export function AppSidebar() {
   const pathname = usePathname()
   const [isDatabaseOpen, setIsDatabaseOpen] = useState(true)
+  const { sheets, loading } = useSheets()
 
   return (
     <aside className="hidden md:flex w-64 border-r border-white/5 h-[calc(100vh-64px)] sticky top-16 p-6 flex-col shrink-0 overflow-y-auto">
@@ -41,7 +42,10 @@ export function AppSidebar() {
 
           {isDatabaseOpen && (
             <div className="ml-6 mt-1 space-y-1">
-              {SHEETS_CONFIG.map((sheet) => (
+              {loading ? (
+                <div className="px-3 py-2 text-xs text-slate-500">Loading...</div>
+              ) : (
+              sheets.map((sheet) => (
                 <Link
                   key={sheet.id}
                   href={`/${sheet.id}/${sheet.tabs[0].name}`}
@@ -60,7 +64,8 @@ export function AppSidebar() {
                   )}></span>
                   <span className="truncate">{sheet.name}</span>
                 </Link>
-              ))}
+              ))
+              )}
             </div>
           )}
         </div>

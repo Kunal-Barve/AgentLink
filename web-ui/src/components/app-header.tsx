@@ -5,16 +5,17 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { Database, Search, Bell, X } from 'lucide-react'
-import { SHEETS_CONFIG } from '@/lib/sheet-config'
+import { useSheets } from '@/lib/sheets-context'
 
 export function AppHeader() {
   const router = useRouter()
   const [searchQuery, setSearchQuery] = useState('')
   const [showResults, setShowResults] = useState(false)
   const searchRef = useRef<HTMLDivElement>(null)
+  const { sheets } = useSheets()
 
   const filteredSheets = searchQuery.trim()
-    ? SHEETS_CONFIG.filter(sheet =>
+    ? sheets.filter(sheet =>
         sheet.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         sheet.tabs.some(tab => tab.displayName.toLowerCase().includes(searchQuery.toLowerCase()))
       )
@@ -44,13 +45,13 @@ export function AppHeader() {
 
   return (
     <header className="h-16 border-b border-white/5 flex items-center justify-between px-6 sticky top-0 z-50 bg-black/60 backdrop-blur-xl">
-      <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
+      <Link href="/" className="flex items-center hover:opacity-90 transition-opacity">
         <Image
-          src="/logo-dark.png"
+          src="/agentlink-logo.png"
           alt="AgentLink"
-          width={160}
-          height={40}
-          className="h-8 w-auto object-contain"
+          width={180}
+          height={45}
+          className="h-10 w-auto object-contain drop-shadow-[0_0_12px_rgba(59,130,246,0.5)]"
           priority
         />
       </Link>

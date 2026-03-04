@@ -80,7 +80,7 @@ export function ProfessionalDataGrid({ tableName, sheetId, tabName }: DataGridPr
           ),
           cell: ({ row, column }) => {
             const cellId = `${row.original.id}-${column.id}`
-            const isEditing = editingCell?.rowId === row.original.id && editingCell?.columnId === column.id
+            const isEditing = editingCell?.rowIndex === row.index && editingCell?.columnId === column.id
             const value = row.getValue(column.id) as string
             
             return (
@@ -92,7 +92,7 @@ export function ProfessionalDataGrid({ tableName, sheetId, tabName }: DataGridPr
                 )}
                 onClick={() => {
                   if (key !== 'id') {
-                    setEditingCell({ rowId: row.original.id, columnId: column.id as string })
+                    setEditingCell({ rowIndex: row.index, columnId: column.id as string })
                     setEditValue(value || '')
                   }
                 }}

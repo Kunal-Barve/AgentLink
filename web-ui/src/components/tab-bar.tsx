@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
-import { getSheetById } from '@/lib/sheet-config'
+import { useSheets } from '@/lib/sheets-context'
 import { cn } from '@/lib/utils'
 
 export function TabBar() {
@@ -10,6 +10,7 @@ export function TabBar() {
   const sheetId = params.sheet as string
   const currentTab = params.tab as string
   
+  const { getSheetById } = useSheets()
   const sheet = getSheetById(sheetId)
   
   if (!sheet) return null

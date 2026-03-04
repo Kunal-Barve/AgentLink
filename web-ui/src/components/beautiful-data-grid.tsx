@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import {
   useReactTable,
   getCoreRowModel,
@@ -15,6 +15,7 @@ import {
 import { supabase } from '@/lib/supabase'
 import { ChevronDown, ChevronUp, Plus, Trash2, Search, X, Download, Palette, Check, Filter } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { SuburbPicker, SuburbCellDisplay } from '@/components/suburb-picker'
 
 const globalFilterFn: FilterFn<any> = (row, columnId, filterValue) => {
   const search = String(filterValue).toLowerCase()
@@ -46,7 +47,7 @@ const COLORS = [
 
 export function BeautifulDataGrid({ tableName, sheetId, tabName }: DataGridProps) {
   const [data, setData] = useState<any[]>([])
-  const [columns, setColumns] = useState<ColumnDef<any>[]>([])
+  // columns are now computed via useMemo below, not stored in state
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [sorting, setSorting] = useState<SortingState>([])
@@ -59,13 +60,61 @@ export function BeautifulDataGrid({ tableName, sheetId, tabName }: DataGridProps
   const [showColorPicker, setShowColorPicker] = useState<number | null>(null)
   const [showColumnFilter, setShowColumnFilter] = useState<string | null>(null)
   const [hoveredColumn, setHoveredColumn] = useState<string | null>(null)
+  const hoveredColumnRef = useRef<string | null>(null)
+  const [newRowIds, setNewRowIds] = useState<Set<string>>(new Set())
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const [columnKeys, setColumnKeys] = useState<string[]>([])
 
   useEffect(() => {
     loadData()
   }, [tableName])
 
+  // Navigate to an adjacent cell: direction = 'right' | 'left' | 'up' | 'down'
+  function navigateCell(direction: 'right' | 'left' | 'up' | 'down', currentRow: number, currentCol: string) {
+    const colIdx = columnKeys.indexOf(currentCol)
+    if (colIdx === -1) return
+
+    let nextRow = currentRow
+    let nextColIdx = colIdx
+
+    if (direction === 'right') {
+      nextColIdx = colIdx + 1
+      if (nextColIdx >= columnKeys.length) {
+        // Wrap to first cell of next row
+        nextColIdx = 0
+        nextRow = currentRow + 1
+      }
+    } else if (direction === 'left') {
+      nextColIdx = colIdx - 1
+      if (nextColIdx < 0) {
+        // Wrap to last cell of previous row
+        nextColIdx = columnKeys.length - 1
+        nextRow = currentRow - 1
+      }
+    } else if (direction === 'down') {
+      nextRow = currentRow + 1
+    } else if (direction === 'up') {
+      nextRow = currentRow - 1
+    }
+
+    // Bounds check
+    if (nextRow < 0 || nextRow >= data.length) return
+    if (nextColIdx < 0 || nextColIdx >= columnKeys.length) return
+
+    const nextCol = columnKeys[nextColIdx]
+    setEditingCell({ rowIndex: nextRow, columnId: nextCol })
+    setEditValue(data[nextRow]?.[nextCol] || '')
+  }
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Ctrl+Enter: add new row
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        e.preventDefault()
+        handleAddRow()
+        return
+      }
+
       if (e.ctrlKey || e.metaKey) {
         if (e.key === 'a') {
           e.preventDefault()
@@ -76,18 +125,37 @@ export function BeautifulDataGrid({ tableName, sheetId, tabName }: DataGridProps
           exportToCSV()
         }
       }
+
       if (e.key === 'Escape') {
         setSelectedRows(new Set())
         setEditingCell(null)
       }
+
       if (e.key === 'Delete' && selectedRows.size > 0) {
         handleBulkDelete()
+      }
+
+      // Arrow key navigation when NOT editing a text input
+      if (editingCell && !(e.target instanceof HTMLInputElement)) {
+        if (e.key === 'ArrowRight') {
+          e.preventDefault()
+          navigateCell('right', editingCell.rowIndex, editingCell.columnId)
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault()
+          navigateCell('left', editingCell.rowIndex, editingCell.columnId)
+        } else if (e.key === 'ArrowDown') {
+          e.preventDefault()
+          navigateCell('down', editingCell.rowIndex, editingCell.columnId)
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault()
+          navigateCell('up', editingCell.rowIndex, editingCell.columnId)
+        }
       }
     }
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [data, selectedRows])
+  }, [data, selectedRows, editingCell, columnKeys])
 
   async function loadData() {
     setLoading(true)
@@ -101,95 +169,31 @@ export function BeautifulDataGrid({ tableName, sheetId, tabName }: DataGridProps
 
       if (fetchError) throw fetchError
 
+      // Determine column keys from data or from API if table is empty
+      let keys: string[] = []
       if (rows && rows.length > 0) {
-        const columnKeys = Object.keys(rows[0]).filter(
+        keys = Object.keys(rows[0]).filter(
           key => !['id', 'created_at', 'updated_at'].includes(key)
         )
-        
-        const dynamicColumns: ColumnDef<any>[] = columnKeys.map(key => ({
-          accessorKey: key,
-          id: key,
-          size: 200,
-          minSize: 100,
-          maxSize: 600,
-          enableResizing: true,
-          filterFn: columnFilterFn,
-          header: ({ column }) => (
-            <div 
-              className="flex items-center justify-between h-full px-3 group"
-              onMouseEnter={() => setHoveredColumn(key)}
-              onMouseLeave={() => setHoveredColumn(null)}
-            >
-              <button
-                onClick={() => column.toggleSorting()}
-                className="flex items-center gap-2 flex-1 text-left"
-              >
-                <span className="text-xs font-semibold text-foreground uppercase tracking-wide truncate">
-                  {key.replace(/_/g, ' ')}
-                </span>
-                {column.getIsSorted() === 'asc' && <ChevronUp size={14} className="text-primary" />}
-                {column.getIsSorted() === 'desc' && <ChevronDown size={14} className="text-primary" />}
-              </button>
-              <button
-                onClick={() => setShowColumnFilter(showColumnFilter === key ? null : key)}
-                className="p-1 hover:bg-primary/20 rounded transition-colors"
-              >
-                <Filter size={14} className={cn(
-                  "transition-colors",
-                  columnFilters.some(f => f.id === key) ? "text-primary" : "text-muted-foreground"
-                )} />
-              </button>
-            </div>
-          ),
-          cell: ({ row, column }) => {
-            const rowIndex = row.index
-            const isEditing = editingCell?.rowIndex === rowIndex && editingCell?.columnId === column.id
-            const value = row.getValue(column.id) as string
-            const isHovered = hoveredColumn === column.id
-            
-            return (
-              <div
-                className={cn(
-                  "h-full px-3 py-2.5 text-sm flex items-center cursor-text transition-all",
-                  isHovered && "bg-primary/5",
-                  isEditing && "p-0"
-                )}
-                onClick={() => {
-                  setEditingCell({ rowIndex, columnId: column.id as string })
-                  setEditValue(value || '')
-                }}
-              >
-                {isEditing ? (
-                  <input
-                    type="text"
-                    value={editValue}
-                    onChange={(e) => setEditValue(e.target.value)}
-                    onBlur={() => handleCellUpdate(rowIndex, column.id as string, editValue)}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
-                        handleCellUpdate(rowIndex, column.id as string, editValue)
-                      } else if (e.key === 'Escape') {
-                        setEditingCell(null)
-                      }
-                    }}
-                    autoFocus
-                    className="w-full h-full px-3 py-2 bg-background border-2 border-primary focus:outline-none text-sm rounded shadow-lg"
-                  />
-                ) : (
-                  <span className={cn("truncate", !value && "text-muted-foreground italic")}>
-                    {value || 'Empty'}
-                  </span>
-                )}
-              </div>
-            )
-          },
-        }))
-        
-        setColumns(dynamicColumns)
-        setData(rows)
+      } else {
+        // Table is empty — fetch column names from the API
+        try {
+          const colRes = await fetch(`/api/columns?table=${encodeURIComponent(tableName)}`)
+          const colData = await colRes.json()
+          if (colData.columns && colData.columns.length > 0) {
+            keys = colData.columns
+          }
+        } catch (e) {
+          console.error('Failed to fetch columns for empty table:', e)
+        }
+      }
+
+      if (keys.length > 0) {
+        setColumnKeys(keys)
+        setData(rows || [])
       } else {
         setData([])
-        setColumns([])
+        setColumnKeys([])
       }
     } catch (err: any) {
       setError(err.message)
@@ -199,24 +203,242 @@ export function BeautifulDataGrid({ tableName, sheetId, tabName }: DataGridProps
     }
   }
 
+  // Build columns dynamically via useMemo so cell renderers always have fresh state
+  const columns = useMemo<ColumnDef<any>[]>(() => {
+    if (columnKeys.length === 0) return []
+
+    return columnKeys.map(key => ({
+      accessorKey: key,
+      id: key,
+      size: key === 'subscribed_suburbs' ? 350 : 200,
+      minSize: key === 'subscribed_suburbs' ? 250 : 100,
+      maxSize: key === 'subscribed_suburbs' ? 800 : 600,
+      enableResizing: true,
+      filterFn: columnFilterFn,
+      header: ({ column }: any) => (
+        <div 
+          className="flex items-center justify-between h-full px-3 group"
+          onMouseEnter={() => { hoveredColumnRef.current = key; setHoveredColumn(key); }}
+          onMouseLeave={() => { hoveredColumnRef.current = null; setHoveredColumn(null); }}
+        >
+          <button
+            onClick={() => column.toggleSorting()}
+            className="flex items-center gap-2 flex-1 text-left"
+          >
+            <span className="text-xs font-semibold text-foreground uppercase tracking-wide truncate">
+              {key.replace(/_/g, ' ')}
+            </span>
+            {column.getIsSorted() === 'asc' && <ChevronUp size={14} className="text-primary" />}
+            {column.getIsSorted() === 'desc' && <ChevronDown size={14} className="text-primary" />}
+          </button>
+          <button
+            onClick={() => setShowColumnFilter(showColumnFilter === key ? null : key)}
+            className="p-1 hover:bg-primary/20 rounded transition-colors"
+          >
+            <Filter size={14} className={cn(
+              "transition-colors",
+              columnFilters.some(f => f.id === key) ? "text-primary" : "text-muted-foreground"
+            )} />
+          </button>
+        </div>
+      ),
+      cell: ({ row, column }: any) => {
+        const rowIndex = row.index
+        const isEditing = editingCell?.rowIndex === rowIndex && editingCell?.columnId === column.id
+        const value = row.getValue(column.id) as string
+        const isHovered = hoveredColumnRef.current === column.id
+        const isNew = row.original._temp_id && newRowIds.has(row.original._temp_id)
+        const isSuburbCol = key === 'subscribed_suburbs'
+
+        if (isSuburbCol) {
+          // subscribed_suburbs is a TEXT[] array column
+          const arrayVal: string[] = Array.isArray(value) ? value : (value ? [value] : [])
+
+          function handleSuburbsChange(newValues: string[]) {
+            // Update local state with array value
+            setData((prev: any[]) => prev.map((r: any, idx: number) =>
+              idx === rowIndex ? { ...r, [column.id]: newValues } : r
+            ))
+
+            // If it's an existing row (not new), sync to Supabase immediately
+            const currentRow = data[rowIndex]
+            if (!currentRow?._temp_id || !newRowIds.has(currentRow._temp_id)) {
+              supabase
+                .from(tableName)
+                .update({ [column.id]: newValues })
+                .eq('id', currentRow.id)
+                .then(({ error }) => {
+                  if (error) {
+                    console.error('Failed to update suburbs:', error)
+                    alert('Failed to update: ' + error.message)
+                  }
+                })
+            }
+          }
+
+          function handleRemoveSuburb(idx: number) {
+            handleSuburbsChange(arrayVal.filter((_: string, i: number) => i !== idx))
+          }
+
+          return (
+            <div
+              className={cn(
+                "h-[36px] px-2 py-1 text-sm flex items-center transition-all relative overflow-visible cursor-pointer",
+                isHovered && "bg-primary/5",
+                isNew && arrayVal.length === 0 && "bg-primary/[0.03]"
+              )}
+              onClick={() => {
+                if (!isEditing) {
+                  setEditingCell({ rowIndex, columnId: column.id as string })
+                }
+              }}
+            >
+              {isEditing && (
+                <SuburbPicker
+                  values={arrayVal}
+                  onChange={handleSuburbsChange}
+                  onClose={() => setEditingCell(null)}
+                />
+              )}
+              <SuburbCellDisplay
+                values={arrayVal}
+                onRemove={handleRemoveSuburb}
+                onAdd={() => setEditingCell({ rowIndex, columnId: column.id as string })}
+              />
+            </div>
+          )
+        }
+        
+        return (
+          <div
+            className={cn(
+              "h-full px-3 py-2.5 text-sm flex items-center cursor-text transition-all",
+              isHovered && "bg-primary/5",
+              isEditing && "p-0",
+              isNew && !value && "bg-primary/[0.03]"
+            )}
+            onClick={() => {
+              setEditingCell({ rowIndex, columnId: column.id as string })
+              setEditValue(value || '')
+            }}
+          >
+            {isEditing ? (
+              <input
+                type="text"
+                value={editValue}
+                onChange={(e) => setEditValue(e.target.value)}
+                onBlur={() => handleCellUpdate(rowIndex, column.id as string, editValue)}
+                onKeyDown={(e) => {
+                  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                    // Ctrl+Enter: save current cell, then add new row
+                    e.preventDefault()
+                    handleCellUpdate(rowIndex, column.id as string, editValue)
+                    setTimeout(() => handleAddRow(), 50)
+                  } else if (e.key === 'Enter') {
+                    // Enter: save and move to next cell
+                    e.preventDefault()
+                    handleCellUpdate(rowIndex, column.id as string, editValue)
+                    setTimeout(() => navigateCell('right', rowIndex, column.id as string), 10)
+                  } else if (e.key === 'Tab') {
+                    e.preventDefault()
+                    handleCellUpdate(rowIndex, column.id as string, editValue)
+                    setTimeout(() => navigateCell(e.shiftKey ? 'left' : 'right', rowIndex, column.id as string), 10)
+                  } else if (e.key === 'Escape') {
+                    setEditingCell(null)
+                  } else if (e.key === 'ArrowUp') {
+                    e.preventDefault()
+                    handleCellUpdate(rowIndex, column.id as string, editValue)
+                    setTimeout(() => navigateCell('up', rowIndex, column.id as string), 10)
+                  } else if (e.key === 'ArrowDown') {
+                    e.preventDefault()
+                    handleCellUpdate(rowIndex, column.id as string, editValue)
+                    setTimeout(() => navigateCell('down', rowIndex, column.id as string), 10)
+                  }
+                }}
+                autoFocus
+                className="w-full h-full px-3 py-2 bg-background border-2 border-primary focus:outline-none text-sm rounded shadow-lg"
+              />
+            ) : (
+              <span className={cn("truncate", !value && "text-muted-foreground italic")}>
+                {isNew && !value ? 'Type here...' : (value || 'Empty')}
+              </span>
+            )}
+          </div>
+        )
+      },
+    }))
+  // NOTE: hoveredColumn intentionally excluded — tracked via ref to avoid
+  // rebuilding columns on every mouse move (which would unmount SuburbPicker).
+  }, [columnKeys, editingCell, editValue, newRowIds, showColumnFilter, columnFilters])
+
   async function handleCellUpdate(rowIndex: number, columnId: string, value: string) {
+    const row = data[rowIndex]
+    const isNewRow = row._temp_id && newRowIds.has(row._temp_id)
+
+    // Update local state immediately
+    setData(prev => prev.map((r, idx) =>
+      idx === rowIndex ? { ...r, [columnId]: value } : r
+    ))
+    setEditingCell(null)
+
+    if (isNewRow) {
+      // Don't save to DB yet — user is still filling in the row
+      return
+    }
+
     try {
-      const row = data[rowIndex]
       const { error } = await supabase
         .from(tableName)
         .update({ [columnId]: value })
         .eq('id', row.id)
 
       if (error) throw error
-      
-      setData(prev => prev.map((r, idx) => 
-        idx === rowIndex ? { ...r, [columnId]: value } : r
-      ))
     } catch (err: any) {
       console.error('Update failed:', err)
       alert('Failed to update: ' + err.message)
-    } finally {
-      setEditingCell(null)
+    }
+  }
+
+  async function saveNewRow(rowIndex: number) {
+    const row = data[rowIndex]
+    if (!row._temp_id || !newRowIds.has(row._temp_id)) return
+
+    const insertData: any = {}
+    columnKeys.forEach(key => {
+      const val = row[key]
+      if (val === undefined || val === null || val === '') return
+      // For arrays, skip empty arrays
+      if (Array.isArray(val) && val.length === 0) return
+      insertData[key] = val
+    })
+
+    // Check if at least one field has data
+    if (Object.keys(insertData).length === 0) return
+
+    try {
+      const { data: inserted, error } = await supabase
+        .from(tableName)
+        .insert([insertData])
+        .select()
+
+      if (error) throw error
+
+      // Replace temp row with the real row from DB
+      if (inserted && inserted[0]) {
+        setData(prev => prev.map((r, idx) =>
+          idx === rowIndex ? inserted[0] : r
+        ))
+      }
+
+      // Remove from new rows tracking
+      setNewRowIds(prev => {
+        const next = new Set(prev)
+        next.delete(row._temp_id)
+        return next
+      })
+    } catch (err: any) {
+      console.error('Insert failed:', err)
+      alert('Failed to save row: ' + err.message)
     }
   }
 
@@ -255,25 +477,28 @@ export function BeautifulDataGrid({ tableName, sheetId, tabName }: DataGridProps
     }
   }
 
-  async function handleAddRow() {
-    const newRow: any = {}
-    columns.forEach(col => {
-      if ('accessorKey' in col) {
-        newRow[col.accessorKey as string] = ''
-      }
+  function handleAddRow() {
+    const tempId = `_new_${Date.now()}_${Math.random().toString(36).slice(2)}`
+    const newRow: any = { _temp_id: tempId }
+    columnKeys.forEach(key => {
+      newRow[key] = ''
     })
 
-    try {
-      const { error } = await supabase
-        .from(tableName)
-        .insert([newRow])
+    setNewRowIds(prev => new Set(prev).add(tempId))
+    setData(prev => [...prev, newRow])
 
-      if (error) throw error
-      
-      await loadData()
-    } catch (err: any) {
-      alert('Error adding row: ' + err.message)
-    }
+    // Focus the first cell of the new row after render
+    setTimeout(() => {
+      const newRowIndex = data.length
+      if (columnKeys.length > 0) {
+        setEditingCell({ rowIndex: newRowIndex, columnId: columnKeys[0] })
+        setEditValue('')
+      }
+      // Scroll to bottom
+      if (scrollContainerRef.current) {
+        scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight
+      }
+    }, 50)
   }
 
   function exportToCSV() {
@@ -426,7 +651,7 @@ export function BeautifulDataGrid({ tableName, sheetId, tabName }: DataGridProps
       </div>
 
       {/* Data Grid with Horizontal + Vertical Scroll */}
-      <div className="flex-1 min-h-0 overflow-auto">
+      <div className="flex-1 min-h-0 overflow-auto" ref={scrollContainerRef}>
         <div style={{ width: 'max-content', minWidth: '100%' }}>
           <table className="w-full border-collapse">
             <thead className="sticky top-0 z-10 bg-gradient-to-b from-card to-card/95 backdrop-blur-sm border-b-2 border-primary/20">
@@ -533,6 +758,7 @@ export function BeautifulDataGrid({ tableName, sheetId, tabName }: DataGridProps
             <tbody>
               {table.getRowModel().rows.map((row, rowIdx) => {
                 const colorClass = COLORS.find(c => c.value === rowColors.get(rowIdx))?.class || ''
+                const isNewRow = row.original._temp_id && newRowIds.has(row.original._temp_id)
                 
                 return (
                   <tr
@@ -541,6 +767,7 @@ export function BeautifulDataGrid({ tableName, sheetId, tabName }: DataGridProps
                       "group border-b border-border/30 transition-all duration-150",
                       "hover:bg-gradient-to-r hover:from-primary/5 hover:via-primary/3 hover:to-transparent",
                       selectedRows.has(rowIdx) && "bg-primary/10 border-primary/30",
+                      isNewRow && "bg-emerald-500/[0.04] border-emerald-500/20",
                       colorClass
                     )}
                   >
@@ -555,8 +782,11 @@ export function BeautifulDataGrid({ tableName, sheetId, tabName }: DataGridProps
                     </td>
                     
                     {/* Row Number */}
-                    <td className="w-20 border-r border-border/30 px-3 py-2.5 text-xs text-primary/80 text-center font-mono font-semibold bg-card/20">
-                      {rowIdx + 1}
+                    <td className={cn(
+                      "w-20 border-r border-border/30 px-3 py-2.5 text-xs text-center font-mono font-semibold bg-card/20",
+                      isNewRow ? "text-emerald-400" : "text-primary/80"
+                    )}>
+                      {isNewRow ? '●' : rowIdx + 1}
                     </td>
 
                     {/* Data Cells */}
@@ -572,6 +802,31 @@ export function BeautifulDataGrid({ tableName, sheetId, tabName }: DataGridProps
 
                     {/* Actions */}
                     <td className="w-24 text-center border-l border-border/30 bg-card/20 sticky right-0">
+                      {isNewRow ? (
+                        <div className="flex items-center justify-center gap-1">
+                          <button
+                            onClick={() => saveNewRow(rowIdx)}
+                            className="px-2.5 py-1 text-xs font-medium bg-emerald-500/20 text-emerald-400 rounded-md hover:bg-emerald-500/30 transition-colors border border-emerald-500/30"
+                            title="Save row to database"
+                          >
+                            Save
+                          </button>
+                          <button
+                            onClick={() => {
+                              setData(prev => prev.filter((_, idx) => idx !== rowIdx))
+                              setNewRowIds(prev => {
+                                const next = new Set(prev)
+                                next.delete(row.original._temp_id)
+                                return next
+                              })
+                            }}
+                            className="p-1 hover:bg-destructive/20 rounded-md transition-colors"
+                            title="Discard row"
+                          >
+                            <X size={14} className="text-destructive" />
+                          </button>
+                        </div>
+                      ) : (
                       <div className="flex items-center justify-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                         <div className="relative">
                           <button
@@ -611,6 +866,7 @@ export function BeautifulDataGrid({ tableName, sheetId, tabName }: DataGridProps
                           <Trash2 size={16} className="text-destructive" />
                         </button>
                       </div>
+                      )}
                     </td>
                   </tr>
                 )

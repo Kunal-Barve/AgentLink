@@ -62,12 +62,12 @@ def load_xlsx(path: Path) -> list[dict]:
         })
 
     wb.close()
-    print(f"Loaded {len(rows)} unique suburb+state rows")
+    print(f"Loaded {len(rows)} unique suburb+state+postcode rows")
     return rows
 
 
 def upsert_to_supabase(supabase: Client, rows: list[dict]) -> None:
-    """Upsert all rows in batches. Uses ON CONFLICT (suburb, state) DO UPDATE."""
+    """Upsert all rows in batches. Uses ON CONFLICT (suburb, state, postcode) DO UPDATE."""
     total = len(rows)
     inserted = 0
 
