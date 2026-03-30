@@ -12,15 +12,10 @@ DOMAIN_API_SECRET = os.getenv("DOMAIN_API_SECRET")
 # Set up logging with more detailed configuration
 logger = logging.getLogger("articflow.domain.utils")
 
-_supabase_client = None
-
 def _get_supabase():
-    global _supabase_client
-    if _supabase_client is None:
-        url = os.getenv("SUPABASE_URL")
-        key = os.getenv("SUPABASE_SERVICE_ROLE_KEY")
-        _supabase_client = create_client(url, key)
-    return _supabase_client
+    url = os.getenv("SUPABASE_URL")
+    key = os.getenv("SUPABASE_SERVICE_ROLE_KEY")
+    return create_client(url, key)
 
 # Maps normalized price range string -> (comm column, mkt column) in agent_subscriptions
 PRICE_RANGE_COL_MAP = {
