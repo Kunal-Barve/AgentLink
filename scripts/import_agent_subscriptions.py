@@ -205,7 +205,8 @@ def main():
     warnings: list[str] = []
     unmatched_suburbs: list[str] = []
 
-    all_names = set(by_name.keys()) | set(fc_by_name_state.keys())
+    # Source of truth is agents_subscribed — only process agents present there
+    all_names = set(by_name.keys())
 
     for name in sorted(all_names):
         sub_rows = by_name.get(name, [])

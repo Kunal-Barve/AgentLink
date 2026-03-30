@@ -446,6 +446,164 @@ $agentRequests = @(
             max_land_area = $null
             home_owner_pricing = "`$10m+"
         }
+    },
+    # -------------------------------------------------------
+    # FEATURED AGENT TESTS - verified against Supabase
+    # Each suburb has a subscribed featured agent in agent_subscriptions
+    # -------------------------------------------------------
+    @{
+        name = "[FEATURED] Aaron Woolard - Teneriffe, QLD"
+        body = @{
+            suburb = "Teneriffe"
+            state = "QLD"
+            property_types = $null
+            min_bedrooms = $null
+            max_bedrooms = $null
+            min_bathrooms = $null
+            max_bathrooms = $null
+            min_carspaces = $null
+            max_carspaces = $null
+            include_surrounding_suburbs = $false
+            post_code = "4005"
+            region = $null
+            area = $null
+            featured_agent_id = ""
+            min_land_area = $null
+            max_land_area = $null
+            home_owner_pricing = "`$500k-`$1m"
+        }
+    },
+    @{
+        name = "[FEATURED] Stacey Ritson - Wellington Point, QLD"
+        body = @{
+            suburb = "Wellington Point"
+            state = "QLD"
+            property_types = $null
+            min_bedrooms = $null
+            max_bedrooms = $null
+            min_bathrooms = $null
+            max_bathrooms = $null
+            min_carspaces = $null
+            max_carspaces = $null
+            include_surrounding_suburbs = $false
+            post_code = "4160"
+            region = $null
+            area = $null
+            featured_agent_id = ""
+            min_land_area = $null
+            max_land_area = $null
+            home_owner_pricing = "`$500k-`$1m"
+        }
+    },
+    @{
+        name = "[FEATURED] Will Steinhauer - Camperdown, NSW"
+        body = @{
+            suburb = "Camperdown"
+            state = "NSW"
+            property_types = $null
+            min_bedrooms = $null
+            max_bedrooms = $null
+            min_bathrooms = $null
+            max_bathrooms = $null
+            min_carspaces = $null
+            max_carspaces = $null
+            include_surrounding_suburbs = $false
+            post_code = "2050"
+            region = $null
+            area = $null
+            featured_agent_id = ""
+            min_land_area = $null
+            max_land_area = $null
+            home_owner_pricing = "`$1m-`$1.5m"
+        }
+    },
+    @{
+        name = "[FEATURED] Sam Sidiqi - Cranbourne, VIC"
+        body = @{
+            suburb = "Cranbourne"
+            state = "VIC"
+            property_types = $null
+            min_bedrooms = $null
+            max_bedrooms = $null
+            min_bathrooms = $null
+            max_bathrooms = $null
+            min_carspaces = $null
+            max_carspaces = $null
+            include_surrounding_suburbs = $false
+            post_code = "3977"
+            region = $null
+            area = $null
+            featured_agent_id = ""
+            min_land_area = $null
+            max_land_area = $null
+            home_owner_pricing = "`$500k-`$1m"
+        }
+    },
+    @{
+        name = "[FEATURED] Peter Williams - Bowral, NSW"
+        body = @{
+            suburb = "Bowral"
+            state = "NSW"
+            property_types = $null
+            min_bedrooms = $null
+            max_bedrooms = $null
+            min_bathrooms = $null
+            max_bathrooms = $null
+            min_carspaces = $null
+            max_carspaces = $null
+            include_surrounding_suburbs = $false
+            post_code = "2576"
+            region = $null
+            area = $null
+            featured_agent_id = ""
+            min_land_area = $null
+            max_land_area = $null
+            home_owner_pricing = "`$1m-`$1.5m"
+        }
+    },
+    @{
+        name = "[FEATURED] Nigel Ross - Morley, WA"
+        body = @{
+            suburb = "Morley"
+            state = "WA"
+            property_types = $null
+            min_bedrooms = $null
+            max_bedrooms = $null
+            min_bathrooms = $null
+            max_bathrooms = $null
+            min_carspaces = $null
+            max_carspaces = $null
+            include_surrounding_suburbs = $false
+            post_code = "6062"
+            region = $null
+            area = $null
+            featured_agent_id = ""
+            min_land_area = $null
+            max_land_area = $null
+            home_owner_pricing = "`$500k-`$1m"
+        }
+    },
+    @{
+        name = "[FEATURED] Wayne Thompson - Caloundra, QLD"
+        body = @{
+            suburb = "Caloundra"
+            state = "QLD"
+            property_types = $null
+            min_bedrooms = $null
+            max_bedrooms = $null
+            min_bathrooms = $null
+            max_bathrooms = $null
+            min_carspaces = $null
+            max_carspaces = $null
+            include_surrounding_suburbs = $false
+            post_code = "4551"
+            region = $null
+            area = $null
+            featured_agent_id = ""
+            min_land_area = $null
+            max_land_area = $null
+            home_owner_pricing = "`$500k-`$1m"
+        }
     }
 )
 

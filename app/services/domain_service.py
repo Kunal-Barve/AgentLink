@@ -299,7 +299,7 @@ async def fetch_property_data(
                 # Extract agent data from the response
                 agent_name = featured_agent_info.get("Name", "").strip()
                 agency_name = featured_agent_info.get("Agency", "").strip()
-                agent_total_sales = int(featured_agent_info.get("Total Sales", "0").replace(",", ""))
+                agent_total_sales = int(float(str(featured_agent_info.get("Total Sales", "0")).replace(",", "")))
                 agent_median_sold_price = featured_agent_info.get("Median Sold Price", "$0")
                 agent_sale_value = featured_agent_info.get("Total Sales Value", "$0")
                 

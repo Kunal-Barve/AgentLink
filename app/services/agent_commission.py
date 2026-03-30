@@ -4,12 +4,39 @@ import logging
 import json
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
+from supabase import create_client
 load_dotenv()
 # Domain.com.au API credentials
 DOMAIN_API_KEY = os.getenv("DOMAIN_API_KEY")
 DOMAIN_API_SECRET = os.getenv("DOMAIN_API_SECRET")
 # Set up logging with more detailed configuration
 logger = logging.getLogger("articflow.domain.utils")
+
+_supabase_client = None
+
+def _get_supabase():
+    global _supabase_client
+    if _supabase_client is None:
+        url = os.getenv("SUPABASE_URL")
+        key = os.getenv("SUPABASE_SERVICE_ROLE_KEY")
+        _supabase_client = create_client(url, key)
+    return _supabase_client
+
+# Maps normalized price range string -> (comm column, mkt column) in agent_subscriptions
+PRICE_RANGE_COL_MAP = {
+    "Less than $500k": ("comm_less_500k",  "mkt_less_500k"),
+    "$500k-$1m":       ("comm_500k_1m",    "mkt_500k_1m"),
+    "$1m-$1.5m":       ("comm_1m_1_5m",    "mkt_1m_1_5m"),
+    "$1.5m-$2m":       ("comm_1_5m_2m",    "mkt_1_5m_2m"),
+    "$2m-$2.5m":       ("comm_2m_2_5m",    "mkt_2m_2_5m"),
+    "$2.5m-$3m":       ("comm_2_5m_3m",    "mkt_2_5m_3m"),
+    "$3m-$3.5m":       ("comm_3m_3_5m",    "mkt_3m_3_5m"),
+    "$3.5m-$4m":       ("comm_3_5m_4m",    "mkt_3_5m_4m"),
+    "$4m-$6m":         ("comm_4m_6m",      "mkt_4m_6m"),
+    "$6m-$8m":         ("comm_6m_8m",      "mkt_6m_8m"),
+    "$8m-$10m":        ("comm_8m_10m",     "mkt_8m_10m"),
+    "$10m+":           ("comm_10m_plus",   "mkt_10m_plus"),
+}
 
 
 def normalize_home_owner_pricing(home_owner_pricing):
@@ -66,199 +93,96 @@ def normalize_home_owner_pricing(home_owner_pricing):
 
 def get_featured_agent_commission(agent_name, home_owner_pricing, suburb, state):
     """
-    Get commission rates for a featured agent by making a request to Make.com webhook
-    
+    Get commission rates for a featured agent from Supabase agent_subscriptions table.
+
     Args:
         agent_name: Name of the agent
         home_owner_pricing: Price range of the property
         suburb: Suburb name
         state: State code (e.g., NSW)
-        
+
     Returns:
         Dictionary containing commission_rate, discount, and marketing
     """
     try:
-        # Normalize home_owner_pricing to handle different input formats
         home_owner_pricing = normalize_home_owner_pricing(home_owner_pricing)
-        
-        # Debug: Print input parameters
         print(f"DEBUG - get_featured_agent_commission called with: agent_name='{agent_name}', home_owner_pricing='{home_owner_pricing}', suburb='{suburb}', state='{state}'")
-        
-        # Prepare the request parameters
-        params = {
-            "agent_name": agent_name,
-            "suburb": suburb,
-            "state_code": state
-        }
-        
-        # Debug: Print request parameters
-        print(f"DEBUG - API request params: {params}")
-        
-        # Make the API request (n8n webhook requires POST with JSON body)
-        url = "https://n8n.srv1165267.hstgr.cloud/webhook/search-featured-agent-commission"
-        response = requests.post(url, json=params)
-        
-        # Debug: Print response status and headers
-        print(f"DEBUG - API response status: {response.status_code}")
-        print(f"DEBUG - API response headers: {response.headers}")
-        
-        # Check if the request was successful
-        if response.status_code == 200:
-            # Handle malformed JSON with multiple arrays: [{...}],[{...}]
-            response_text = response.text
-            print(f"DEBUG - Raw API response text: {response_text[:500]}")  # Print first 500 chars
-            
-            try:
-                data = response.json()
-            except json.JSONDecodeError as e:
-                # Try to fix malformed JSON with multiple arrays
-                print(f"DEBUG - JSON decode error: {str(e)}")
-                print(f"DEBUG - Attempting to fix malformed JSON")
-                
-                # Try to parse the first array from malformed response like: [{...}],[{...}]
-                try:
-                    # Find the first complete JSON array
-                    first_array_end = response_text.find(']') + 1
-                    if first_array_end > 0:
-                        first_array_text = response_text[:first_array_end]
-                        data = json.loads(first_array_text)
-                        print(f"DEBUG - Successfully parsed first array from malformed JSON")
-                    else:
-                        raise ValueError("Could not find array end")
-                except Exception as fix_error:
-                    logger.error(f"Failed to fix malformed JSON: {str(fix_error)}")
-                    print(f"DEBUG - Failed to fix malformed JSON: {str(fix_error)}")
-                    return get_agent_commission(home_owner_pricing, state=state)
-            
-            # Debug: Print parsed data - print FULL response to see all available keys
-            print(f"DEBUG - Parsed API response data (FULL): {json.dumps(data, indent=2)}")
-            
-            # If no data returned or empty list
-            if not data or len(data) == 0:
-                logger.warning(f"No commission data found for agent {agent_name} in {suburb}, {state}")
-                print(f"DEBUG - No commission data found for agent {agent_name} in {suburb}, {state}")
-                # Fall back to standard commission rates
-                return get_agent_commission(home_owner_pricing, state=state)
-            
-            # Get the first item from the response
-            commission_data = data[0]
-            
-            # Debug: Print commission data keys
-            print(f"DEBUG - Commission data keys: {list(commission_data.keys())}")
-            
-            # If home_owner_pricing is not provided, return empty values
-            if not home_owner_pricing:
-                logger.warning("No home_owner_pricing provided")
-                print("DEBUG - No home_owner_pricing provided")
-                return {"commission_rate": "", "discount": "", "marketing": ""}
-            
-            # Map home_owner_pricing to the corresponding commission key
-            commission_key = f"{home_owner_pricing} Commission"
-            # Map home_owner_pricing to the corresponding marketing key
-            marketing_key = f"{home_owner_pricing} Marketing"
-            
-            # Debug: Print the keys we're looking for
-            print(f"DEBUG - Looking for keys: commission_key='{commission_key}', marketing_key='{marketing_key}'")
-            
-            # Get the commission rate and marketing value for the specified price range
-            commission_rate = commission_data.get(commission_key, "")
-            marketing = commission_data.get(marketing_key, "")
-            
-            # Debug: Print the values found
-            print(f"DEBUG - Found values: commission_rate='{commission_rate}', marketing='{marketing}'")
-            
-            # If commission rate is empty, fall back to standard rates
-            if not commission_rate or not marketing:
-                logger.warning(f"Empty commission rate or marketing for {agent_name} in {suburb}, {state} with price range {home_owner_pricing}")
-                print(f"DEBUG - Empty commission rate or marketing, falling back to standard rates")
-                standard_values = get_agent_commission(home_owner_pricing, state=state)
-                
-                # Only use standard values if our values are empty
-                if not commission_rate:
-                    commission_rate = standard_values.get("commission_rate", "")
-                    print(f"DEBUG - Using standard commission rate: {commission_rate}")
-                
-                if not marketing:
-                    marketing = standard_values.get("marketing", "")
-                    print(f"DEBUG - Using standard marketing: {marketing}")
-            
-            # Calculate discount if commission rate is available
-            discount = ""
-            if commission_rate:
-                # Extract the lowest commission rate from the range (e.g., "1.65-1.85%" -> 1.65)
-                try:
-                    lowest_rate = float(commission_rate.split("-")[0].strip().replace("%", ""))
-                    
-                    # Debug: Print the extracted rate
-                    print(f"DEBUG - Extracted lowest rate: {lowest_rate}")
-                    
-                    # Extract the lowest price from the range
-                    price_ranges = {
-                        "Less than $500k": 500000,
-                        "$500k-$1m": 500000,
-                        "$1m-$1.5m": 1000000,
-                        "$1.5m-$2m": 1500000,
-                        "$2m-$2.5m": 2000000,
-                        "$2.5m-$3m": 2500000,
-                        "$3m-$3.5m": 3000000,  # Add this missing range
-                        "$3.5m-$4m": 3000000,  # Add this missing range
-                        "$3m-$4m": 3000000,    # Keep for backward compatibility    
-                        "$4m-$6m": 4000000,
-                        "$6m-$8m": 6000000,
-                        "$8m-$10m": 8000000,
-                        "$10m+": 10000000
-                    }
-                    
-                    lowest_price = price_ranges.get(home_owner_pricing, 0)
-                    
-                    # Debug: Print the extracted price
-                    print(f"DEBUG - Extracted lowest price: ${lowest_price:,}")
-                    
-                    if lowest_price > 0:
-                        # Calculate discount: price × lowest_rate × 20% × 25%
-                        raw_discount = lowest_price * (lowest_rate / 100) * 0.2 * 0.25
-                        
-                        # Debug: Print the raw discount
-                        print(f"DEBUG - Raw discount calculation: ${raw_discount:,.2f}")
-                        
-                        # Round to nearest $250 increment
-                        rounded_discount = round(raw_discount / 250) * 250
-                        
-                        # Clamp to range: minimum $500, maximum $10,000
-                        if rounded_discount < 500:
-                            rounded_discount = 500
-                        elif rounded_discount > 10000:
-                            rounded_discount = 10000
-                        
-                        # Debug: Print the rounded discount
-                        print(f"DEBUG - Rounded discount: ${rounded_discount:,.0f}")
-                        
-                        # Format as currency
-                        discount = f"${rounded_discount:,.0f}"
-                        
-                        logger.info(f"Calculated discount for {agent_name}: {discount}")
-                    else:
-                        logger.warning(f"Invalid home_owner_pricing: {home_owner_pricing}")
-                        print(f"DEBUG - Invalid home_owner_pricing: {home_owner_pricing}")
-                except Exception as e:
-                    logger.error(f"Error calculating discount: {str(e)}")
-                    print(f"DEBUG - Error calculating discount: {str(e)}")
-            
-            result = {
-                "commission_rate": commission_rate,
-                "discount": discount,
-                "marketing": marketing
-            }
-            
-            # Debug: Print the final result
-            print(f"DEBUG - Returning result: {result}")
-            
-            return result
-        else:
-            logger.error(f"API request failed with status code {response.status_code}: {response.text}")
-            print(f"DEBUG - API request failed with status code {response.status_code}: {response.text}")
+
+        if not home_owner_pricing:
+            logger.warning("No home_owner_pricing provided")
             return {"commission_rate": "", "discount": "", "marketing": ""}
-            
+
+        col_pair = PRICE_RANGE_COL_MAP.get(home_owner_pricing)
+        if not col_pair:
+            logger.warning(f"Unknown price range '{home_owner_pricing}', falling back to standard rates")
+            return get_agent_commission(home_owner_pricing, state=state)
+
+        comm_col, mkt_col = col_pair
+
+        # Query agent_subscriptions by name — state may be NULL (uniform rates) or per-state
+        sb = _get_supabase()
+        name_norm = agent_name.strip()
+        rows = sb.table("agent_subscriptions").select(
+            f"name,state,{comm_col},{mkt_col}"
+        ).ilike("name", name_norm).execute().data
+
+        print(f"DEBUG - Supabase returned {len(rows)} row(s) for agent '{name_norm}'")
+
+        commission_rate = ""
+        marketing = ""
+
+        if rows:
+            state_upper = (state or "").strip().upper()
+            # Prefer a row matching the state, fall back to state=NULL (uniform rates)
+            state_match = next((r for r in rows if (r.get("state") or "").strip().upper() == state_upper), None)
+            best_row = state_match or rows[0]
+            commission_rate = best_row.get(comm_col) or ""
+            marketing       = best_row.get(mkt_col)  or ""
+            print(f"DEBUG - Found values from Supabase: commission_rate='{commission_rate}', marketing='{marketing}'")
+
+        # Fall back to standard rates if either value is missing
+        if not commission_rate or not marketing:
+            logger.warning(f"No commission data for '{agent_name}' in Supabase, falling back to standard rates")
+            standard_values = get_agent_commission(home_owner_pricing, state=state)
+            if not commission_rate:
+                commission_rate = standard_values.get("commission_rate", "")
+            if not marketing:
+                marketing = standard_values.get("marketing", "")
+
+        # Calculate discount from commission_rate
+        discount = ""
+        if commission_rate:
+            try:
+                lowest_rate = float(commission_rate.split("-")[0].strip().replace("%", ""))
+                price_ranges = {
+                    "Less than $500k": 500000,
+                    "$500k-$1m":       500000,
+                    "$1m-$1.5m":       1000000,
+                    "$1.5m-$2m":       1500000,
+                    "$2m-$2.5m":       2000000,
+                    "$2.5m-$3m":       2500000,
+                    "$3m-$3.5m":       3000000,
+                    "$3.5m-$4m":       3000000,
+                    "$3m-$4m":         3000000,
+                    "$4m-$6m":         4000000,
+                    "$6m-$8m":         6000000,
+                    "$8m-$10m":        8000000,
+                    "$10m+":           10000000,
+                }
+                lowest_price = price_ranges.get(home_owner_pricing, 0)
+                if lowest_price > 0:
+                    raw_discount    = lowest_price * (lowest_rate / 100) * 0.2 * 0.25
+                    rounded_discount = round(raw_discount / 250) * 250
+                    rounded_discount = max(500, min(10000, rounded_discount))
+                    discount = f"${rounded_discount:,.0f}"
+                    logger.info(f"Calculated discount for {agent_name}: {discount}")
+            except Exception as e:
+                logger.error(f"Error calculating discount: {str(e)}")
+
+        result = {"commission_rate": commission_rate, "discount": discount, "marketing": marketing}
+        print(f"DEBUG - Returning result: {result}")
+        return result
+
     except Exception as e:
         logger.error(f"Error getting featured agent commission: {str(e)}")
         print(f"DEBUG - Error getting featured agent commission: {str(e)}")

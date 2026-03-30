@@ -4,12 +4,23 @@ import logging
 import json
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
+from supabase import create_client
 load_dotenv()
 # Domain.com.au API credentials
 DOMAIN_API_KEY = os.getenv("DOMAIN_API_KEY")
 DOMAIN_API_SECRET = os.getenv("DOMAIN_API_SECRET")
 # Set up logging with more detailed configuration
 logger = logging.getLogger("articflow.domain.utils")
+
+_supabase_client = None
+
+def _get_supabase():
+    global _supabase_client
+    if _supabase_client is None:
+        url = os.getenv("SUPABASE_URL")
+        key = os.getenv("SUPABASE_SERVICE_ROLE_KEY")
+        _supabase_client = create_client(url, key)
+    return _supabase_client
 
 def format_price(price):
     """Format a price value as a string with appropriate units (k or m)"""
@@ -22,7 +33,7 @@ def format_price(price):
 
 async def check_featured_agent(suburb, state):
     """
-    Check for featured agents in a suburb by calling the Make.com webhook
+    Check for featured agents in a suburb using Supabase agent_subscriptions table.
     
     Args:
         suburb: The suburb to check for
@@ -32,62 +43,63 @@ async def check_featured_agent(suburb, state):
         List of featured agents for the suburb or None if no agents found.
         Each agent will have an additional 'is_featured_plus' boolean field.
     """
-    webhook_url = "https://hook.eu2.make.com/nuedlxjy6fsn398sa31tfh1ca6sgycda"
-    
     try:
-        # Prepare the data to send to the webhook
-        data = {
-            "suburb": suburb,
-            "state": state
-        }
-        
-        # Make the POST request to the webhook
-        response = requests.post(webhook_url, json=data)
-        
-        # Check if the request was successful
-        if response.status_code == 200:
-            # Parse the response JSON
-            result = response.json()
-            
-            # Case 1: Check if webhook returned a string response (e.g., "Accepted")
-            if isinstance(result, str):
-                logger.info(f"Webhook returned string response (no agents found): {result}")
-                logger.info(f"No featured agents found for {suburb}, {state}")
-                return None
-            
-            # Case 2: Check if webhook returned an acknowledgment message (dict) instead of agent list
-            if isinstance(result, dict):
-                logger.info(f"Webhook returned acknowledgment message (no agents found): {result}")
-                logger.info(f"No featured agents found for {suburb}, {state}")
-                return None
-            
-            # Case 3: Check if we have a valid agent list
-            if isinstance(result, list) and len(result) > 0:
-                # Check if we have an empty agent record (no agents for this suburb)
-                first_agent = result[0]
-                if not first_agent.get("Name") or first_agent.get("Name").strip() == "":
-                    logger.info(f"No featured agents found for {suburb}, {state} (empty agent record)")
-                    return None
-                
-                # Process each agent to add is_featured_plus flag
-                for agent in result:
-                    subscription_type = agent.get("Subscription Type", "")
-                    agent["is_featured_plus"] = subscription_type == "Featured Plus"
-                    logger.info(f"Agent {agent.get('Name')} has subscription type: {subscription_type}, is_featured_plus: {agent['is_featured_plus']}")
-                
-                logger.info(f"Found {len(result)} featured agents for {suburb}, {state}")
-                return result
-            else:
-                # Case 4: Empty list or unexpected format
-                logger.info(f"No featured agents found for {suburb}, {state} (empty list or unexpected format: {result})")
-                return None
-        else:
-            logger.error(f"Failed to check featured agents: {response.status_code} - {response.text}")
+        sb = _get_supabase()
+        suburb_upper = suburb.strip().upper()
+        state_upper = state.strip().upper()
+
+        # subscribed_suburbs entries are stored as "SUBURB|STATE|POSTCODE"
+        # We fetch all rows and filter in Python — avoids needing Postgres array operators via REST
+        rows = sb.table("agent_subscriptions").select(
+            "name,email,phone,subscription_type,manually_pull_data,agent_photo,agency_photo,agency,"
+            "subscribed_suburbs,ad_group,mrr,total_sales,total_sales_value,median_sold_price"
+        ).execute().data
+
+        matched = []
+        for row in rows:
+            suburbs = row.get("subscribed_suburbs") or []
+            for entry in suburbs:
+                parts = entry.split("|")
+                if len(parts) >= 2:
+                    entry_suburb = parts[0].strip().upper()
+                    entry_state  = parts[1].strip().upper()
+                    if entry_suburb == suburb_upper and entry_state == state_upper:
+                        matched.append(row)
+                        break
+
+        if not matched:
+            logger.info(f"No featured agents found for {suburb}, {state}")
             return None
+
+        # Normalise to the shape the rest of the app expects
+        result = []
+        for row in matched:
+            subscription_type = row.get("subscription_type") or ""
+            result.append({
+                "Name":              row.get("name"),
+                "Email":             row.get("email"),
+                "Phone":             row.get("phone"),
+                "Subscription Type": subscription_type,
+                "is_featured_plus":  subscription_type == "Featured Plus",
+                "Manully Pull Data":  row.get("manually_pull_data") or "",
+                "Agent Photo":       row.get("agent_photo"),
+                "Agency Photo":      row.get("agency_photo"),
+                "Agency":            row.get("agency"),
+                "Ad Group":          row.get("ad_group"),
+                "MRR":               row.get("mrr"),
+                "Total Sales":       row.get("total_sales"),
+                "Total Sales Value": row.get("total_sales_value"),
+                "Median Sold Price": row.get("median_sold_price"),
+            })
+            logger.info(f"Agent {row.get('name')} | type={subscription_type} | is_featured_plus={subscription_type == 'Featured Plus'}")
+
+        logger.info(f"Found {len(result)} featured agents for {suburb}, {state} (via Supabase)")
+        return result
+
     except Exception as e:
-        logger.error(f"Error checking featured agents: {e}")
+        logger.error(f"Error checking featured agents via Supabase: {e}")
         return None
-    
+
 async def check_standard_subscription(agent_name, suburb, state):
     """
     Check if an agent has a standard subscription by calling the Make.com webhook
@@ -397,54 +409,6 @@ async def get_agency_details(agency_id):
         logger.error(f"Error retrieving agency details: {str(e)}")
         return None
 
-
-async def check_featured_agent(suburb, state):
-    """
-    Check for featured agents in a suburb by calling the Make.com webhook
-    
-    Args:
-        suburb: The suburb to check for
-        state: The state to check for
-        
-    Returns:
-        List of featured agents for the suburb or None if no agents found
-    """
-    webhook_url = "https://hook.eu2.make.com/nuedlxjy6fsn398sa31tfh1ca6sgycda"
-    
-    try:
-        # Prepare the data to send to the webhook
-        data = {
-            "suburb": suburb,
-            "state": state
-        }
-        
-        # Make the POST request to the webhook
-        response = requests.post(webhook_url, json=data)
-        
-        # Check if the request was successful
-        if response.status_code == 200:
-            # Parse the response JSON
-            result = response.json()
-            
-            # Check if we have valid agents data
-            if isinstance(result, list) and len(result) > 0:
-                # Check if we have an empty agent record (no agents for this suburb)
-                first_agent = result[0]
-                if not first_agent.get("Name") or first_agent.get("Name").strip() == "":
-                    logger.info(f"No featured agents found for {suburb}, {state}")
-                    return None
-                
-                logger.info(f"Found {len(result)} featured agents for {suburb}, {state}")
-                return result
-            else:
-                logger.warning(f"Unexpected response format from featured agent webhook: {result}")
-                return None
-        else:
-            logger.error(f"Failed to check featured agents: {response.status_code} - {response.text}")
-            return None
-    except Exception as e:
-        logger.error(f"Error checking featured agents: {e}")
-        return None
 
 async def get_agent_details(agent_name, agency_name=None):
     """
